@@ -3,6 +3,7 @@ package com.ensa.gi4.modele;
 public abstract class Materiel {
     private String code;
     private String name;
+    private Integer stock; 
 
     public String getName() {
         return name;
@@ -19,9 +20,17 @@ public abstract class Materiel {
     public void setCode(String code) {
         this.code = code;
     }
+    
+    public Integer getStock() {
+		return stock;
+	}
 
-    @Override
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
+	@Override
     public String toString() {
-        return "name = " + name + ", code = " + code;
+        return "name = " + name + ", code = " + code + ", stock = " + stock;
     }
 }
