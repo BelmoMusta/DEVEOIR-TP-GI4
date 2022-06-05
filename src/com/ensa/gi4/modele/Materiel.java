@@ -1,27 +1,62 @@
 package com.ensa.gi4.modele;
 
-public abstract class Materiel {
-    private String code;
-    private String name;
+public class Materiel {
+    private int idMateriel;
 
-    public String getName() {
-        return name;
+
+    private String materielCode;
+    private String materielName;
+    private String materielType;
+    private boolean isDisponible;
+
+    public int getIdMateriel() {
+        return idMateriel;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIdMateriel(int idMateriel) {
+        this.idMateriel = idMateriel;
     }
 
-    public String getCode() {
-        return code;
+    public String getMaterielCode() {
+        return materielCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setMaterielCode(String materielCode) {
+        this.materielCode = materielCode;
     }
 
+    public String getMaterielName() {
+        return materielName;
+    }
+
+    public void setMaterielName(String materielName) {
+        this.materielName = materielName;
+    }
+
+    public String getMaterielType() {
+        return materielType;
+    }
+
+    public void setMaterielType(String materielType) {
+        this.materielType = materielType;
+    }
+
+    public boolean isDisponible() {
+        return isDisponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        isDisponible = disponible;
+    }
     @Override
     public String toString() {
-        return "name = " + name + ", code = " + code;
+        return "\n Materiel N° " + idMateriel +
+                "\n Code : " + materielCode +
+                "\n Name : " + materielName +
+                "\n Type : " + materielType +
+                "\n Disponibility : " + isDisponible +
+                "\n ------------------";
     }
+
 }
+

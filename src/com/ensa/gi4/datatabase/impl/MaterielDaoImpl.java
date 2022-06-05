@@ -14,8 +14,27 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     }
 
     @Override
-    public Materiel findOne(Long id) {
-        return super.findOne("SELECT * FROM MATERIEL WHERE ID=?;", id);
+    public Materiel findMateriel(Long id) {
+        try{
+            return super.findOne("SELECT * FROM MATERIEL WHERE idMateriel=?;", id);
+        }
+        catch (Exception e){
+            System.out.println("Materiel Not found");
+        }
+
+        return null;
+    }
+
+    @Override
+    public String addMateriel(Materiel materiel) {
+        super.addOne("INSERT INTO MATERIEL VALUES(?,?,?,?,?);",materiel.getIdMateriel(),materiel.getMaterielName(),materiel.getMaterielCode(),materiel.getMaterielType(),materiel.isDisponible());
+        return "Materiel ajouté";
+    }
+
+    @Override
+    public String supprimerMateriel(int id) {
+        super.deleteOne("DELETE FROM MATERIEL WHERE idMateriel=?;", id);
+        return "Materiel supprimé";
     }
 
     @Override
