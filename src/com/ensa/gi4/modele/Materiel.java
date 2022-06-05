@@ -1,9 +1,12 @@
 package com.ensa.gi4.modele;
 
+import java.sql.Timestamp;
+
 public abstract class Materiel {
     private String code;
     private String name;
     private Integer stock; 
+    private Timestamp timestamp; 
 
     public String getName() {
         return name;
@@ -28,9 +31,27 @@ public abstract class Materiel {
 	public void setStock(Integer stock) {
 		this.stock = stock;
 	}
+	
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
 
 	@Override
     public String toString() {
-        return "name = " + name + ", code = " + code + ", stock = " + stock;
+		 
+		String value = "name = " + name + ", code = " + code; 
+		
+		if (timestamp != null) {
+			value += ", alloué le : " + timestamp; 
+		}
+		else {
+			value += ", stock = " + stock;
+		}
+		
+        return value; 
     }
 }

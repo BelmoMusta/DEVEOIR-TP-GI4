@@ -22,4 +22,10 @@ public class UserDaoImpl extends GenericDAO<User>  implements UserDao {
 		return super.findUser(query, userData); 
 	}
 
+	@Override
+	public List<User> findAll() {
+		String query = "SELECT * FROM USER;"; 
+		return super.findAllUser(query);
+	}
+
 }

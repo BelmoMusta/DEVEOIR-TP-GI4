@@ -36,7 +36,7 @@ CREATE TABLE allocation
 	
 	idUser INT NOT NULL, 
 	
-	dateAllocation DATE NOT NULL, 
+	dateAllocation TIMESTAMP NOT NULL, 
 	
 	CONSTRAINT FK_idMateriel FOREIGN KEY (idMateriel)
     REFERENCES materiel(id), 

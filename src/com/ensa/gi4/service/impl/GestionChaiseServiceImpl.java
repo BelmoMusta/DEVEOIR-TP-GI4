@@ -1,7 +1,5 @@
 package com.ensa.gi4.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,30 +15,63 @@ public class GestionChaiseServiceImpl implements GestionMaterielService {
 	
 	@Override
 	public void ajouterNouveauMateriel(Materiel materiel) {
-		materielDao.ajouter(materiel); 
+	 	int test = materielDao.ajouter(materiel); 
+		if (test != 1) {
+			System.out.println("----------------------------------------------------");
+			System.out.println("Echec d'ajout du materiel !");
+			System.out.println("----------------------------------------------------");
+		}else {
+			System.out.println("----------------------------------------------------");
+			System.out.println("Ajout du materiel reussit !");
+			System.out.println("----------------------------------------------------");
+		}
 	}
 
 	@Override
 	public void supprimerMateriel(String code) {
-		materielDao.supprimerMateriel(code); 
+		int test = materielDao.supprimerMateriel(code);
+		
+		if (test != 1) {
+			System.out.println("----------------------------------------------------");
+			System.out.println("Desolé le materiel ne peut pas être supprimer car il est déjà alloué");
+			System.out.println("----------------------------------------------------");
+		}else {
+			System.out.println("----------------------------------------------------");
+			System.out.println("Supression du materiel reussit !");
+			System.out.println("----------------------------------------------------");
+		}
 	}
 
 
 	@Override
 	public void modifierMateriel(String code, Integer stock, String ancienCode) {
-		materielDao.updateMateriel(code, stock, ancienCode); 
+		int test  = materielDao.updateMateriel(code, stock, ancienCode); 
+		
+		if (test != 1) {
+			System.out.println("----------------------------------------------------");
+			System.out.println("Echec de modification des informations  du materiel !");
+			System.out.println("----------------------------------------------------");
+		}else {
+			System.out.println("----------------------------------------------------");
+			System.out.println("Modification du materiel reussit !");
+			System.out.println("----------------------------------------------------");
+		}
 
-	}
-
-	@Override
-	public List<Materiel> listeMaterielAlloue() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public void materielIndisponible(String code) {
-		materielDao.materielIndisponible(code); 
+	   int test = 	materielDao.materielIndisponible(code); 
+		
+		if (test != 1) {
+			System.out.println("----------------------------------------------------");
+			System.out.println("Echec d'opéreation !");
+			System.out.println("----------------------------------------------------");
+		}else {
+			System.out.println("----------------------------------------------------");
+			System.out.println("Le materiel est rendu indiponible !");
+			System.out.println("----------------------------------------------------");
+		}
 		
 	}
 
