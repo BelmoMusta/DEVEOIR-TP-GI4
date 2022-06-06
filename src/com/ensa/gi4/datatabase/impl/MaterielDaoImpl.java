@@ -9,12 +9,12 @@ import java.util.List;
 @Repository
 public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao {
     @Override
-    public List<Materiel> findAll() {
+    public List<Materiel> findAllMateriel() {
         return super.findAll("SELECT * FROM MATERIEL;");
     }
 
     @Override
-    public Materiel findOne(Long id) {
+    public Materiel findOneMateriel(Long id) {
         return super.findOne("SELECT * FROM MATERIEL WHERE ID=?;", id);
     }
 

@@ -5,8 +5,8 @@ import com.ensa.gi4.modele.Materiel;
 import java.util.List;
 
 public interface MaterielDao {
-    List<Materiel> findAll();
+    List<Materiel> findAllMateriel();
 
-    Materiel findOne(Long id);
+    Materiel findOneMateriel(Long id);
 
 }
