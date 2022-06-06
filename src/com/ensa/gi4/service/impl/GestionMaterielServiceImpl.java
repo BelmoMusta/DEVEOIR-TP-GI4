@@ -6,6 +6,8 @@ import com.ensa.gi4.service.api.GestionMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Scanner;
+
 @Component("materielService")
 public class GestionMaterielServiceImpl implements GestionMaterielService {
     @Autowired
@@ -18,7 +20,24 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void listerMateriel() {
-        System.out.println(materielDao.findAll());
+
+        for (Materiel i : materielDao.findAll()){
+            System.out.println( i.getName() + " code: "+i.getCode());
+        }
+    }
+
+    @Override
+    public void chercherMateriel() {
+        System.out.println("entrer l'id'du materiel que vous cherchez");
+        Scanner id = new Scanner(System.in);
+        Long ida = id.nextLong();
+
+        try
+        {
+            System.out.println(materielDao.findOne(ida));
+        } catch (Exception e) {
+            System.out.println("Le materiel avec l'id "+ ida +" n'existe pas");
+        }
     }
 
     @Override

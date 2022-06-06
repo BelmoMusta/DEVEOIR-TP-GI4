@@ -15,7 +15,7 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 
     @Override
     public Materiel findOne(Long id) {
-        return super.findOne("SELECT * FROM MATERIEL WHERE ID=?;", id);
+        return super.findOne("SELECT * FROM MATERIEL WHERE id=?;", id);
     }
 
     @Override
