@@ -6,4 +6,8 @@ public interface GestionMaterielService {
     void init();
     void listerMateriel();
     void ajouterNouveauMateriel(Materiel materiel);
+    void chercherMateriel(Long id);
+ 
+    void alloue(String name,long idUser);
+    
 }

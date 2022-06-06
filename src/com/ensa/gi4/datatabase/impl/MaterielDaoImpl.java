@@ -22,4 +22,19 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     protected MaterielRowMapper getRowMapper() { // template method design pattern
         return new MaterielRowMapper();
     }
+    @Override
+	 public void allouer(long idUser,String name) {
+    String alloue="nonAllouer";
+    	long nbr=super.countElementsNotAlloue("SELECT COUNT(*) FROM MATERIEL WHERE name=? and alloue=?;", name,alloue);
+    	if(nbr>0) {
+    		Long all=idUser;
+    		String allouer1=all.toString();
+    	int a=super.allouer("UPDATE MATERIEL SET alloue=? WHERE name=? and alloue='nonAllouer' LIMIT 1;", allouer1,name);
+    		System.out.println("bien alouee"+a);
+    	}
+    	else  System.out.println("ce matériel non disponible ou épuisé");
+
+    	
+    	
+    }
 }

@@ -8,5 +8,6 @@ public interface MaterielDao {
     List<Materiel> findAll();
 
     Materiel findOne(Long id);
+    void allouer(long idUser,String name);
 
 }
