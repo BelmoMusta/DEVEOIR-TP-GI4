@@ -1,10 +1,19 @@
 package com.ensa.gi4.modele;
 
 public abstract class Materiel {
-    private String code;
+	private int id;
+	private String code;
     private String name;
     private int quantite;
     private boolean disponible;
+    
+    public int getId() {
+  		return id;
+  	}
+
+  	public void setId(int id) {
+  		this.id = id;
+  	}
 
     public int getQuantite() {
 		return quantite;

@@ -37,6 +37,7 @@ public class GestionMaterielController {
     	while(true) {
     		System.out.println("pour lister le materiele saisir 1 ");
     		System.out.println("pour chercher un materiele saisir 2 ");
+    		System.out.println("pour allouer un materiel saisir 3 ");
     		String choix = scanner.next();
     		if(choix.equals("1")) {
     			gestionMaterielService.listerMateriel();
@@ -45,6 +46,12 @@ public class GestionMaterielController {
         		System.out.println(" saisir id : ");
         		choix = scanner.next();
     			gestionMaterielService.findMateriel(Long.parseLong(choix));
+    		}else if(choix.equals("3")) {
+    			System.out.println("saisir la code du materile ");
+    			String code = scanner.next();
+    			System.out.println("saisir la duree d'allocation ");
+    			String duree = scanner.next();
+    			gestionPersonneService.allouerMateriel(code, duree);
     		}
     		
     	}

@@ -39,5 +39,10 @@ public abstract class GenericDAO<T> implements InitializingBean {
     		return null;
     	}
     }
+    protected void insererOuUpdate(String sql ) {   	
+
+    	this.jdbcTemplate.update(sql);
+    }
+    
     protected abstract RowMapper<T> getRowMapper();
 }
