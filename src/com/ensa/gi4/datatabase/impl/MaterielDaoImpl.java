@@ -14,8 +14,35 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     }
 
     @Override
-    public Materiel findOne(Long id) {
+    public Materiel findOne(int id) {
         return super.findOne("SELECT * FROM MATERIEL WHERE ID=?;", id);
+    }
+
+    @Override
+    public void delete(int id) {
+        String query = "DELETE FROM material WHERE id=?";
+        this.jdbcTemplate.update(query, id);
+    }
+
+    @Override
+    public void edit(int id, String newName) {
+        String query = "UPDATE material SET name=? WHERE id=?";
+        this.jdbcTemplate.update(query,newName,id);
+    }
+
+    @Override
+    public Boolean isAllocated(int id) {
+        Materiel materiel = this.findOne(id);
+        if(materiel!=null){
+            return materiel.getAllocated();
+        }
+        else return false ;
+    }
+
+    @Override
+    public void toAllocate(int id) {
+        String sql = "UPDATE material SET allocated=? WHERE id=?";
+        this.jdbcTemplate.update(sql,"true",id);
     }
 
     @Override

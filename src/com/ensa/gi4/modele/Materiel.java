@@ -1,8 +1,26 @@
 package com.ensa.gi4.modele;
 
 public abstract class Materiel {
-    private String code;
+    private int id ;
+    private String type;
     private String name;
+    private Boolean isAllocated ;
+
+    public Boolean getAllocated() {
+        return isAllocated;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAllocated(Boolean allocated) {
+        isAllocated = allocated;
+    }
 
     public String getName() {
         return name;
@@ -12,16 +30,16 @@ public abstract class Materiel {
         this.name = name;
     }
 
-    public String getCode() {
-        return code;
+    public String getType() {
+        return type;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
-        return "name = " + name + ", code = " + code;
+        return "name = " + name + ", type = " + type;
     }
 }

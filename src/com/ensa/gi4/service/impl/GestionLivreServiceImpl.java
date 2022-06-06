@@ -11,14 +11,13 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
     }
 
     @Override
-    public void listerMateriel() {
-        System.out.println("Liste de matériel :\n 3 Livres \n 4 chaises");
+    public void showAll() {
+
     }
 
     @Override
-    public void ajouterNouveauMateriel(Materiel materiel) {
+    public void addNew(Materiel materiel) {
 
-        System.out.println("L'ajout du matériel " + materiel.getName() + " effectué avec succès !");
     }
 
     @Override

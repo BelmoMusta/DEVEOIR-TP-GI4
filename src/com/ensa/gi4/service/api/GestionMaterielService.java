@@ -4,6 +4,6 @@ import com.ensa.gi4.modele.Materiel;
 
 public interface GestionMaterielService {
     void init();
-    void listerMateriel();
-    void ajouterNouveauMateriel(Materiel materiel);
+    void showAll();
+    void addNew(Materiel materiel);
 }

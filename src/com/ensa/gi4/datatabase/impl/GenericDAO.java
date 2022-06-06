@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class GenericDAO<T> implements InitializingBean {
     @Autowired
     private DataSource dataSource;
-    private JdbcTemplate jdbcTemplate;
+    protected JdbcTemplate jdbcTemplate;
 
     @Override
     public void afterPropertiesSet() { // from InitializingBean
@@ -22,7 +22,7 @@ public abstract class GenericDAO<T> implements InitializingBean {
         return jdbcTemplate.query(query, getRowMapper());
     }
 
-    protected T findOne(String query, Long id) {
+    protected T findOne(String query, int id) {
         return jdbcTemplate.queryForObject(query, getRowMapper(), id);
     }
 
