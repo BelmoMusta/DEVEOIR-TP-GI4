@@ -5,5 +5,7 @@ import com.ensa.gi4.modele.Personne;
 
 public interface PersonneDAO {
 Personne findPersonne(String nom, String pw);
-Personne allouerMateriel(String code,String duree);
+void allouerMateriel(String code,String duree);
+boolean verifierExistanceAllocation(String code);
+void rendreMateriel(String code);
 }

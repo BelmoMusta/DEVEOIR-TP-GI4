@@ -23,11 +23,7 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
         return new MaterielRowMapper();
     }
 
-	/*@Override
-	public Materiel allouerMateriel(String code) {
-		String sql = "select * from materiel where code='"+code+"' and quantite > 0 and disponible = 'true'" ;
-		return super.executeQuery(sql);
-	}*/
+
 
 	@Override
 	public int quantiteMateriel(String code) {
@@ -56,10 +52,23 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 		if( codeMatereielExiste(code)!= null) {
 			int nouveauQuantite = quantiteMateriel(code)-1;
 			String sql = "update materiel set quantite="+ nouveauQuantite +"";
-			super.insererOuUpdate(sql);
+			super.insererOuUpdateOrDelete(sql);
+			
+		}	
+	}
+
+	@Override
+	public void augmenterQuantite(String code) {
+		if( codeMatereielExiste(code)!= null) {
+			int nouveauQuantite = quantiteMateriel(code)+1;
+			String sql = "update materiel set quantite="+ nouveauQuantite +"";
+			super.insererOuUpdateOrDelete(sql);
 			
 		}
 		
-		
 	}
+
+	
+	
+	
 }

@@ -12,6 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
 @SuppressWarnings("all")
 @ComponentScan
 public class AppGestionMateriel {
+    
+ 
     private static final ApplicationContext APPLICATION_CONTEXT;
 
     static { // bloc static pour initilialisation
