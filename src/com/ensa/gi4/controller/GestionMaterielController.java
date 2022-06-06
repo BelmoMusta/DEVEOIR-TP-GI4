@@ -4,9 +4,11 @@ import com.ensa.gi4.listeners.ApplicationPublisher;
 import com.ensa.gi4.listeners.EventType;
 import com.ensa.gi4.listeners.MyEvent;
 import com.ensa.gi4.modele.Livre;
+import com.ensa.gi4.service.api.GestionMaterielService;
 import com.ensa.gi4.service.api.GestionPersonneService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
@@ -19,6 +21,9 @@ public class GestionMaterielController {
     ApplicationPublisher publisher;
     @Autowired 
     GestionPersonneService gestionPersonneService;
+    @Autowired
+    @Qualifier("materielService")
+    GestionMaterielService gestionMaterielService;
 
     public void afficherMenu() {
     	System.out.println("----------------bonjour----------------");
@@ -30,6 +35,8 @@ public class GestionMaterielController {
       if(  gestionPersonneService.connecter(name, pw)!= null) {
     	  
     	 System.out.println("hi");
+    	 gestionMaterielService.listerMateriel();
+    	 pw = scanner.next();
       }else {
     	  System.out.println(" saisir 0 pour sortir de l'application");
     	  System.out.println(" saisir 1 pour réesayer à nouveau");

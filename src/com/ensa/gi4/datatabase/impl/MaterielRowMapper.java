@@ -12,12 +12,16 @@ public class MaterielRowMapper implements RowMapper<Materiel> {
         Materiel materiel = new Materiel() { // because it is abstract
         };
 
-        String name = resultSet.getString(2);
+        String name = resultSet.getString("name");
         //String name_ = resultSet.getString("NAME");
         //String code_ = resultSet.getString("CODE");
-        String code = resultSet.getString(3);
+        String code = resultSet.getString("code");
+        int quantite = resultSet.getInt("quantite");
+        boolean disponible = resultSet.getBoolean("disponible");
         materiel.setCode(code);
         materiel.setName(name);
+        materiel.setQuantite(quantite);
+        materiel.setDisponible(disponible);
 
         return materiel;
     }

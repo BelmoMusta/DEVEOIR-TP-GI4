@@ -18,6 +18,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void listerMateriel() {
+    	
         System.out.println(materielDao.findAll());
     }
 

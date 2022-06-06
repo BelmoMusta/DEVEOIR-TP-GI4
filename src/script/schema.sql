@@ -8,7 +8,7 @@ CREATE TABLE materiel
     name VARCHAR(250) NOT NULL,
 
     code VARCHAR(250) NOT NULL,
-    quantite varchar(250) NOT NULL,
+    quantite int NOT NULL,
     disponible BOOLEAN DEFAULT true 
 
 );
