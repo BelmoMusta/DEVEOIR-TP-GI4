@@ -18,7 +18,7 @@ public class GestionMaterielController {
 
     public void afficherMenu() {
         Scanner scanner  = new Scanner(System.in);
-        publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));
+        //publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));
     }
 
     private void sortirDeLApplication() {
