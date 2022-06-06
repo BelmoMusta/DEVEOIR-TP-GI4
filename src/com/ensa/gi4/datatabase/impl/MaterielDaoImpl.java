@@ -22,4 +22,13 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     protected MaterielRowMapper getRowMapper() { // template method design pattern
         return new MaterielRowMapper();
     }
+   
+    @Override
+    public void addMateriel(Materiel materiel) {
+    	 super.execute("INSERT INTO MATERIEL (NAME, CODE, QUANTITE, DISPONIBLE) VALUES ('"+materiel.getName()+"', '"+materiel.getCode()+"', "+materiel.getQuantite()+", TRUE);");
+    }
+    @Override
+    public void deleteMateriel(Long id) {
+    	super.execute("DELETE FROM MATERIEL WHERE id = "+id+"");
+    }
 }

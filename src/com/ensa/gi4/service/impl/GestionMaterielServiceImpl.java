@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class GestionMaterielServiceImpl implements GestionMaterielService {
     @Autowired
     MaterielDao materielDao;
-
+     
     @Override
     public void init() {
         System.out.println("inititialisation du service");
@@ -21,9 +21,19 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         System.out.println(materielDao.findAll());
     }
 
+	@Override
+	public void chercherMateriel(Long code) {
+		 System.out.println(materielDao.findOne(code));
+	}
+
     @Override
     public void ajouterNouveauMateriel(Materiel materiel) {
-
-        System.out.println("L'ajout du matériel " + materiel.getName() + " effectué avec succès !");
+    	materielDao.addMateriel(materiel);
+      //  System.out.println("L'ajout du matériel " + materiel.getName() + " effectué avec succès !");
     }
+    @Override
+    public void deleteMateriel(Long id) {
+    	materielDao.deleteMateriel(id);
+    }
+
 }

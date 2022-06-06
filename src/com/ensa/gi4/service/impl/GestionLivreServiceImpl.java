@@ -17,13 +17,23 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 
     @Override
     public void ajouterNouveauMateriel(Materiel materiel) {
-
         System.out.println("L'ajout du matériel " + materiel.getName() + " effectué avec succès !");
     }
 
     @Override
     public void afterSingletonsInstantiated() {
         System.out.println("toto");
-
     }
+
+	@Override
+	public void chercherMateriel(Long code) {
+		System.out.println("chercher materiel");
+	}
+
+	@Override
+	public void deleteMateriel(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

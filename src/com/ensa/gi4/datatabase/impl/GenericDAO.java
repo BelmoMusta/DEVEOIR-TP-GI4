@@ -25,6 +25,12 @@ public abstract class GenericDAO<T> implements InitializingBean {
     protected T findOne(String query, Long id) {
         return jdbcTemplate.queryForObject(query, getRowMapper(), id);
     }
-
+    
+    protected T executeQuery(String query) {
+        return jdbcTemplate.queryForObject(query, getRowMapper());
+    }
+    protected void execute(String query) {
+         jdbcTemplate.execute(query);
+    }
     protected abstract RowMapper<T> getRowMapper();
 }
