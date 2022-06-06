@@ -1,5 +1,6 @@
 package com.ensa.gi4.datatabase.impl;
 
+import com.ensa.gi4.appuser.AppUser;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,4 +28,8 @@ public abstract class GenericDAO<T> implements InitializingBean {
     }
 
     protected abstract RowMapper<T> getRowMapper();
+
+    protected List<T> loginUser(String query,String name,String password) {
+        return jdbcTemplate.query(query, getRowMapper(),name,password);
+    }
 }
