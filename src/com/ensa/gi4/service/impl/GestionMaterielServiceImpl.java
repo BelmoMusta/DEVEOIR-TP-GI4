@@ -18,12 +18,19 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void listerMateriel() {
-        System.out.println(materielDao.findAll());
+       System.out.println(materielDao.findAllMateriel());
     }
-
+    
+    @Override
+	public Materiel findOneMateriel(long id) {
+		materielDao.findOneMateriel(id);
+		return null;
+	}
     @Override
     public void ajouterNouveauMateriel(Materiel materiel) {
 
         System.out.println("L'ajout du matériel " + materiel.getName() + " effectué avec succès !");
     }
+
+	
 }

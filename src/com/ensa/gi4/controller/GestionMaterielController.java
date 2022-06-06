@@ -37,18 +37,51 @@ public class GestionMaterielController {
        String name = scanner.next();
        System.out.println("Veuillez entrer votre mot de passe");
        String password = scanner.next();
-       
+       System.out.println(gestionUser.isAdmin(name, password));
        if(gestionUser.connexion(name, password)!=null){
     	   
-    	  System.out.println("Connexion reussie !"); 		
        
-       	 
-    	   
+       	 if(gestionUser.isAdmin(name, password)){
+                //Scenario Pour Admin
+       		 
+       	 }
+       	 else {
+       		 
+       		 //Scenario pour les employes 
+       		 
+       		 while(true) {
+       			 System.out.println("Pour liseter les materiels, saisir 1: ");
+       			System.out.println("Pour chercher un materiel,saisir 2: ");
+       			System.out.println("Pour allouer un materiel saisir 3: ");
+       			System.out.println("Pour rendre un materiel saisir 4: ");
+       			String num = scanner.next();
+       			
+       			if(num.equals("1")) {
+        			gestionMateriel.listerMateriel();
+        		}
+       			
+        		else if(num.equals("2")) {
+            		System.out.println("entrer son id : ");
+            		String id = scanner.next();
+        			gestionMateriel.findOneMateriel(Long.parseLong(id));
+        		}
+       			
+        		else if(num.equals("3")) {
+        			System.out.println("entrer le code du materiel ");
+        			String code = scanner.next();
+        			System.out.println("entrer la durée d'allocation ");
+        			String duree = scanner.next();
+        			gestionUser.allouerMateriel(code, duree);
+        		}
+        		
+       			
+       		 }
+       	 }
        }
        else {
     	   System.out.println("echoue");
        }
-        publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));
+        //publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));
     }
 
     private void sortirDeLApplication() {

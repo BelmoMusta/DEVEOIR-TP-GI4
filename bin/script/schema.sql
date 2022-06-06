@@ -7,6 +7,8 @@ CREATE TABLE materiel
     name VARCHAR(250) NOT NULL,
 
     code VARCHAR(250) NOT NULL,
+    quantite int NOT NULL,
+    dispo BOOLEAN DEFAULT true
 
 );
 
@@ -18,4 +20,15 @@ id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(200) NOT NULL,
 password VARCHAR(200) NOT NULL,
 role VARCHAR(200) NOT NULL,
+);
+
+DROP TABLE IF EXISTS Allocation;
+
+CREATE TABLE Allocation
+(
+   id int AUTO_INCREMENT PRIMARY KEY,
+   idMateriel VARCHAR(100) NOT NULL,
+   idUser VARCHAR(100) NOT NULL,
+   duree int NOT NULL,
+
 );

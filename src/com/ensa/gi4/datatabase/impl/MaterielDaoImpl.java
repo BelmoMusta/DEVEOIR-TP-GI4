@@ -22,4 +22,44 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     protected MaterielRowMapper getRowMapper() { // template method design pattern
         return new MaterielRowMapper();
     }
+    
+    @Override
+     public Materiel findWithCode(String code){
+    	return super.executeQuery("SELECT * FROM materiel WHERE code='"+code+"'");
+    }
+    
+    @Override
+    public Boolean isDispo(String code) {
+           if(findWithCode(code)!=null ) {
+        	   return true;
+           }
+           else {
+        	   return false;
+           }
+    }
+
+	@Override
+	public int quantiteMateriel(String code) {
+		
+		if(findWithCode(code)!=null)
+		{
+			 return findWithCode(code).getQuantite();
+			
+		}
+		
+		else {
+			return 0;
+		}
+	}
+
+	@Override
+	public void diminuerQuantite(String code) {
+		int newQuantite = (quantiteMateriel(code))-1;
+		super.UpdateQuery("UPDATE materiel SET quantite='"+newQuantite+"'");
+		
+	}
+	
+	
+    
+    
 }

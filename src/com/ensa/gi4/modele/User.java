@@ -1,7 +1,16 @@
 package com.ensa.gi4.modele;
 
-public class User{
+import org.springframework.stereotype.Component;
 
+@Component
+public class User{
+	String id;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	String name; 
 	public String getName() {
 		return name;
