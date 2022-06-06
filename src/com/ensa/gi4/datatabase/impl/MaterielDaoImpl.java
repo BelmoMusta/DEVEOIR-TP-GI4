@@ -1,20 +1,20 @@
 package com.ensa.gi4.datatabase.impl;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
-import com.ensa.gi4.modele.Materiel;
+import com.ensa.gi4.modele.Material;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao {
+public class MaterielDaoImpl extends GenericDAO<Material> implements MaterielDao {
     @Override
-    public List<Materiel> findAll() {
+    public List<Material> findAll() {
         return super.findAll("SELECT * FROM MATERIEL;");
     }
 
     @Override
-    public Materiel findOne(Long id) {
+    public Material findOne(Long id) {
         return super.findOne("SELECT * FROM MATERIEL WHERE ID=?;", id);
     }
 

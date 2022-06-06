@@ -1,7 +1,7 @@
 package com.ensa.gi4.service.impl;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
-import com.ensa.gi4.modele.Materiel;
+import com.ensa.gi4.modele.Material;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     }
 
     @Override
-    public void ajouterNouveauMateriel(Materiel materiel) {
+    public void ajouterNouveauMateriel(Material materiel) {
 
         System.out.println("L'ajout du matériel " + materiel.getName() + " effectué avec succès !");
     }

@@ -1,12 +1,12 @@
 package com.ensa.gi4.datatabase.api;
 
-import com.ensa.gi4.modele.Materiel;
+import com.ensa.gi4.modele.Material;
 
 import java.util.List;
 
 public interface MaterielDao {
-    List<Materiel> findAll();
+    List<Material> findAll();
 
-    Materiel findOne(Long id);
+    Material findOne(Long id);
 
 }

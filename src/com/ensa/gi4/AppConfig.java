@@ -1,6 +1,7 @@
 package com.ensa.gi4;
 
 import com.ensa.gi4.controller.GestionMaterielController;
+import com.ensa.gi4.listeners.ApplicationPublisher;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import com.ensa.gi4.service.impl.GestionLivreServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,9 @@ public class AppConfig {
     public GestionMaterielService livreServiceBean() {
         return new GestionLivreServiceImpl();
     }
+
+//    @Bean
+//    public ApplicationPublisher applicationPublisherBean() { return new ApplicationPublisher();}
 
     @Bean
     @Lazy
