@@ -26,4 +26,10 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
         System.out.println("toto");
 
     }
+
+	@Override
+	public void findMateriel(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
 }

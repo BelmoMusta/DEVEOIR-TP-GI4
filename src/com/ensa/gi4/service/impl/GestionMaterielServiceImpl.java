@@ -27,4 +27,16 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
         System.out.println("L'ajout du matériel " + materiel.getName() + " effectué avec succès !");
     }
+
+	@Override
+	public void findMateriel(Long id) {
+		if(materielDao.findOne(id)!=null) {
+			System.out.println(materielDao.findOne(id));
+		}else {
+			System.out.println("le mat�riel n'existe pas");
+		}
+		
+		
+	}
+    
 }

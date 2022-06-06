@@ -34,9 +34,22 @@ public class GestionMaterielController {
         String pw = scanner.next();
       if(  gestionPersonneService.connecter(name, pw)!= null) {
     	  
-    	 System.out.println("hi");
-    	 gestionMaterielService.listerMateriel();
-    	 pw = scanner.next();
+    	while(true) {
+    		System.out.println("pour lister le materiele saisir 1 ");
+    		System.out.println("pour chercher un materiele saisir 2 ");
+    		String choix = scanner.next();
+    		if(choix.equals("1")) {
+    			gestionMaterielService.listerMateriel();
+    		}
+    		else if(choix.equals("2")) {
+        		System.out.println(" saisir id : ");
+        		choix = scanner.next();
+    			gestionMaterielService.findMateriel(Long.parseLong(choix));
+    		}
+    		
+    	}
+    	 
+    	 
       }else {
     	  System.out.println(" saisir 0 pour sortir de l'application");
     	  System.out.println(" saisir 1 pour réesayer à nouveau");
