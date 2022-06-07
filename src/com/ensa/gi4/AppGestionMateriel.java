@@ -25,7 +25,7 @@ public class AppGestionMateriel {
 
     public static void main(String[] args) {
         final GestionMaterielController gestionMaterielController = (GestionMaterielController) APPLICATION_CONTEXT.getBean("controllerPricipal");
-        System.out.println("Saiasir votre nom");
+        System.out.println("Saisir votre nom");
     	Scanner scanner  = new Scanner(System.in);
         String nom = scanner.next();
         System.out.println("Saisir votre password ");
