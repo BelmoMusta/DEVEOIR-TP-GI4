@@ -36,15 +36,18 @@ public abstract class GenericDAO<T> implements InitializingBean {
        	return null;
        }
     }
-    protected long countElementsNotAlloue(String query,String name,String allouer) {
+    protected int ajouterOne(String query,String name,String code) {
     	try {
-   		 return jdbcTemplate.queryForObject(query,Long.class,name,allouer);
-       	}
-       	catch(Exception e){
-       	return 0;
-       }
+      		 return jdbcTemplate.update(query,name,code);
+       		
+          	}
+          	catch(Exception e){
+          	return 0;
+          }
+    	
     }
-    protected int allouer(String query,String alloue,String name) {
+  
+    protected int allouer(String query,Long alloue,String name) {
     	try {
    		 return jdbcTemplate.update(query,alloue,name);
     		
@@ -53,7 +56,30 @@ public abstract class GenericDAO<T> implements InitializingBean {
        	return 0;
        }
     }
-    
-
+    protected int rendreMateriel(String query,Long idUser,Long idMateriel) {
+    	try {
+   		 return jdbcTemplate.update(query,idUser,idMateriel);
+    		
+       	}
+       	catch(Exception e){
+       	return 0;
+       }
+    }
+    protected int supprimerOne(String query, Long id) {
+    	try {
+    		 return jdbcTemplate.update(query,id);
+       	}
+       	catch(Exception e){
+       	return 0;
+       }
+    }
+    protected int modifierOne(String query,String name,String code, Long id) {
+    	try {
+    		 return jdbcTemplate.update(query,name,code,id);
+       	}
+       	catch(Exception e){
+       	return 0;
+       }
+    }
     protected abstract RowMapper<T> getRowMapper();
 }

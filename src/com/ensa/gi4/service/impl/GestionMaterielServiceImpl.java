@@ -2,6 +2,7 @@ package com.ensa.gi4.service.impl;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.modele.Materiel;
+import com.ensa.gi4.modele.User;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         System.out.println(materielDao.findAll());
     }
     @Override
+	public void ListerMesAllocations(User user) {
+		Long idUser=user.getId();
+		 System.out.println(materielDao.MesAllocation(idUser));
+	}
+    @Override
     public void chercherMateriel(Long id) {
     	if(materielDao.findOne(id)==null) 
     		System.out.println("ce materiel n'existe pas");
@@ -32,15 +38,69 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void ajouterNouveauMateriel(Materiel materiel) {
-
-        System.out.println("L'ajout du matÃ©riel " + materiel.getName() + " effectuÃ© avec succÃ¨s !");
+    	int nbr=materielDao.ajouterNouveauMateriel(materiel);
+    	if(nbr==1) {
+		
+    	
+    		System.out.println("L'ajout du matériel " + materiel.getName() + " effectué avec succès !");
+    	}
+    	
     }
     @Override
-    public void alloue(String name,long idUser) {
-    	materielDao.allouer(idUser,name);
+    public void alloue(String name,Long idUser) {
+    	int nbr=materielDao.allouer(idUser,name);
+    	if(nbr==1) {
+		
+    	
+    		System.out.println("ce matériel a été bien alloué");
+    	}
+    	else  System.out.println("ce matériel non disponible ou épuisé");
+
     }
 
-	
-    
+	@Override
+	public void rendreMateriel(Long idUser,Long idMateriel) {
+		int nbr=materielDao.rendreMateriel(idUser,idMateriel);
+    	if(nbr==1) {
+		
+    	
+    		System.out.println("ce matériel a été bien rendu");
+    	}
+    	else  System.out.println("vous n'avez pas alloué ce matériel");
+	}
+	@Override
+	public void supprimerMateriel(Long idMateriel) {
+		int nbr=materielDao.supprimerMateriel(idMateriel);
+    	if(nbr!=0) {
+		
+    	
+    		System.out.println("ce matériel a été bien supprimer");
+    	}
+    	else  System.out.println("il n'existe pas ce materiel , l'id est incorrect");
+	}
+	@Override
+	public void modifierMateriel(Long idMateriel,String name,String code) {
+		int nbr=materielDao.modifierMateriel(idMateriel,name,code);
+    	if(nbr!=0) {
+		
+    	
+    		System.out.println("ce matériel a été bien modifier");
+    	}
+    	else  System.out.println("il n'existe pas ce materiel , l'id est incorrect");
+	}
+	@Override
+	 public void  indisponibleMateriel(Long idMateriel) {
+		 int nbr=materielDao.indisponibleMateriel(idMateriel);
+	    	if(nbr!=0) {
+			
+	    	
+	    		System.out.println("ce matériel est devenu indisponible!");
+	    	}
+	    	else  System.out.println("il n'existe pas ce materiel , l'id est incorrect");
+	 }
+	@Override
+	public void  listerMaterielAlloue() {
+		 System.out.println(materielDao.findAllAlloue());
+	}
     
 }

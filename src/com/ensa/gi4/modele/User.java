@@ -36,7 +36,7 @@ public abstract class User {
 
 	    @Override
 	    public String toString() {
-	        return "name = " + name ;
+	        return "name = " + name+", id="+id ;
 	    }
 
 }

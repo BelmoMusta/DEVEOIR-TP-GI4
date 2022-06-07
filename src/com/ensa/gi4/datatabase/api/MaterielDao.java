@@ -8,6 +8,12 @@ public interface MaterielDao {
     List<Materiel> findAll();
 
     Materiel findOne(Long id);
-    void allouer(long idUser,String name);
-
+    int allouer(Long idUser,String name);
+   List<Materiel> MesAllocation(Long idUser) ;
+   int rendreMateriel(Long idUser,Long idMateriel);
+   int ajouterNouveauMateriel(Materiel materiel);
+   int supprimerMateriel(Long idMateriel);
+   int modifierMateriel(Long idMateriel,String name,String code);
+   int indisponibleMateriel(Long idMateriel) ;
+   List<Materiel> findAllAlloue();
 }

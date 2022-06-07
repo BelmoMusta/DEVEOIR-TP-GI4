@@ -3,13 +3,13 @@ package com.ensa.gi4.modele;
 public abstract class Materiel {
     private String code;
     private String name;
-    private String alloue;
-
-    public String getAlloue() {
+    private Long alloue;
+    
+    public Long getAlloue() {
 		return alloue;
 	}
 
-	public void setAlloue(String alloue) {
+	public void setAlloue(Long alloue) {
 		this.alloue = alloue;
 	}
 
