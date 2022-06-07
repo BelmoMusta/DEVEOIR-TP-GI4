@@ -19,12 +19,18 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void listerMateriel() {
-        System.out.println(materielDao.findAll());
+        
+        if(materielDao.findAll().size()>0)
+        	System.out.println(materielDao.findAll());
+			else System.out.println("aucun matériel");
     }
     @Override
 	public void ListerMesAllocations(User user) {
 		Long idUser=user.getId();
-		 System.out.println(materielDao.MesAllocation(idUser));
+		
+		 if(materielDao.MesAllocation(idUser).size()>0)
+			 System.out.println(materielDao.MesAllocation(idUser));
+			else System.out.println("aucun matériel a été alloué");
 	}
     @Override
     public void chercherMateriel(Long id) {
@@ -47,8 +53,8 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     	
     }
     @Override
-    public void alloue(String name,Long idUser) {
-    	int nbr=materielDao.allouer(idUser,name);
+    public void alloue(String name,Long idUser,String date) {
+    	int nbr=materielDao.allouer(idUser,name,date);
     	if(nbr==1) {
 		
     	
@@ -100,7 +106,9 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 	 }
 	@Override
 	public void  listerMaterielAlloue() {
+		if(materielDao.findAllAlloue().size()>0)
 		 System.out.println(materielDao.findAllAlloue());
+		else System.out.println("aucun matériel a été alloué");
 	}
     
 }

@@ -154,9 +154,16 @@ public class GestionMaterielController {
 	    	 gestionMaterielServiceImpl.chercherMateriel(id);
 	    }
 	  public void allouerMateriel(User user) {
-		  System.out.println("Veuillez saisir le nom du materiel");
-		  String name= scanner.next();
-	    	 gestionMaterielServiceImpl.alloue(name,user.getId());
+		  System.out.println("Veuillez saisir le nom du materiel ,entrer livre ou chaise");//car on a seulement de type de materiel chaise et livre
+		  																					//donc il ne faut pas entrer un nom quelconque
+		  String name= scanner.next().toLowerCase();
+		  if("livre".equals(name) || "chaise".equals(name)) {
+			  System.out.println("saisir la date de l'allocation");
+			  String date=scanner.next();
+			  gestionMaterielServiceImpl.alloue(name,user.getId(),date);
+		  }
+		  else System.out.println("choix invalide,les matériels disponibles sont des livres ou des chaises");
+	    	
 	  }
 	  public void ListerMesAllocations(User user) {
 		  gestionMaterielServiceImpl.ListerMesAllocations(user);
@@ -167,7 +174,6 @@ public class GestionMaterielController {
 	    	 gestionMaterielServiceImpl.rendreMateriel(idUser,idMateriel);
 	  }
 	  public void  creerMateriel(Long idUser) {
-			// System.out.println("6- pour Créer un nouveau matériel, entrer 6");
 	         System.out.println("voulez vous ajouter un livre ou une chaise?");
 	         String name= scanner.next().toLowerCase();
 	         Materiel nouveauMateriel;
@@ -180,7 +186,7 @@ public class GestionMaterielController {
 	        gestionMaterielServiceImpl.ajouterNouveauMateriel(nouveauMateriel);
 	        
 	        }
-	        else {System.out.println("choix invalide,entrer livre ou chaise");}
+	        else {System.out.println("choix invalide,les matériels disponibles sont des livres ou des chaises");}
 	         
 	  }
 	  

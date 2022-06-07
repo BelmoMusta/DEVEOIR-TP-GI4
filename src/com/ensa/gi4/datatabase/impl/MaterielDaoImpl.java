@@ -27,8 +27,8 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
         return new MaterielRowMapper();
     }
     @Override
-	 public int allouer(Long idUser,String name) {
-    	return super.allouer("UPDATE MATERIEL SET alloue=? WHERE name=? and alloue is null and disponible='true' LIMIT 1;",idUser,name);
+	 public int allouer(Long idUser,String name,String date) {
+    	return super.allouer("UPDATE MATERIEL SET alloue=?,dateAllocation=? WHERE name=? and alloue is null and disponible='true' LIMIT 1;",idUser,date,name);
     		
       }
     @Override
@@ -54,7 +54,7 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     }
     @Override
 	public List<Materiel> findAllAlloue(){
-    	 return super.findAll("SELECT * FROM MATERIEL where alloue<>null ;");
+    	 return super.findAll("SELECT * FROM MATERIEL where alloue is not null ;");
     }
     
     

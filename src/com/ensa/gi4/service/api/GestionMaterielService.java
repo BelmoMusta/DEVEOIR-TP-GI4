@@ -9,7 +9,7 @@ public interface GestionMaterielService {
     void ajouterNouveauMateriel(Materiel materiel);
     void chercherMateriel(Long id);
  
-    void alloue(String name,Long idUser);
+    void alloue(String name,Long idUser,String date);
     void ListerMesAllocations(User user);
     void rendreMateriel(Long idUser,Long idMateriel);
     void supprimerMateriel(Long idMateriel);

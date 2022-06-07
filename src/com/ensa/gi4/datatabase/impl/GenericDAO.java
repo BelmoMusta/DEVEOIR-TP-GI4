@@ -47,9 +47,9 @@ public abstract class GenericDAO<T> implements InitializingBean {
     	
     }
   
-    protected int allouer(String query,Long alloue,String name) {
+    protected int allouer(String query,Long alloue,String date,String name) {
     	try {
-   		 return jdbcTemplate.update(query,alloue,name);
+   		 return jdbcTemplate.update(query,alloue,date,name);
     		
        	}
        	catch(Exception e){
