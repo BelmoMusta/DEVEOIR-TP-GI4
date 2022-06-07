@@ -1,5 +1,6 @@
 package com.ensa.gi4.service.impl;
 
+import com.ensa.gi4.datatabase.api.DAO;
 import com.ensa.gi4.enums.Role;
 import com.ensa.gi4.enums.UserCreateStatus;
 import com.ensa.gi4.modele.User;
@@ -26,6 +27,9 @@ public class AuthenticationServiceImpl implements AuthenticationService, Initial
         user.setRole_id(rs.getInt("role_id"));
         return user;
     };
+
+    @Autowired
+    DAO<User> UsersDAO;
 
     Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(32,64,1,15*1024,2);
     @Autowired
@@ -62,14 +66,23 @@ public class AuthenticationServiceImpl implements AuthenticationService, Initial
 
     @Override
     public UserCreateStatus createUser(String username, String password, Role role) {
-        //System.out.println(username + " " + password + " " + role + " " + getPasswordHash(password));
-        List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE username = ?",rowMapper,username.toLowerCase());
-        if(users.size() != 0)
+        if(userExists(username))
             return UserCreateStatus.USER_EXISTS;
 
-        if(jdbcTemplate.update("INSERT INTO users (username,hashed_password,role_id) VALUES (?,?,?)",username.toLowerCase(),getPasswordHash(password),role.ordinal()) == 1)
-            return UserCreateStatus.CREATED_SUCCESSFULLY;
 
-        return UserCreateStatus.DATABASE_ERROR;
+        UsersDAO.add(new User(username,getPasswordHash(password),role.ordinal()));
+
+        return UserCreateStatus.CREATED_SUCCESSFULLY;
+    }
+
+    @Override
+    public boolean userExists(String username) {
+        String sql = "SELECT * FROM users WHERE username = ?";
+        List<User> users = jdbcTemplate.query(sql,rowMapper,username.toLowerCase());
+
+        if(users.isEmpty())
+            return false;
+
+        return true;
     }
 }

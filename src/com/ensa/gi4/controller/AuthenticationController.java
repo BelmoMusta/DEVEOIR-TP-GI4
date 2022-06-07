@@ -5,6 +5,7 @@ import com.ensa.gi4.enums.UserCreateStatus;
 import com.ensa.gi4.modele.User;
 import com.ensa.gi4.service.api.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
@@ -14,6 +15,10 @@ public class AuthenticationController {
     @Autowired
     AuthenticationService authenticationService;
     Scanner scanner = new Scanner(System.in);
+
+    @Autowired
+    @Qualifier("materielControllerBean")
+    GestionMaterielController gestionMaterielController;
 
     public void showLoginMenu()
     {
@@ -43,6 +48,8 @@ public class AuthenticationController {
 
                 showLoginMenu();
             }
+
+            gestionMaterielController.afficherMenu(user);
         }
         else if(code == 2 )
         {

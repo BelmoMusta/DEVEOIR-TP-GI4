@@ -10,6 +10,12 @@ public class User {
     public User() {
     }
 
+    public User(String username, String hashed_password, int role_id) {
+        this.username = username;
+        this.hashed_password = hashed_password;
+        this.role_id = role_id;
+    }
+
     public User(int user_id, String username, String hashed_password, int role_id) {
         this.user_id = user_id;
         this.username = username;

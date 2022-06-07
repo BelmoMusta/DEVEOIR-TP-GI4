@@ -9,5 +9,6 @@ public interface AuthenticationService {
     User getUser(String hashedPassword, String username);
     boolean isPasswordValid(String hash,String password);
     UserCreateStatus createUser(String username, String password, Role role);
+    boolean userExists(String username);
 
 }

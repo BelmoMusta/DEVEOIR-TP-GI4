@@ -1,6 +1,6 @@
 package com.ensa.gi4.service.impl;
 
-import com.ensa.gi4.datatabase.api.MaterielDao;
+import com.ensa.gi4.datatabase.api.DAO;
 import com.ensa.gi4.modele.Material;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component("materielService")
 public class GestionMaterielServiceImpl implements GestionMaterielService {
     @Autowired
-    MaterielDao materielDao;
+    DAO<Material> materialDao;
 
     @Override
     public void init() {
@@ -18,7 +18,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void listerMateriel() {
-        System.out.println(materielDao.findAll());
+        System.out.println(materialDao.getAll());
     }
 
     @Override

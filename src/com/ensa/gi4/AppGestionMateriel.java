@@ -3,7 +3,6 @@ package com.ensa.gi4;
 import com.ensa.gi4.controller.AuthenticationController;
 import com.ensa.gi4.controller.GestionMaterielController;
 import com.ensa.gi4.datatabase.api.DAO;
-import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.datatabase.impl.MaterialsDAO;
 import com.ensa.gi4.modele.Material;
 import com.ensa.gi4.service.api.AuthenticationService;
@@ -40,8 +39,8 @@ public class AppGestionMateriel {
 //            else  isAuthenticated = !isAuthenticated;
 //            //gestionMaterielController.afficherMenu();
 
-           // authenticationController.showLoginMenu();
-             materialDAO.getAll().forEach(System.out::println);
+            authenticationController.showLoginMenu();
+             //materialDAO.getAll().forEach(System.out::println);
 
         }
 
