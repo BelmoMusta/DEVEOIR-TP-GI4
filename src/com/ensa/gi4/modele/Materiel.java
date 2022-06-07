@@ -1,6 +1,24 @@
 package com.ensa.gi4.modele;
 
 public abstract class Materiel {
+	private int allouer;
+	private String duree;
+	public String getDuree() {
+		return duree;
+	}
+
+	public void setDuree(String duree) {
+		this.duree = duree;
+	}
+
+	public int getAllouer() {
+		return allouer;
+	}
+
+	public void setAllouer(int allouer) {
+		this.allouer = allouer;
+	}
+
 	private int id;
     public int getId() {
 		return id;

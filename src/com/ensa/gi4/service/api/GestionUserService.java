@@ -7,4 +7,5 @@ public interface GestionUserService {
 	User connexion(String name, String password);
 	 Boolean isAdmin(String name, String password);
 	void allouerMateriel(String code, String duree);
+	void rendreMateriel(int id);
 }

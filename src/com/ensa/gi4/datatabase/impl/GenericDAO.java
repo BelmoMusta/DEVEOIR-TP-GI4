@@ -49,6 +49,8 @@ public abstract class GenericDAO<T> implements InitializingBean {
        }
     }
     
+
+     
     protected String getRole(String query,String name) {
     	
     	try {
@@ -57,7 +59,9 @@ public abstract class GenericDAO<T> implements InitializingBean {
     		return null;
     	}
     }
-
+ 
+   
+    
     protected abstract RowMapper<T> getRowMapper();
     protected T findOne(String query, String name,String password) {
         try{return jdbcTemplate.queryForObject(query, getRowMapper(), name,password);

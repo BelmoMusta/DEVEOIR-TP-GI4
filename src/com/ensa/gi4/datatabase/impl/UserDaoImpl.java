@@ -18,9 +18,10 @@ public class UserDaoImpl extends GenericDAO<User> implements UserDao{
 	MaterielDao materielDao;
 	@Override
 	public User findOneUser(String name,String password) {
-		 return super.findOne("SELECT * FROM User WHERE name=? AND password=?;", name,password);
 	
-		
+				user = super.findOne("SELECT * FROM User WHERE name=? AND password=?;", name,password);
+	
+				 return user;
 	}
 
 
@@ -39,13 +40,24 @@ public class UserDaoImpl extends GenericDAO<User> implements UserDao{
 
 	@Override
 	public String getRole(String name) {
-		System.out.println(super.getRole("SELECT ROLE FROM USER WHERE name=?", name));
 		return super.getRole("SELECT ROLE FROM USER WHERE name=?", name);
 	}
 	//allocation
 	public void allouerMateriel(String code, String duree) {
-		String query = "INSERT INTO Allocation (idMateriel,idUser,duree) values("
-				+ materielDao.findWithCode(code).getId() + "," + user.getId() + ",'" + duree + "')";
+	
+
+
+		String query ="UPDATE materiel set allouer=" +user.getId()+ ", duree = '"+duree+"'WHERE allouer IS NULL and dispo = true limit 1";
 		super.UpdateQuery(query);
+	}
+	
+	//rendre
+	@Override
+	public Boolean rendreMateriel(int id) {
+		String query  = "UPDATE materiel SET allouer= null, duree = null where allouer="+user.getId()+" and id="+id+"";
+		super.UpdateQuery(query);
+        return true;
+	 
+		
 	}
 }

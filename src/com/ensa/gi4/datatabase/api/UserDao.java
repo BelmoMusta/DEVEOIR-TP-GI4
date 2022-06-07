@@ -8,4 +8,6 @@ public interface UserDao {
   List<User> finAllUsers();
   String getRole(String name);
   public void allouerMateriel(String code, String duree);
+  public Boolean rendreMateriel(int id);
+
 }

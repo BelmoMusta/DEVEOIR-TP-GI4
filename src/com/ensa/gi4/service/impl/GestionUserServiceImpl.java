@@ -67,22 +67,39 @@ public Boolean  isAdmin(String name, String password) {
 	@Override
 	public void allouerMateriel(String code, String duree) {
 		if (materielDao.findWithCode(code) != null) {
-			if (materielDao.isDispo(code)) {
-				if (materielDao.quantiteMateriel(code) > 0) {
-					materielDao.diminuerQuantite(code);
-					userDao.allouerMateriel(code, duree);
-					System.out.println("Votre allocation du "+materielDao.findWithCode(code).getName()+"a été effectuée");
+				if (materielDao.isDispo(code)) {
+				
+					//allouer le materiel
 
-				} else {
-					System.out.println("Le stock de ce materiel est épuisé");
-				}
+					userDao.allouerMateriel(code, duree);
+					materielDao.nonDispo(code);
+					
+					System.out.println("Votre allocation du "+materielDao.findWithCode(code).getName()+"a été effectuée");
+					
+					
+				
 			} else {
-				System.out.println("Ce materiel n'est pas disponible pour allouer");
+				System.out.println("Le materiel n'est pas disponible");
 			}
 		} else {
-			System.out.println("Ce Code n'existe pas");
+			System.out.println("Le Code entré n'existe pas");
 		}
 	}
+	
+	//rendreMateriel
+	
+	@Override
+	public void rendreMateriel(int id) {
+
+				if(userDao.rendreMateriel(id)) {
+				System.out.println("Le materiel a été bien rendue");
+			} else {
+				System.out.println("Aucun materiel n'est alloué");
+			}
+		
+	}
+
+	
 
 
 }

@@ -10,8 +10,7 @@ public interface MaterielDao {
     Materiel findOneMateriel(Long id);
    Materiel findWithCode(String code);
    Boolean isDispo(String code);
-   int quantiteMateriel(String code);
-   void diminuerQuantite(String Code);
+   void nonDispo(String code);
 	
 
 }

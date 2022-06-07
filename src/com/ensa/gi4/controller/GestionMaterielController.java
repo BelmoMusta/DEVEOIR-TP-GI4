@@ -54,16 +54,25 @@ public class GestionMaterielController {
        			System.out.println("Pour chercher un materiel,saisir 2: ");
        			System.out.println("Pour allouer un materiel saisir 3: ");
        			System.out.println("Pour rendre un materiel saisir 4: ");
+       			System.out.println("Pour rendre un materiel saisir 5: ");
+
+
        			String num = scanner.next();
        			
        			if(num.equals("1")) {
         			gestionMateriel.listerMateriel();
+        		    System.out.println(" ");
+        			System.out.println("******************************");
         		}
        			
         		else if(num.equals("2")) {
             		System.out.println("entrer son id : ");
             		String id = scanner.next();
         			gestionMateriel.findOneMateriel(Long.parseLong(id));
+        		    System.out.println(" ");
+
+        			System.out.println("******************************");
+
         		}
        			
         		else if(num.equals("3")) {
@@ -72,9 +81,17 @@ public class GestionMaterielController {
         			System.out.println("entrer la durée d'allocation ");
         			String duree = scanner.next();
         			gestionUser.allouerMateriel(code, duree);
+        		    System.out.println(" ");
+
+        			System.out.println("******************************");
+
         		}
         		
-       			
+        		else if(num.equals("4")) {
+        			System.out.println("Saisir le code du matériel à rendre");
+	    			int id=scanner.nextInt();
+	    			gestionUser.rendreMateriel(id);
+        		}
        		 }
        	 }
        }

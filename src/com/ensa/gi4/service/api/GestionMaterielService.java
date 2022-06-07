@@ -6,5 +6,5 @@ public interface GestionMaterielService {
     void init();
     void listerMateriel();
     void ajouterNouveauMateriel(Materiel materiel);
-	Materiel findOneMateriel(long id);
+	void findOneMateriel(long id);
 }

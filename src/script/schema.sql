@@ -5,10 +5,11 @@ CREATE TABLE materiel
     id   INT AUTO_INCREMENT PRIMARY KEY,
 
     name VARCHAR(250) NOT NULL,
-
     code VARCHAR(250) NOT NULL,
-    quantite int NOT NULL,
-    dispo BOOLEAN DEFAULT true
+    allouer int(50) NULL,
+    duree VARCHAR(250) NULL,
+    dispo BOOLEAN DEFAULT true ,
+      CONSTRAINT allouer foreign key (allouer) references User(id),
 
 );
 
