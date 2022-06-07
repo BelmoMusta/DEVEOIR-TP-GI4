@@ -1,21 +1,40 @@
 package com.ensa.gi4.modele;
 
 public abstract class Materiel {
+	private Long id;
+	private Long idUtilisateur;
     private String code;
     private String name;
-    private int quantite;
+    private String dure;
 
     public String getName() {
         return name;
     }
 
-    public int getQuantite() {
-		return quantite;
+    public Long getId() {
+		return id;
 	}
 
-	public void setQuantite(int quantite) {
-		this.quantite = quantite;
+	public void setId(Long id) {
+		this.id = id;
 	}
+
+	public Long getIdUtilisateur() {
+		return idUtilisateur;
+	}
+
+	public void setIdUtilisateur(Long idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
+	}
+
+	public String getDure() {
+		return dure;
+	}
+
+	public void setDure(String dure) {
+		this.dure = dure;
+	}
+
 
 	public void setName(String name) {
         this.name = name;
@@ -31,8 +50,11 @@ public abstract class Materiel {
 
 	@Override
 	public String toString() {
-		return "Materiel [code=" + code + ", name=" + name + ", quantite=" + quantite + "]";
+		return "Materiel [id=" + id + ", idUtilisateur=" + idUtilisateur + ", code=" + code + ", name=" + name
+				+ ", dure=" + dure + "]";
 	}
+
+	
     
     
 }

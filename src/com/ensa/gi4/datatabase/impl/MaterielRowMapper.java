@@ -11,13 +11,19 @@ public class MaterielRowMapper implements RowMapper<Materiel> {
     public Materiel mapRow(ResultSet resultSet, int i) throws SQLException {
         Materiel materiel = new Materiel() { // because it is abstract
         };
-
-        String name = resultSet.getString(2);
-        String name_ = resultSet.getString("NAME");
-        String code_ = resultSet.getString("CODE");
-        String code = resultSet.getString(3);
+        Long id = resultSet.getLong("ID_MATERIEL");
+   //     String name = resultSet.getString(2);
+        String name = resultSet.getString("NAME");
+        String code = resultSet.getString("CODE");
+    //    String code = resultSet.getString(3);
+        Long idUtilisateur= resultSet.getLong("UTILISATEUR_ID");
+        String dure = resultSet.getString("DUREE");
+        materiel.setId(id);
         materiel.setCode(code);
         materiel.setName(name);
+        materiel.setIdUtilisateur(idUtilisateur);
+        materiel.setDure(dure);
+        
 
         return materiel;
     }

@@ -17,7 +17,6 @@ public class GestionUtilisateurServiceImpl implements GestionUtilisateurService 
 	 }
 public Utilisateur connexion(String nom, String password) {
 	if(utilisateurDao.findUtilisateur(nom, password) != null) {
-		System.out.println("vous etes connecte : "+ nom);
 		return utilisateurDao.findUtilisateur(nom, password);
 	}else {
 		System.out.println("données eronnées");

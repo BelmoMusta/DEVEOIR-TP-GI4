@@ -29,13 +29,8 @@ public class GestionMaterielController {
 	@Qualifier("materielService")
 	private GestionMaterielService gestionMaterielService;
     
-    public void afficherMenu() {
-    	System.out.println("Saiasir votre nom");
-    	Scanner scanner  = new Scanner(System.in);
-        String nom = scanner.next();
-        System.out.println("Saisir votre password ");
-        String password = scanner.next();
-    	if(gestionUtilisateurService.connexion(nom, password)!=null) {
+    public void afficherMenu(String nom, String password) {
+    	if(gestionUtilisateurService.connexion(nom, password)!=null && gestionUtilisateurService.connexion(nom, password).getRole().equals("admin")) {
     	/*	 Scanner scanner  = new Scanner(System.in);
              publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));*/
         	 System.out.println("1- Chercher un matériel");
@@ -48,52 +43,90 @@ public class GestionMaterielController {
              System.out.println("8- Afficher la liste des matériels alloués par lui même");
              System.out.println("9- Afficher la liste des matériels alloués par chaque utilisateur");
              System.out.println("0- pour sortir de l'application, entrer 0");
-             String next = scanner.next();
+             Scanner scannerAdmin  = new Scanner(System.in);
+             String next = scannerAdmin.next();
              if ("0".equals(next)) {
                  sortirDeLApplication();
-             } else if ("10".equals(next)) {
-               gestionMaterielService.listerMateriel();
-             }else if("1".equals(next)) {
+             } else if("1".equals(next)) {
             	 System.out.println("Saiasir ID du materiel");            	            	
-                 Long ID = scanner.nextLong();
+                 Long ID = scannerAdmin.nextLong();
                  gestionMaterielService.chercherMateriel(ID);
              }else if("2".equals(next)) {
-            	 System.out .println("Saisir le nom du materiel");
-            	 String nomMateriel=scanner.next();
+            	 System.out.println("Saisir le nom du materiel");
+            	 String nomMateriel=scannerAdmin.next();
             	 System.out.println("Saisir le code du materiel");
-            	 String code=scanner.next();
-            	 System.out.println("Saisir la quantite du materiel");
-            	 int quantite=scanner.nextInt();
+            	 String code=scannerAdmin.next();
             	 Materiel materiel=new Livre();
             	 materiel.setName(nomMateriel);
             	 materiel.setCode(code);
-            	 materiel.setQuantite(quantite);
             	 gestionMaterielService.ajouterNouveauMateriel(materiel);
              }else if("3".equals(next)) {
-            	 System.out .println("Saisir ID du materiel");
-            	 Long idMateriel=scanner.nextLong();
+            	 System.out.println("Saisir ID du materiel");
+            	 Long idMateriel=scannerAdmin.nextLong();
             	 gestionMaterielService.deleteMateriel(idMateriel);
+             }
+             else if("4".equals(next)) {
+            	 System.out.println("Saisir ID du materiel");
+            	 Long idMateriel=scannerAdmin.nextLong();
+             }else if("5".equals(next)) {
+            	 System.out.println("Saisir ID du materiel qui vous voulez marquer indispoible");
+            	 Long idMateriel=scannerAdmin.nextLong();
+            	 gestionMaterielService.marquerMaterielIndisponible(idMateriel);
+             }else if("6".equals(next)) {
+            	 System.out.println("Saisir ID du materiel");
+            	 Long idMateriel=scannerAdmin.nextLong();
+            	 System.out.println("Saisir dure");
+            	 String dure=scannerAdmin.next();
+            	 gestionMaterielService.allouerMateriel(idMateriel, dure, gestionUtilisateurService.connexion(nom, password).getId());
+             }else if("7".equals(next)) {
+            	 System.out.println("Saisir ID du materiel");
+            	 Long idMateriel=scannerAdmin.nextLong();
+            	 gestionMaterielService.rendreMateriel(idMateriel);
+             }else if("8".equals(next)) {
+            	 gestionMaterielService.listeMaterielAlloue(gestionUtilisateurService.connexion(nom, password).getId());
+             }else if("9".equals(next)) {
+            	 gestionMaterielService.listeMaterielAlloueAll();
              }
              else {
                  System.out.println("Choix invalide !!!");
              }
-             System.out.println("------------------------------------------------------");
-             
-            
+             System.out.println("------------------------------------------------------");    
     	}
-    /*	else {
-    	  System.out.println(" saisir 0 pour sortir de l'application");
-       	  System.out.println(" saisir 1 pour réesayer à nouveau");
-       	  String choix = scanner.next();
-       	  if(choix.equals("0")) {
-       		  sortirDeLApplication();
-       	  }else {
-       		  nom=null;
-       		  password=null;
-       		  afficherMenu();
-       	  }
+    	
+    	
+    	if(gestionUtilisateurService.connexion(nom, password)!=null && gestionUtilisateurService.connexion(nom, password).getRole().equals("employe")) {
+    		 System.out.println("1- Chercher un matériel");
+             System.out.println("2- Allouer un matériel");
+             System.out.println("3- Rendre un materiel");
+             System.out.println("4- Afficher la liste des matériels alloués par lui même");
+             System.out.println("5- Afficher la liste de tous les matériels");
+             System.out.println("0- pour sortir de l'application, entrer 0");
+             Scanner scannerEmploye  = new Scanner(System.in);
+             String next = scannerEmploye.next();
+             if ("0".equals(next)) {
+                 sortirDeLApplication();
+             } else if("1".equals(next)) {
+            	 System.out.println("Saiasir ID du materiel");            	            	
+                 Long ID = scannerEmploye.nextLong();
+                 gestionMaterielService.chercherMateriel(ID);
+             }else if("2".equals(next)) {
+            	 System.out.println("Saisir ID du materiel");
+            	 Long idMateriel=scannerEmploye.nextLong();
+            	 System.out.println("Saisir dure");
+            	 String dure=scannerEmploye.next();
+            	 gestionMaterielService.allouerMateriel(idMateriel, dure, gestionUtilisateurService.connexion(nom, password).getId());
+             }else if("3".equals(next)) {
+            	 System.out.println("Saisir ID du materiel");
+            	 Long idMateriel=scannerEmploye.nextLong();
+            	 gestionMaterielService.rendreMateriel(idMateriel);
+             }
+             else if("4".equals(next)) {
+            	 gestionMaterielService.listeMaterielAlloue(gestionUtilisateurService.connexion(nom, password).getId());
+             }else if("5".equals(next)) {
+            	 gestionMaterielService.listerMateriel();
+             }
     	}
-    	*/
+    	
       }
 
     private void sortirDeLApplication() {

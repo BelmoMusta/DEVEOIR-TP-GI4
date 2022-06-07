@@ -9,4 +9,9 @@ public interface MaterielDao {
     Materiel findOne(Long id);
     void addMateriel(Materiel materiel);
     void deleteMateriel(Long id);
+    void marquerMaterielIndisponible(Long id);
+    void allouerMateriel(Long idMateriel, String dure, Long idUtilisateur);
+    void rendreMateriel(Long idMateriel);
+    List<Materiel> listeMaterielAlloue(Long id);
+    List<Materiel> listeMaterielAlloueAll();
 }

@@ -16,9 +16,11 @@ public class UtilisateurRowMapper implements RowMapper<Utilisateur> {
 		Utilisateur utilisateur = new Utilisateur() { // because it is abstract
 	        };
 
+	        Long id = resultSet.getLong("ID");
 	        String nom = resultSet.getString("username");
 	        String password = resultSet.getString("password");
 	        String role = resultSet.getString("role");
+	        utilisateur.setId(id);
 	        utilisateur.setUsername(nom);
 	        utilisateur.setPassword(password);
 	        utilisateur.setRole(role);

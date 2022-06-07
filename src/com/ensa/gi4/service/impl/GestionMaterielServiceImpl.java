@@ -22,8 +22,8 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     }
 
 	@Override
-	public void chercherMateriel(Long code) {
-		 System.out.println(materielDao.findOne(code));
+	public void chercherMateriel(Long id) {
+		 System.out.println(materielDao.findOne(id));
 	}
 
     @Override
@@ -35,5 +35,37 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     public void deleteMateriel(Long id) {
     	materielDao.deleteMateriel(id);
     }
+
+	@Override
+	public void marquerMaterielIndisponible(Long id) {
+		materielDao.marquerMaterielIndisponible(id);
+		
+	}
+
+	
+
+	@Override
+	public void allouerMateriel(Long idMateriel, String dure, Long idUtilisateur) {
+		materielDao.allouerMateriel(idMateriel, dure, idUtilisateur);
+		
+	}
+
+	@Override
+	public void rendreMateriel(Long idMateriel) {
+		materielDao.rendreMateriel(idMateriel);
+		
+	}
+
+	@Override
+	public void listeMaterielAlloue(Long id) {
+		System.out.println(materielDao.listeMaterielAlloue(id));
+		
+	}
+
+	@Override
+	public void listeMaterielAlloueAll() {
+		System.out.println(materielDao.listeMaterielAlloueAll());
+		
+	}
 
 }
