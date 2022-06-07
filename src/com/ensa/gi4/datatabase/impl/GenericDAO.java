@@ -40,9 +40,8 @@ public abstract class GenericDAO<T> implements InitializingBean {
     	}
     }
     protected int insererOrUpdateOrDelete(String sql ) {   	
-int i = this.jdbcTemplate.update(sql);
-System.out.print("------------------------------------   "+ i +"\n");
-    	return i;
+
+    	return this.jdbcTemplate.update(sql);
     }
    
     protected int count(String sql ) {

@@ -1,5 +1,7 @@
 package com.ensa.gi4.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Component;
@@ -22,7 +24,7 @@ public class GestionPersonneServiceImpl implements GestionPersonneService {
 
 	public Personne connecter(String nom, String pw) {
 		if (personneDao.findPersonne(nom, pw) != null) {
-			System.out.println("vous etes connecte : " + nom);
+			System.out.println("vous êtes connecté(e) : soyez les bienvenus  " + nom);
 			return personneDao.findPersonne(nom, pw);
 		} else {
 			System.out.println("données eronnées");
@@ -76,6 +78,23 @@ public class GestionPersonneServiceImpl implements GestionPersonneService {
 			System.out.println("Ce materiel n'est pas disponible ou epuisé");
 		}
 		
+	}
+
+	@Override
+	public void listerMaterielAlloue() {
+		
+		if(!materielDao.listerMaterielsAlloue().isEmpty()) {
+		System.out.println(materielDao.listerMaterielsAlloue());}
+		else {
+			System.out.println("Vous n'avez pas alloué(e) aucun matériel");
+		}
+		
+	}
+
+	@Override
+	public String determinerRole() {
+		
+		return personneDao.determinerRole();
 	}
 
 }

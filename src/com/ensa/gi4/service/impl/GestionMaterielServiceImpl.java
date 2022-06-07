@@ -18,14 +18,21 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void listerMateriel() {
+    	if(!materielDao.findAll().isEmpty()) {
     	
-        System.out.println(materielDao.findAll());
+        System.out.println(materielDao.findAll());}
+    	else {
+    		System.out.println("Aucun matériel");
+    	}
     }
 
     @Override
     public void ajouterNouveauMateriel(Materiel materiel) {
-
-        System.out.println("L'ajout du matÃ©riel " + materiel.getName() + " effectuÃ© avec succÃ¨s !");
+         if( materielDao.ajouterMateriel(materiel)) {
+        System.out.println("L'ajout du matériel " + materiel.getName() + " effectuée avec succès !");
+         } else {
+        	 System.out.println("une erreur a été survenu lors du l'ajout du "+ materiel.getName()+"veuillez réessayer à nouveau!");
+         }
     }
 
 	@Override
@@ -36,6 +43,26 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 			System.out.println("le matériel n'existe pas");
 		}
 		
+		
+	}
+
+	@Override
+	public void supprimerMateriel(int id) {
+		if(materielDao.supprimmerMateriel(id)) {
+			System.out.println("La suppression a bien été effectuée");
+		}else {
+			System.out.println("une erreur a été survenu veuillez réessayer à nouveau!");
+		}
+		
+	}
+
+	@Override
+	public void modifierMateriel(int id, String nom, String code) {
+		if(materielDao.modifierMateriel(id, nom, code)) {
+			System.out.println("La suppression a bien été effectuée");
+		}else {
+			System.out.println("une erreur a été survenu veuillez réessayer à nouveau!");
+		}
 		
 	}
     

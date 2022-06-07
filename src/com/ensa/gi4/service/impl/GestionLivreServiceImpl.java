@@ -18,7 +18,7 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
     @Override
     public void ajouterNouveauMateriel(Materiel materiel) {
 
-        System.out.println("L'ajout du matÃ©riel " + materiel.getName() + " effectuÃ© avec succÃ¨s !");
+        System.out.println("L'ajout du matériel " + materiel.getName() + " effectuée avec succès !");
     }
 
     @Override
@@ -29,6 +29,18 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 
 	@Override
 	public void findMateriel(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void supprimerMateriel(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void modifierMateriel(int id, String nom, String code) {
 		// TODO Auto-generated method stub
 		
 	}

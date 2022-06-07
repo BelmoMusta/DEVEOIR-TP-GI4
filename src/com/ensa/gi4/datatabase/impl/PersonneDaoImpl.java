@@ -9,7 +9,7 @@ import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.datatabase.api.PersonneDAO;
 import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.modele.Personne;
-
+import java.util.*;
 @Component
 public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO {
 	private Personne personneConnecte;
@@ -42,7 +42,9 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	@Override
 	public boolean allouerMateriel(String nom, String duree) {
 		if (personneConnecte != null) {
-			String sql = "update materiel set allouer= " + personneConnecte.getId() + ", duree = '" + duree+ "' where allouer IS NULL and disponible = true and name='" + nom + "' limit 1";
+			String sql = "update materiel set allouer= " + personneConnecte.getId() +
+					", duree = '" + duree+ "' where allouer IS NULL and disponible = true and name='" +
+					nom + "' limit 1";
 //sql= "update materiel set allouer = 1 ";
 			if (super.insererOrUpdateOrDelete(sql) !=0) {
 				return true;
@@ -78,15 +80,11 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 		return false;
 	}*/
 
-	@Override
-	public Materiel listerMaterielsAlloue() {
-		String sql = "select materiel_id from allouer where user_id=" + personneConnecte.getId() + "";
-		return null;
-	}
+
 
 	@Override
 	public boolean rendreMateriel(int id) {
-		String sql  = "update materiel set allouer= 0, duree = null where allouer="+personneConnecte.getId()+" and name='"+id+"'";
+		String sql  = "update materiel set allouer= null, duree = null where allouer="+personneConnecte.getId()+" and id="+id+"";
 		if (super.insererOrUpdateOrDelete(sql) !=0) {
 			return true;
 		}else {
@@ -96,5 +94,19 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	 
 		
 	}
+
+	public Personne getPersonneConnecte() {
+		return personneConnecte;
+	}
+
+	@Override
+	public String determinerRole() {
+		if(personneConnecte!=null) {
+			return personneConnecte.getRole();
+		}
+		return "";
+	}
+
+	
 
 }

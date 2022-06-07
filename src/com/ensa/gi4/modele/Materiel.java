@@ -60,6 +60,6 @@ public abstract class Materiel {
 
     @Override
     public String toString() {
-        return "name = " + name + ", code = " + code+" allouer = "+allouer+" duree = "+ duree+"\n";
+        return "id = "+ id + " name = " + name + ", code = " + code+" allouer = "+allouer+" duree = "+ duree+"\n";
     }
 }

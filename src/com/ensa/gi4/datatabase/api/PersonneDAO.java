@@ -1,5 +1,7 @@
 package com.ensa.gi4.datatabase.api;
 
+import java.util.List;
+
 import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.modele.Personne;
 
@@ -8,5 +10,6 @@ Personne findPersonne(String nom, String pw);
 boolean allouerMateriel(String code,String duree);
 //boolean verifierExistanceAllocation(String code);
 boolean rendreMateriel(int id);
-Materiel listerMaterielsAlloue();
+Personne getPersonneConnecte() ;
+String determinerRole();
 }
