@@ -10,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 
 @SuppressWarnings("all")
-@ComponentScan
+@ComponentScan(basePackages = "com.ensa.gi4")
 public class AppGestionMateriel {
     private static final ApplicationContext APPLICATION_CONTEXT;
 

@@ -15,15 +15,29 @@ public abstract class GenericDAO<T> implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() { // from InitializingBean
+
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     protected List<T> findAll(String query) {
+
         return jdbcTemplate.query(query, getRowMapper());
     }
 
     protected T findOne(String query, Long id) {
+
         return jdbcTemplate.queryForObject(query, getRowMapper(), id);
+    }
+
+    protected int deleteOne(String query, Long id) {
+
+        return jdbcTemplate.update(query, id);
+    }
+
+    protected int addOne(String query, String name, String code, String type, Long stock, Boolean disponibility) {
+
+        return jdbcTemplate.update(query, name, code, type, stock, disponibility);
+
     }
 
     protected abstract RowMapper<T> getRowMapper();

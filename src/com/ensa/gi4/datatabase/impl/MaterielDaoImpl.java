@@ -10,16 +10,43 @@ import java.util.List;
 public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao {
     @Override
     public List<Materiel> findAll() {
-        return super.findAll("SELECT * FROM MATERIEL;");
+
+        String query = "SELECT * FROM MATERIEL;";
+        return super.findAll(query);
+
     }
 
     @Override
     public Materiel findOne(Long id) {
-        return super.findOne("SELECT * FROM MATERIEL WHERE ID=?;", id);
+
+        String query = "SELECT * FROM MATERIEL WHERE ID=?";
+        return super.findOne(query, id);
+
+    }
+
+    @Override
+    public String deleteMateriel(Long id) {
+
+        // deletion code here
+        String query = "DELETE FROM MATERIEL WHERE ID=?";
+        super.deleteOne(query, id);
+        return "Le materiel a été supprimé avec succes";
+
+    }
+
+    @Override
+    public String addMateriel(Materiel materiel) {
+
+        // addition code here
+        String query = "INSERT INTO MATERIEL(name, code, type, stock, dispo) VALUES(?,?,?,?,?)";
+        super.addOne(query, materiel.getName(), materiel.getCode(), materiel.getType(), materiel.getStock(), materiel.getDispo());
+        return "Le materiel a été ajouté avec succes";
+
     }
 
     @Override
     protected MaterielRowMapper getRowMapper() { // template method design pattern
+
         return new MaterielRowMapper();
     }
 }
