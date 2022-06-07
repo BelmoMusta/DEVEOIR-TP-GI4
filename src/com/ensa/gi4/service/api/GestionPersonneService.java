@@ -4,8 +4,10 @@ import com.ensa.gi4.modele.Personne;
 
 public interface GestionPersonneService {
 	Personne connecter(String nom, String pw);
-	void allouerMateriel(String code, String duree);
-	void rendreMateriel(String code);
+	//void allouerMateriel(String code, String duree);
+	void allouerMateriel(String nom, String duree);
+	
+	void rendreMateriel(int id);
 	
 
 }

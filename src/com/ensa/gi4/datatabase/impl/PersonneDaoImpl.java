@@ -29,33 +29,72 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 		return personneConnecte;
 	}
 
+	/*
+	 * @Override public void allouerMateriel(String code, String duree) {
+	 * 
+	 * String sql = "insert into allouer (materiel_id,user_id,duree) values(" +
+	 * materielDao.codeMatereielExiste(code).getId() + "," +
+	 * personneConnecte.getId() + ",'" + duree + "')";
+	 * super.insererOuUpdateOrDelete(sql); // return personneConnecte;
+	 * 
+	 * }
+	 */
 	@Override
-	public void allouerMateriel(String code, String duree) {
+	public boolean allouerMateriel(String nom, String duree) {
+		if (personneConnecte != null) {
+			String sql = "update materiel set allouer= " + personneConnecte.getId() + ", duree = '" + duree+ "' where allouer IS NULL and disponible = true and name='" + nom + "' limit 1";
+//sql= "update materiel set allouer = 1 ";
+			if (super.insererOrUpdateOrDelete(sql) !=0) {
+				return true;
+			}else {
+				return false;
+			}
 
-		String sql = "insert into allouer (materiel_id,user_id,duree) values("
-				+ materielDao.codeMatereielExiste(code).getId() + "," + personneConnecte.getId() + ",'" + duree + "')";
-		super.insererOuUpdateOrDelete(sql);
-		// return personneConnecte;
+		} 
+			return false;
+		
 
 	}
 
-	@Override
+	/*@Override
 	public void rendreMateriel(String code) {
-		if(materielDao.codeMatereielExiste(code)!= null) {
-		String sql = "delete from allouer where materiel_id=" + materielDao.codeMatereielExiste(code).getId()
-				+ "and user_id=" + personneConnecte.getId() + "";
-		super.insererOuUpdateOrDelete(sql);
+		if (materielDao.codeMatereielExiste(code) != null) {
+			String sql = "delete from allouer where materiel_id=" + materielDao.codeMatereielExiste(code).getId()
+					+ "and user_id=" + personneConnecte.getId() + "";
+			super.insererOrUpdateOrDelete(sql);
 		}
-	}
-	@Override
+	}*/
+
+	/*@Override
 	public boolean verifierExistanceAllocation(String code) {
-		if(materielDao.codeMatereielExiste(code)!= null) {
-		String sql = "select count (*)  from allouer where  materiel_id=" + materielDao.codeMatereielExiste(code).getId()+""	+ "and user_id=" + personneConnecte.getId() + "";
-			if(super.count(sql)!=0) {
-			return true;
+		if (materielDao.codeMatereielExiste(code) != null) {
+			String sql = "select count (*)  from allouer where  materiel_id="
+					+ materielDao.codeMatereielExiste(code).getId() + "" + "and user_id=" + personneConnecte.getId()
+					+ "";
+			if (super.count(sql) != 0) {
+				return true;
+			}
 		}
-}
 		return false;
+	}*/
+
+	@Override
+	public Materiel listerMaterielsAlloue() {
+		String sql = "select materiel_id from allouer where user_id=" + personneConnecte.getId() + "";
+		return null;
+	}
+
+	@Override
+	public boolean rendreMateriel(int id) {
+		String sql  = "update materiel set allouer= 0, duree = null where allouer="+personneConnecte.getId()+" and name='"+id+"'";
+		if (super.insererOrUpdateOrDelete(sql) !=0) {
+			return true;
+		}else {
+			return false;
 		}
+
+	 
+		
+	}
 
 }

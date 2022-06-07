@@ -39,13 +39,20 @@ public abstract class GenericDAO<T> implements InitializingBean {
     		return null;
     	}
     }
-    protected void insererOuUpdateOrDelete(String sql ) {   	
-
-    	this.jdbcTemplate.update(sql);
+    protected int insererOrUpdateOrDelete(String sql ) {   	
+int i = this.jdbcTemplate.update(sql);
+System.out.print("------------------------------------   "+ i +"\n");
+    	return i;
     }
+   
     protected int count(String sql ) {
-    	return  this.jdbcTemplate.queryForObject(sql, Integer.class);
+    	int i = this.jdbcTemplate.queryForObject(sql, Integer.class);
+    	System.out.println("************************ : : "+i);
+    	return i;
     }
+   /* protected List<Integer> listId(String sql){
+    	return this.jdbcTemplate.query(sql);
+    }*/
     
     protected abstract RowMapper<T> getRowMapper();
 }

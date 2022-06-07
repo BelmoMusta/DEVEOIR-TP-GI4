@@ -9,9 +9,9 @@ public interface MaterielDao {
     Materiel findOne(Long id);
   
     int quantiteMateriel(String code);
-    boolean estDisponible(String code);
-    Materiel codeMatereielExiste(String code);
-    void diminuerQuantite(String code);
-    void augmenterQuantite(String code);
+    boolean estDisponible(String nom);
+    Materiel nomMatereielExiste(String nom);
+  //  void diminuerQuantite(String code);
+  //  void augmenterQuantite(String code);
 
 }

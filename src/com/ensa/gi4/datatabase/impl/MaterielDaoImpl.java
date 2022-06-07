@@ -25,48 +25,57 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 
 
 
-	@Override
+	/*@Override
 	public int quantiteMateriel(String code) {
 		if( codeMatereielExiste(code)!= null) {
 			return codeMatereielExiste(code).getQuantite();
+		}
+		return 0;
+	}*/
+	@Override
+	public int quantiteMateriel(String nom) {
+		if( nomMatereielExiste(nom)!= null) {
+			String sql = "select count (*)  from materiel where name = '"+nom+"'";
+			
+			return super.count(sql);
 		}
 		return 0;
 	}
 
 	@Override
 	public boolean estDisponible(String code) {
-		if( codeMatereielExiste(code)!= null) {
-			return codeMatereielExiste(code).isDisponible();
+		if( nomMatereielExiste(code)!= null) {
+			return nomMatereielExiste(code).isDisponible();
 		}
 		return false;
 	}
 
 	@Override
-	public Materiel codeMatereielExiste(String code) {
-		String sql = "select * from materiel where code = '"+code+"'";
+	public Materiel nomMatereielExiste(String nom) {
+		String sql = "select * from materiel where name = '"+nom+"' limit 1";
 		return super.executeQuery(sql);
 	}
 
-	@Override
+	/*@Override
 	public void diminuerQuantite(String code) {
 		if( codeMatereielExiste(code)!= null) {
 			int nouveauQuantite = quantiteMateriel(code)-1;
 			String sql = "update materiel set quantite="+ nouveauQuantite +"";
-			super.insererOuUpdateOrDelete(sql);
+			super.insererOrUpdateOrDelete(sql);
 			
 		}	
-	}
+	}*/
 
-	@Override
+/*	@Override
 	public void augmenterQuantite(String code) {
 		if( codeMatereielExiste(code)!= null) {
 			int nouveauQuantite = quantiteMateriel(code)+1;
 			String sql = "update materiel set quantite="+ nouveauQuantite +"";
-			super.insererOuUpdateOrDelete(sql);
+			super.insererOrUpdateOrDelete(sql);
 			
 		}
 		
-	}
+	}*/
 
 	
 	

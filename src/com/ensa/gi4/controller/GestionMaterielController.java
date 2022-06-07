@@ -56,8 +56,8 @@ public class GestionMaterielController {
     			gestionPersonneService.allouerMateriel(code, duree);
     		}else if(choix.equals("4")) {
     			System.out.println("Saisir le code du matériel à rendre");
-    			String code=scanner.next();
-    			gestionPersonneService.rendreMateriel(code);
+    			int id=scanner.nextInt();
+    			gestionPersonneService.rendreMateriel(id);
     			
     		}
     		

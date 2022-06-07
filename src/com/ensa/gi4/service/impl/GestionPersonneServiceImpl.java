@@ -36,7 +36,7 @@ public class GestionPersonneServiceImpl implements GestionPersonneService {
 	 * println("Votre allocation a été bien enregistré, veuillez rendre le matériel avant "
 	 * +duree); }else { System.out.println("impossible d'allouer ce materiel"); } }
 	 */
-	@Override
+/*	@Override
 	public void allouerMateriel(String code, String duree) {
 		if (materielDao.codeMatereielExiste(code) != null) {
 			if (materielDao.estDisponible(code)) {
@@ -55,21 +55,27 @@ public class GestionPersonneServiceImpl implements GestionPersonneService {
 		} else {
 			System.out.println("Ce Code n'existe pas");
 		}
-	}
+	}*/
 
 	@Override
-	public void rendreMateriel(String code) {
-		if (materielDao.codeMatereielExiste(code) == null) {
-			System.out.println("Ce Code n'existe pas");
-
-		} else {
-			if (personneDao.verifierExistanceAllocation(code)== true) {
-				personneDao.rendreMateriel(code);
+	public void rendreMateriel(int id) {			
+				if(personneDao.rendreMateriel(id)) {
 				System.out.println("Vous avez bien rendu le matériel");
 			} else {
 				System.out.println("Vous n'avez pas alloué ce matériel");
 			}
+		
+	}
+
+	@Override
+	public void allouerMateriel(String nom, String duree) {
+		if(personneDao.allouerMateriel(nom, duree)) {
+			System.out.println("Votre allocation a bien été effectuée, merci de rendre la materiel avant "
+											+ duree + " jours");
+		}else {
+			System.out.println("Ce materiel n'est pas disponible ou epuisé");
 		}
+		
 	}
 
 }
