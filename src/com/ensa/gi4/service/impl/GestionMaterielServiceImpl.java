@@ -68,4 +68,10 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 		
 	}
 
+	@Override
+	public void modifierMateriel(Long id, String name, String code) {
+		materielDao.modifierMateriel(id, name, code);
+		
+	}
+
 }

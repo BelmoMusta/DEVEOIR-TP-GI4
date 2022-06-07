@@ -12,6 +12,7 @@ public interface MaterielDao {
     void marquerMaterielIndisponible(Long id);
     void allouerMateriel(Long idMateriel, String dure, Long idUtilisateur);
     void rendreMateriel(Long idMateriel);
+    void modifierMateriel(Long id, String nom, String code);
     List<Materiel> listeMaterielAlloue(Long id);
     List<Materiel> listeMaterielAlloueAll();
 }

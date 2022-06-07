@@ -1,5 +1,6 @@
 package com.ensa.gi4.datatabase.impl;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,13 @@ public class UtilisateurDaoImpl extends GenericDAO<Utilisateur> implements Utili
 
 	@Override
 	public Utilisateur findUtilisateur(String nom, String pw) {
-		String sql = "Select * from utilisateur where username ='"+nom+"' and password = '"+pw+"'";
-		return super.executeQuery(sql);
+		try {
+			String sql = "Select * from utilisateur where username ='"+nom+"' and password = '"+pw+"'";
+			return super.executeQuery(sql);
+		}catch(DataAccessException e){
+			return null;
+		}
+		
+		
 	}
 }

@@ -16,11 +16,6 @@ public class GestionUtilisateurServiceImpl implements GestionUtilisateurService 
 		 this.utilisateurDao = personneDao;
 	 }
 public Utilisateur connexion(String nom, String password) {
-	if(utilisateurDao.findUtilisateur(nom, password) != null) {
-		return utilisateurDao.findUtilisateur(nom, password);
-	}else {
-		System.out.println("données eronnées");
-		return null;
-	}
+	return utilisateurDao.findUtilisateur(nom, password);
 }
 }

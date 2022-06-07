@@ -67,5 +67,11 @@ public class GestionChaiseServiceImpl implements GestionMaterielService, SmartIn
 			
 		}
 
+		@Override
+		public void modifierMateriel(Long id, String name, String code) {
+			// TODO Auto-generated method stub
+			
+		}
+
 		
 }

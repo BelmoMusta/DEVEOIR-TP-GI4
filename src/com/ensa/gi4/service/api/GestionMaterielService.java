@@ -13,4 +13,5 @@ public interface GestionMaterielService {
     void rendreMateriel(Long idMateriel);
     void listeMaterielAlloue(Long id);
     void listeMaterielAlloueAll();
+    void modifierMateriel(Long id, String name, String code);
 }

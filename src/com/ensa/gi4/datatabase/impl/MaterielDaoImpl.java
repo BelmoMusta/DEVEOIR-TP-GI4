@@ -58,4 +58,9 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	public List<Materiel> listeMaterielAlloueAll() {
 		return super.findAll("SELECT * FROM MATERIEL WHERE ALLOUE = TRUE;");
 	}
+
+	@Override
+	public void modifierMateriel(Long id, String nom, String code) {
+		super.execute("UPDATE MATERIEL SET NAME =  '"+nom+"', CODE = '"+code+"' WHERE ID_MATERIEL="+id);
+	}
 }

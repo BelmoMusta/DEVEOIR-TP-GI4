@@ -5,9 +5,12 @@ import com.ensa.gi4.listeners.ApplicationPublisher;
 import com.ensa.gi4.listeners.EventType;
 import com.ensa.gi4.listeners.MyEvent;
 import com.ensa.gi4.modele.Livre;
+import com.ensa.gi4.modele.Utilisateur;
+import com.ensa.gi4.service.api.GestionUtilisateurService;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,22 +19,21 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan
 public class AppGestionMateriel {
     private static final ApplicationContext APPLICATION_CONTEXT;
+   
 
     static { // bloc static pour initilialisation
-    	
-
+      	
         APPLICATION_CONTEXT = new AnnotationConfigApplicationContext(AppGestionMateriel.class);
     }
 
     public static void main(String[] args) {
-        final GestionMaterielController gestionMaterielController = (GestionMaterielController) APPLICATION_CONTEXT.getBean("controllerPricipal");
-        System.out.println("Saisir votre nom");
-    	Scanner scanner  = new Scanner(System.in);
-        String nom = scanner.next();
-        System.out.println("Saisir votre password ");
-        String password = scanner.next();
-        while (true) { // pour que l'appliation tourne jusqu'à la demande de l'utilisateur de l'arrêter
-            gestionMaterielController.afficherMenu(nom, password);
-        }
+        GestionMaterielController gestionMaterielController = (GestionMaterielController) APPLICATION_CONTEXT.getBean("controllerPricipal");
+        Utilisateur connexion;
+        do{
+        	connexion= gestionMaterielController.connection();
+        } while(connexion==null);
+        while (true) {
+             gestionMaterielController.afficherMenu(connexion.getUsername(), connexion.getPassword(), connexion.getRole());
+         }
     }
 }

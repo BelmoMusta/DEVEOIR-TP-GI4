@@ -19,15 +19,28 @@ public abstract class GenericDAO<T> implements InitializingBean {
     }
 
     protected List<T> findAll(String query) {
-        return jdbcTemplate.query(query, getRowMapper());
+        try {
+        	 return jdbcTemplate.query(query, getRowMapper());
+    	}catch(Exception e){
+    		return null;
+    	}
     }
 
     protected T findOne(String query, Long id) {
-        return jdbcTemplate.queryForObject(query, getRowMapper(), id);
+    	try {
+    		return jdbcTemplate.queryForObject(query, getRowMapper(), id);
+    	}catch(Exception e){
+    		return null;
+    	}
+        
     }
     
     protected T executeQuery(String query) {
-        return jdbcTemplate.queryForObject(query, getRowMapper());
+    	try {
+    		return jdbcTemplate.queryForObject(query, getRowMapper());
+    	}catch(Exception e){
+    		return null;
+    	}
     }
     protected void execute(String query) {
          jdbcTemplate.execute(query);

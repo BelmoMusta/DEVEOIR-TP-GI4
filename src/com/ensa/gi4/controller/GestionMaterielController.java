@@ -3,8 +3,11 @@ package com.ensa.gi4.controller;
 import com.ensa.gi4.listeners.ApplicationPublisher;
 import com.ensa.gi4.listeners.EventType;
 import com.ensa.gi4.listeners.MyEvent;
+import com.ensa.gi4.modele.Admin;
+import com.ensa.gi4.modele.Employee;
 import com.ensa.gi4.modele.Livre;
 import com.ensa.gi4.modele.Materiel;
+import com.ensa.gi4.modele.Utilisateur;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import com.ensa.gi4.service.api.GestionUtilisateurService;
 
@@ -29,8 +32,37 @@ public class GestionMaterielController {
 	@Qualifier("materielService")
 	private GestionMaterielService gestionMaterielService;
     
-    public void afficherMenu(String nom, String password) {
-    	if(gestionUtilisateurService.connexion(nom, password)!=null && gestionUtilisateurService.connexion(nom, password).getRole().equals("admin")) {
+	public Utilisateur connection() {
+		Utilisateur utilisateur;
+		System.out.println("---------------Connexion------------------");
+		System.out.println("Nom");
+    	Scanner scannerUtilisateur  = new Scanner(System.in);
+        String nom = scannerUtilisateur.next();
+        System.out.println("Password ");
+        String password = scannerUtilisateur.next();
+		if(gestionUtilisateurService.connexion(nom, password)!=null) {
+			if(gestionUtilisateurService.connexion(nom, password).getRole().equals("admin")) {
+				utilisateur=new Admin();
+				utilisateur.setUsername(nom);
+				utilisateur.setPassword(password);
+				utilisateur.setRole("admin");
+				return utilisateur;
+			}else {
+				utilisateur=new Employee();
+				utilisateur.setUsername(nom);
+				utilisateur.setPassword(password);
+				utilisateur.setRole("employe");
+				return utilisateur;
+			}
+		}else {
+			System.out.println("Les données n'existe pas dans la base données");
+			return null;
+		}
+	}
+	
+    public void afficherMenu(String nom, String password, String role) {
+    	if(role.equals("admin")) {
+    		System.out.println("---------------Welcome Admin------------------");
     	/*	 Scanner scanner  = new Scanner(System.in);
              publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));*/
         	 System.out.println("1- Chercher un matériel");
@@ -68,6 +100,11 @@ public class GestionMaterielController {
              else if("4".equals(next)) {
             	 System.out.println("Saisir ID du materiel");
             	 Long idMateriel=scannerAdmin.nextLong();
+            	 System.out.println("Nouveau nom");
+            	 String nouveauNom=scannerAdmin.next();
+            	 System.out.println("Nouveau code");
+            	 String nouveauCode=scannerAdmin.next();
+                 gestionMaterielService.modifierMateriel(idMateriel, nouveauNom, nouveauCode);
              }else if("5".equals(next)) {
             	 System.out.println("Saisir ID du materiel qui vous voulez marquer indispoible");
             	 Long idMateriel=scannerAdmin.nextLong();
@@ -94,7 +131,8 @@ public class GestionMaterielController {
     	}
     	
     	
-    	if(gestionUtilisateurService.connexion(nom, password)!=null && gestionUtilisateurService.connexion(nom, password).getRole().equals("employe")) {
+    	if(role.equals("employe")) {
+    		System.out.println("---------------Welcome "+nom+"------------------");
     		 System.out.println("1- Chercher un matériel");
              System.out.println("2- Allouer un matériel");
              System.out.println("3- Rendre un materiel");
