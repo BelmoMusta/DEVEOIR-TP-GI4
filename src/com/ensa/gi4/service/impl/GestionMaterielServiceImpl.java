@@ -152,7 +152,38 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         }
 
 
+
     }
+
+    @Override
+    public void renderMateriel() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("entrer l'id'du materiel que vous voulez rendre");
+
+        Long idMateriel = scanner.nextLong();
+        try{
+
+            int alloué= materielDao.findOne(idMateriel).getAlloué();
+            if(alloué==0){
+
+
+                System.out.println("materiel non alloué pour le rendre");
+            }
+            else {
+
+                materielDao.renderMaterial(0,null,idMateriel);
+                System.out.println("materiel avec l'id "+idMateriel+" rendu");
+            }
+
+
+
+        } catch (Exception e) {
+            System.out.println("materiel avec id " + idMateriel+" non trouvé");
+        }
+    }
+
+
     void sortirDeLApplication() {
         System.exit(0);
     }

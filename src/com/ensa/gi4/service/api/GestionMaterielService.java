@@ -9,7 +9,7 @@ public interface GestionMaterielService {
     void search();
     void delet();
     void update();
-    public void allouerMateriel();
-
+    void allouerMateriel();
     void marquerIndispoouDispo();
+    void renderMateriel();
 }

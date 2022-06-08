@@ -12,4 +12,5 @@ public interface MaterielDao {
     int updateMateril(String code, String newCode);
   int allouerMateriel(int alloue,Long idUser ,Long idMat);
     int marquerDisponible(int dispo, Long id);
+    int renderMaterial(int alloue,Long idUser ,Long idMat);
 }

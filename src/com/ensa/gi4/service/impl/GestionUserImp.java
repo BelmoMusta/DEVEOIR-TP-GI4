@@ -77,7 +77,7 @@ while (i==0) {
         else if ("4".equals(next)) {
             gestionMaterielService.search();
         } else if ("5".equals(next)) {
-            System.out.println("r");
+            gestionMaterielService.renderMateriel();
         } else{
             System.out.println("choix invalide");
         }
@@ -94,7 +94,8 @@ while (i==0) {
         System.out.println("4- pour chercher un  matériel par id, entrer 4");
         System.out.println("5- pour modifier un  matériel , entrer 5");
         System.out.println("6- pour allouer un  matériel , entrer 6");
-        System.out.println("6- pour marquer un materiel dispo ou non  , entrer 7");
+        System.out.println("7- pour marquer un materiel dispo ou non  , entrer 7");
+        System.out.println("8- pour render un materiel , entrer 8");
          Scanner scanner = new Scanner(System.in);
         String next = scanner.next();
         if ("0".equals(next)) {
@@ -114,6 +115,8 @@ while (i==0) {
             gestionMaterielService.allouerMateriel();
         }else if ("7".equals(next)) {
         gestionMaterielService.marquerIndispoouDispo();
+        }else if ("8".equals(next)) {
+            gestionMaterielService.renderMateriel();
         } else{
             System.out.println("choix invalide");
         }

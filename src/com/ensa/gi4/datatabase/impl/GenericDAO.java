@@ -36,6 +36,7 @@ public abstract class GenericDAO<T> implements InitializingBean {
         return jdbcTemplate.update(query,code,newCode);
     }
     protected int  allouer(String query, int alloue ,Long userId,Long matId) {return jdbcTemplate.update(query,alloue,userId,matId);
+
     }
 
 
@@ -50,4 +51,5 @@ public abstract class GenericDAO<T> implements InitializingBean {
     protected int marquerDisponible(String query,int dispo, Long id) {
         return jdbcTemplate.update(query,dispo,id);
     }
+
 }
