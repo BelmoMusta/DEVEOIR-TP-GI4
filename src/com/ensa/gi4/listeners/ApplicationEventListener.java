@@ -11,5 +11,11 @@ public class ApplicationEventListener<T extends Materiel> implements Application
         System.out.println("Event triggered");
         System.out.println("event.getEventType() = " + event.getEventType());
         System.out.println("event.getSource() = " + event.getSource());
+        if(event.getEventType().equals("ADD")) {
+        //	if(event.getSource().i)
+        	System.out.println("");
+            System.out.println("event.getSource() = " + event.getSource());
+
+        }
     }
 }

@@ -1,16 +1,11 @@
 package com.ensa.gi4.datatabase.impl;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
-
 import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.datatabase.api.PersonneDAO;
-
 import com.ensa.gi4.modele.Personne;
 
 @Component
@@ -59,7 +54,7 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	
 		List<Personne> listPersonne = super.findAll(sql);
 		for (int i = 0; i < listPersonne.size(); i++) {
-			if (verifierPW(pw, getHashPw(pw))) {
+			if (verifierPW(pw, listPersonne.get(i).getPw())) {
 
 				personneConnecte = listPersonne.get(i);
 				break;

@@ -113,7 +113,7 @@ public class GestionMaterielController {
 
 			} else {
 
-				// ******************************employe**********************
+				// ******************************employé**********************
 
 				while (true) {
 					afficherMenuEmploye();
