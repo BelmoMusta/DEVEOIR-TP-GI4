@@ -32,7 +32,7 @@ public abstract class Personne {
 	}
 	  @Override
 	    public String toString() {
-	        return "name = " + name + ", role = " + role;
+	        return "name = " + name + ", role = " + role+" "+ pw;
 	    }
 	
 

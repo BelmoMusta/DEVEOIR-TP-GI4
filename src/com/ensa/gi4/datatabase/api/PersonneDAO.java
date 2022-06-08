@@ -6,10 +6,11 @@ import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.modele.Personne;
 
 public interface PersonneDAO {
-Personne findPersonne(String nom, String pw);
-boolean allouerMateriel(String code,String duree);
-//boolean verifierExistanceAllocation(String code);
-boolean rendreMateriel(int id);
-Personne getPersonneConnecte() ;
-String determinerRole();
+	Personne findPersonne(String nom, String pw);
+
+	Personne getPersonneConnecte();
+
+	String determinerRole();
+	boolean creerCompte(String name, String pw, String role);
+
 }

@@ -1,20 +1,49 @@
 package com.ensa.gi4.datatabase.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.datatabase.api.PersonneDAO;
-import com.ensa.gi4.modele.Materiel;
+
 import com.ensa.gi4.modele.Personne;
-import java.util.*;
+
 @Component
 public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO {
 	private Personne personneConnecte;
 	@Autowired
 	MaterielDao materielDao;
+	
+	private String getHashPw(String pw) {
+		return BCrypt.hashpw(pw, BCrypt.gensalt(10));
+
+	}
+
+	private boolean verifierPW(String pw, String hashPw) {
+		if (BCrypt.checkpw(pw, hashPw)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private void hasherPw() {
+		String sql = "select count (*)  from users";
+
+		int size = super.count(sql);
+		for (int j = 1; j <= size; j++) {
+			sql = "select pw from users where id = " + j + "";
+
+			sql = "update users set pw ='" + getHashPw(super.extraireString(sql)) + "' where id = " + j + "";
+			super.insererOrUpdateOrDelete(sql);
+
+		}
+	}
 
 	@Override
 	protected RowMapper<Personne> getRowMapper() {
@@ -23,76 +52,21 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 
 	@Override
 	public Personne findPersonne(String nom, String pw) {
+		
+		hasherPw();
 
-		String sql = "Select * from users where name ='" + nom + "' and pw = '" + pw + "'";
-		personneConnecte = super.executeQuery(sql);
+		String sql = "select * from users where name ='" + nom + "'";
+	
+		List<Personne> listPersonne = super.findAll(sql);
+		for (int i = 0; i < listPersonne.size(); i++) {
+			if (verifierPW(pw, getHashPw(pw))) {
+
+				personneConnecte = listPersonne.get(i);
+				break;
+			}
+		}
+
 		return personneConnecte;
-	}
-
-	/*
-	 * @Override public void allouerMateriel(String code, String duree) {
-	 * 
-	 * String sql = "insert into allouer (materiel_id,user_id,duree) values(" +
-	 * materielDao.codeMatereielExiste(code).getId() + "," +
-	 * personneConnecte.getId() + ",'" + duree + "')";
-	 * super.insererOuUpdateOrDelete(sql); // return personneConnecte;
-	 * 
-	 * }
-	 */
-	@Override
-	public boolean allouerMateriel(String nom, String duree) {
-		if (personneConnecte != null) {
-			String sql = "update materiel set allouer= " + personneConnecte.getId() +
-					", duree = '" + duree+ "' where allouer IS NULL and disponible = true and name='" +
-					nom + "' limit 1";
-//sql= "update materiel set allouer = 1 ";
-			if (super.insererOrUpdateOrDelete(sql) !=0) {
-				return true;
-			}else {
-				return false;
-			}
-
-		} 
-			return false;
-		
-
-	}
-
-	/*@Override
-	public void rendreMateriel(String code) {
-		if (materielDao.codeMatereielExiste(code) != null) {
-			String sql = "delete from allouer where materiel_id=" + materielDao.codeMatereielExiste(code).getId()
-					+ "and user_id=" + personneConnecte.getId() + "";
-			super.insererOrUpdateOrDelete(sql);
-		}
-	}*/
-
-	/*@Override
-	public boolean verifierExistanceAllocation(String code) {
-		if (materielDao.codeMatereielExiste(code) != null) {
-			String sql = "select count (*)  from allouer where  materiel_id="
-					+ materielDao.codeMatereielExiste(code).getId() + "" + "and user_id=" + personneConnecte.getId()
-					+ "";
-			if (super.count(sql) != 0) {
-				return true;
-			}
-		}
-		return false;
-	}*/
-
-
-
-	@Override
-	public boolean rendreMateriel(int id) {
-		String sql  = "update materiel set allouer= null, duree = null where allouer="+personneConnecte.getId()+" and id="+id+"";
-		if (super.insererOrUpdateOrDelete(sql) !=0) {
-			return true;
-		}else {
-			return false;
-		}
-
-	 
-		
 	}
 
 	public Personne getPersonneConnecte() {
@@ -101,12 +75,22 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 
 	@Override
 	public String determinerRole() {
-		if(personneConnecte!=null) {
+		if (personneConnecte != null) {
 			return personneConnecte.getRole();
 		}
 		return "";
 	}
 
-	
+	@Override
+	public boolean creerCompte(String name, String pw, String role) {
+		String sql = "select * from users where name='" + name + "' and pw ='" + pw + "'";
+		if (super.executeQuery(sql) == null) {
+			sql = "insert into users (name, pw,role) values('" + name + "','" + getHashPw(pw) + "','" + role + "')";
+
+			return true;
+
+		}
+		return false;
+	}
 
 }

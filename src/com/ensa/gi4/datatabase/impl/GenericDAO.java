@@ -6,6 +6,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+
+
 import javax.sql.DataSource;
 
 import java.sql.SQLException;
@@ -15,12 +17,14 @@ public abstract class GenericDAO<T> implements InitializingBean {
     @Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
+    
 
     @Override
     public void afterPropertiesSet() { // from InitializingBean
         jdbcTemplate = new JdbcTemplate(dataSource);
+        
     }
-
+   
     protected List<T> findAll(String query) {
         return jdbcTemplate.query(query, getRowMapper());
     }
@@ -45,13 +49,14 @@ public abstract class GenericDAO<T> implements InitializingBean {
     }
    
     protected int count(String sql ) {
-    	int i = this.jdbcTemplate.queryForObject(sql, Integer.class);
-    	System.out.println("************************ : : "+i);
-    	return i;
+    	
+    	return this.jdbcTemplate.queryForObject(sql, Integer.class);
     }
-   /* protected List<Integer> listId(String sql){
-    	return this.jdbcTemplate.query(sql);
-    }*/
+    protected String extraireString(String sql ) {
+    	return this.jdbcTemplate.queryForObject(sql, String.class);
+    	
+    }
+ 
     
     protected abstract RowMapper<T> getRowMapper();
 }

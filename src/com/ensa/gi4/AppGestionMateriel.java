@@ -19,6 +19,7 @@ public class AppGestionMateriel {
     static { // bloc static pour initilialisation
 
         APPLICATION_CONTEXT = new AnnotationConfigApplicationContext(AppGestionMateriel.class);
+       
     }
 
     public static void main(String[] args) {
@@ -29,4 +30,5 @@ public class AppGestionMateriel {
         }
 
     }
+   
 }

@@ -29,11 +29,6 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 		return new MaterielRowMapper();
 	}
 
-	/*
-	 * @Override public int quantiteMateriel(String code) { if(
-	 * codeMatereielExiste(code)!= null) { return
-	 * codeMatereielExiste(code).getQuantite(); } return 0; }
-	 */
 	@Override
 	public int quantiteMateriel(String nom) {
 		if (nomMatereielExiste(nom) != null) {
@@ -45,10 +40,12 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	}
 
 	@Override
-	public boolean estDisponible(String code) {
-		if (nomMatereielExiste(code) != null) {
-			return nomMatereielExiste(code).isDisponible();
+	public boolean estDisponible(int id) {
+		String sql = "select * from materiel where id = "+id+"";
+		if(super.executeQuery(sql)!=null) {
+			return super.executeQuery(sql).isDisponible();
 		}
+		
 		return false;
 	}
 
@@ -66,7 +63,8 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 
 	@Override
 	public boolean ajouterMateriel(Materiel materiel) {
-		String sql = "insert into materiel (name,code) values('" + materiel.getName() + "','" + materiel.getCode() + "')";
+		String sql = "insert into materiel (name,code) values('" + materiel.getName() + "','" + materiel.getCode()
+				+ "')";
 		if (super.insererOrUpdateOrDelete(sql) != 0) {
 			return true;
 		}
@@ -75,7 +73,7 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 
 	@Override
 	public boolean supprimmerMateriel(int id) {
-		String sql = "delete from materiel where id=" +id+"";
+		String sql = "delete from materiel where id=" + id + "";
 		if (super.insererOrUpdateOrDelete(sql) != 0) {
 			return true;
 		}
@@ -84,31 +82,73 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 
 	@Override
 	public boolean modifierMateriel(int id, String nom, String code) {
-		String sql = "update materiel set name ='"+nom+"',code='"+code+"' where id="+id+"";
+		String sql = "update materiel set name ='" + nom + "',code='" + code + "' where id=" + id + "";
 		if (super.insererOrUpdateOrDelete(sql) != 0) {
 			return true;
 		}
 		return false;
 	}
 
-	/*
-	 * @Override public void diminuerQuantite(String code) { if(
-	 * codeMatereielExiste(code)!= null) { int nouveauQuantite =
-	 * quantiteMateriel(code)-1; String sql = "update materiel set quantite="+
-	 * nouveauQuantite +""; super.insererOrUpdateOrDelete(sql);
-	 * 
-	 * } }
-	 */
+	@Override
+	public void marquerMaterielIndisponible(int id) {
+		String sql = "update materiel set disponible = false where id =" + id + "";
+		super.insererOrUpdateOrDelete(sql) ;
+		
+	}
 
-	/*
-	 * @Override public void augmenterQuantite(String code) { if(
-	 * codeMatereielExiste(code)!= null) { int nouveauQuantite =
-	 * quantiteMateriel(code)+1; String sql = "update materiel set quantite="+
-	 * nouveauQuantite +""; super.insererOrUpdateOrDelete(sql);
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
+	@Override
+	public void afficherMaterielAlloueParUtilisateur() {
+
+		List<Materiel> listMateriel = super.findAll("select * from materiel where allouer is not null");// le materiel
+																										// alloué
+		if (!listMateriel.isEmpty()) {
+			for (int i = 0; i < listMateriel.size(); i++) {
+				System.out.println("Name = " + listMateriel.get(i).getName() + " ;code =  "
+						+ listMateriel.get(i).getCode() + " ;nom utilisateur : " + super.extraireString(
+								"select name from users where id =" + listMateriel.get(i).getAllouer() + ""));
+			}
+		} else {
+			System.out.println("pas de matériel alloués");
+		}
+
+	}
+	
+	@Override
+	public boolean allouerMateriel(String nom, String duree) {
+		if (personneDao.getPersonneConnecte() != null) {
+			String sql = "update materiel set allouer= " + personneDao.getPersonneConnecte().getId() + ", duree = '" + duree
+					+ "' where allouer IS NULL and disponible = true and name='" + nom + "' limit 1";
+
+			if (super.insererOrUpdateOrDelete(sql) != 0) {
+				return true;
+			} else {
+				return false;
+			}
+
+		}
+		return false;
+
+	}
+
+	@Override
+	public boolean rendreMateriel(int id) {
+		String sql = "update materiel set allouer= null, duree = null where allouer=" + personneDao.getPersonneConnecte().getId()
+				+ " and id=" + id + "";
+		if (super.insererOrUpdateOrDelete(sql) != 0) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	@Override
+	public boolean idMaterielExiste(int id) {
+		String sql = "select * from materiel where id = "+id+"";
+		if(super.executeQuery(sql)!=null) {
+			return true;
+		}
+		return false;
+	}
 
 }
