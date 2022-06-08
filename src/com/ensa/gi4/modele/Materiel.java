@@ -3,9 +3,27 @@ package com.ensa.gi4.modele;
 public abstract class Materiel {
     private String code;
     private String name;
+    private int disponible;
+    private int alloué;
 
     public String getName() {
         return name;
+    }
+
+    public int getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(int disponible) {
+        this.disponible = disponible;
+    }
+
+    public int getAlloué() {
+        return alloué;
+    }
+
+    public void setAlloué(int alloué) {
+        this.alloué = alloué;
     }
 
     public void setName(String name) {

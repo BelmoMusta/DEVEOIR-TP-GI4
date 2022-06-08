@@ -8,6 +8,9 @@ CREATE TABLE materiel
 
     code VARCHAR(250) NOT NULL,
 
+    dispo INTEGER(250) NOT NULL,
+
+    alloué INTEGER(250) NOT NULL,
 );
 
 

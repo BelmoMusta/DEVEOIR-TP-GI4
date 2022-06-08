@@ -19,6 +19,34 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     }
 
     @Override
+    public int aadd(Materiel materiel) {
+        return super.add("INSERT INTO MATERIEL (NAME,CODE) VALUES (?, ?)",materiel.getName(),materiel.getCode());
+    }
+
+    @Override
+    public int deleteMateriel(String code) {
+        return super.delet("DELETE FROM MATERIEL WHERE code=?;",code);
+    }
+
+
+    @Override
+    public int updateMateril(String code, String newCode) {
+        return super.update("UPDATE MATERIEL SET CODE = ? WHERE code=? ;",newCode,code);
+    }
+
+    @Override
+    public void allouerMateriel(String nom) {
+
+
+    }
+    @Override
+    public int marquerDisponible(int dispo, Long id) {
+        return super.marquerDisponible("UPDATE MATERIEL SET dispo =? WHERE id=? ;",dispo,id);
+    }
+
+
+
+    @Override
     protected MaterielRowMapper getRowMapper() { // template method design pattern
         return new MaterielRowMapper();
     }

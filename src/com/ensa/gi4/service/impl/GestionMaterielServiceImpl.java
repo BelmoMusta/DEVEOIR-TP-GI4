@@ -1,10 +1,14 @@
 package com.ensa.gi4.service.impl;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
+import com.ensa.gi4.modele.Chaise;
+import com.ensa.gi4.modele.Livre;
 import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Scanner;
 
 @Component("materielService")
 public class GestionMaterielServiceImpl implements GestionMaterielService {
@@ -18,12 +22,105 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void listerMateriel() {
-        System.out.println(materielDao.findAll());
+        for (Materiel materiel : materielDao.findAll()) {
+            System.out.println("list of all material");
+            System.out.println(materiel.getName() + " code: " + materiel.getCode());
+        }
     }
 
     @Override
-    public void ajouterNouveauMateriel(Materiel materiel) {
+    public void ajouterNouveauMateriel() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Pour ajouter un Livre entrer : 1, pour un Chaise entrer : 2");
+        int saisir = scanner.nextInt();
 
-        System.out.println("L'ajout du matériel " + materiel.getName() + " effectué avec succès !");
+        if(saisir == 1)
+        {
+            System.out.println("nom : ");
+            String nom = scanner.next();
+            System.out.println("code : ");
+            String code = scanner.next();
+            Livre l = new Livre();
+            l.setName(nom);
+            l.setCode(code);
+            materielDao.aadd(l);
+            System.out.println("L'ajout du matériel " + l.getName() + " effectué avec succès !");
+        }
+        else if(saisir == 2)
+        {
+            System.out.println("nom : ");
+            String nom = scanner.next();
+            System.out.println("code : ");
+            String code = scanner.next();
+            Chaise c = new Chaise();
+            c.setName(nom);
+            c.setName(code);
+            materielDao.aadd(c);
+            System.out.println("L'ajout du matériel " + c.getName() + " effectué avec succès !");
+        }
+
+    }
+
+    @Override
+    public void search() {
+        System.out.println("entrer l'id'du materiel que vous cherchez");
+        Scanner id = new Scanner(System.in);
+        Long iD = id.nextLong();
+
+        try
+        {
+            System.out.println(materielDao.findOne(iD));
+        } catch (Exception e) {
+            System.out.println("Le materiel avec l "+ iD +" n'existe pas");
+        }
+    }
+
+    @Override
+    public void delet() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrer le nom de materiel a supprimer : ");
+        String code = scanner.next();
+        materielDao.deleteMateriel(code);
+        System.out.println("Materiel avec le code  " + code + " Supprimé");
+    }
+    @Override
+    public void update() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrer le code de materiel a modifier : ");
+        String code = scanner.next();
+
+
+            System.out.println("code : ");
+            String newNmae = scanner.next();
+            materielDao .updateMateril(code,newNmae);
+        System.out.println("Materiel avec le code  " + newNmae + " est modiffier");
+
+
+
+    }
+
+    @Override
+    public void allouerMateriel() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrer le nom de materiel a allouer : ");
+        String  nom = scanner.next();
+        materielDao.allouerMateriel(nom);
+}
+    @Override
+    public void marquerIndispoouDispo() {
+        System.out.println("entrer l'id'du materiel que vous voulez marquer disponible");
+        Scanner id = new Scanner(System.in);
+        Long ida = id.nextLong();
+        System.out.println("tapez 0 pour rendre indisponible ou 1 pour rendre disponible");
+        Scanner dispo = new Scanner(System.in);
+        int dispoa = id.nextInt();
+        if(0==dispoa){
+            materielDao.marquerDisponible(0,ida);
+        }
+        else if(1==dispoa){
+            materielDao.marquerDisponible(1,ida);
+        }
+
     }
 }
+
