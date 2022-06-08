@@ -52,4 +52,7 @@ public abstract class GenericDAO<T> implements InitializingBean {
         return jdbcTemplate.update(query,dispo,id);
     }
 
+    protected int epuise(String query, int epuise, Long id) {
+        return jdbcTemplate.update(query,epuise,id);
+    }
 }

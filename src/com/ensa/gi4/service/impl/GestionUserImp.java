@@ -96,6 +96,7 @@ while (i==0) {
         System.out.println("6- pour allouer un  matériel , entrer 6");
         System.out.println("7- pour marquer un materiel dispo ou non  , entrer 7");
         System.out.println("8- pour render un materiel , entrer 8");
+        System.out.println("9- pour un materil epuise , entrer 9");
          Scanner scanner = new Scanner(System.in);
         String next = scanner.next();
         if ("0".equals(next)) {
@@ -117,6 +118,8 @@ while (i==0) {
         gestionMaterielService.marquerIndispoouDispo();
         }else if ("8".equals(next)) {
             gestionMaterielService.renderMateriel();
+        }else if ("9".equals(next)) {
+            gestionMaterielService.materielEpuise();
         } else{
             System.out.println("choix invalide");
         }

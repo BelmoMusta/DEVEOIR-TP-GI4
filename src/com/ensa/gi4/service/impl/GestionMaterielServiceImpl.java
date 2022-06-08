@@ -114,19 +114,36 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         try{
             userDao.findOne(userId).getPassword();
             int dispo= materielDao.findOne(id).getDisponible();
+            int epuise= materielDao.findOne(id).getEpuise();
             int alloué= materielDao.findOne(id).getAlloué();
             if(alloué==1){
                 
                 System.out.println("materiel déja alloué");
             }
-            else if(dispo==1){
+            else if(dispo==1 && epuise==1){
 
 
                 System.out.println(materielDao.allouerMateriel(1,userId,id));
+                System.out.println("materiel déja alloué");
+
+            }
+            else if(dispo==1 || epuise==0){
+
+
+                System.out.println(materielDao.allouerMateriel(1,userId,id));
+                System.out.println("materiel déja alloué");
+
+            }
+            else if(dispo==0 || epuise==1){
+
+
+                System.out.println(materielDao.allouerMateriel(1,userId,id));
+                System.out.println("materiel déja alloué");
+
             }
 
             else{
-                System.out.println("materiel indisponible");
+                System.out.println("materiel disponible");
             }
 
         } catch (Exception e) {
@@ -142,16 +159,34 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         Scanner id = new Scanner(System.in);
         Long ida = id.nextLong();
         System.out.println("tapez 0 pour rendre indisponible ou 1 pour rendre disponible");
-        //Scanner dispo = new Scanner(System.in);
         int matdispo = id.nextInt();
         if(0==matdispo){
             materielDao.marquerDisponible(0,ida);
+            System.out.println("le materiel avec id " + id + "est indisponible ");
         }
         else if(1==matdispo){
             materielDao.marquerDisponible(1,ida);
+            System.out.println("le materiel avec id " + id + "est disponible ");
         }
 
 
+
+    }
+
+    @Override
+    public void materielEpuise() {
+        System.out.println("entrer l'id'du materiel epuise");
+        Scanner scanner = new Scanner(System.in);
+        Long id = scanner.nextLong();
+        System.out.println("tapez 0 pour si le materil est epuise ou 1 si non ");
+        int matepuise = scanner.nextInt();
+        if(0==matepuise){
+            materielDao.epuise(0,id);
+            System.out.println("le materiel avec id " + id + "est epuise ");
+        }
+        else if(1==matepuise){
+            materielDao.epuise(1,id);
+        }
 
     }
 

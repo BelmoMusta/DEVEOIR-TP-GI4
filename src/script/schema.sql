@@ -10,6 +10,8 @@ CREATE TABLE materiel
 
     dispo INTEGER(250) NOT NULL,
 
+    épuisé INTEGER(250) NOT NULL,
+
     alloué INTEGER(250) NOT NULL,
 
      user INTEGER(250) ,

@@ -5,6 +5,7 @@ public abstract class Materiel {
     private String name;
     private int disponible;
     private int alloué;
+    public int epuise;
 
     public String getName() {
         return name;
@@ -38,8 +39,18 @@ public abstract class Materiel {
         this.code = code;
     }
 
+    public int getEpuise() {
+        return epuise;
+    }
+
+    public void setEpuise(int epuise) {
+        this.epuise = epuise;
+    }
+
     @Override
     public String toString() {
         return "name = " + name + ", code = " + code;
     }
+
+
 }

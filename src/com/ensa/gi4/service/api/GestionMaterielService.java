@@ -11,5 +11,6 @@ public interface GestionMaterielService {
     void update();
     void allouerMateriel();
     void marquerIndispoouDispo();
+    void materielEpuise();
     void renderMateriel();
 }

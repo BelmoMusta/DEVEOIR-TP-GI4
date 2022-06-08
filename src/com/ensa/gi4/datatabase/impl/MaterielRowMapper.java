@@ -16,12 +16,14 @@ public class MaterielRowMapper implements RowMapper<Materiel> {
         //String name_ = resultSet.getString("NAME");
         //String code_ = resultSet.getString("CODE");
         String code = resultSet.getString(3);
+        int dispo = resultSet.getInt(4);
+        int épuisé=resultSet.getInt(5);
+        int alloué = resultSet.getInt(6);
+        int user = resultSet.getInt(7);
         materiel.setCode(code);
         materiel.setName(name);
-        int dispo = resultSet.getInt(4);
-        int alloué = resultSet.getInt(5);
-        int user = resultSet.getInt(6);
         materiel.setDisponible(dispo);
+        materiel.setDisponible(épuisé);
         materiel.setAlloué(alloué);
         materiel.setAlloué(user);
 
