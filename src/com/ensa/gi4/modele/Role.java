@@ -21,4 +21,16 @@ public class Role implements Entity{
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        else if (!(obj instanceof Role)) return false;
+        return this.getId().equals(((Role)obj).getId());
+    }
 }

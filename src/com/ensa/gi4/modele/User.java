@@ -1,5 +1,6 @@
 package com.ensa.gi4.modele;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.locked = true;
+        this.roles = new ArrayList<>();
     }
 
 
@@ -79,16 +82,33 @@ public class User {
         this.roles = roles;
     }
 
+    public String getName(){
+        return this.username;
+    }
+
+    public String[] getFields(){
+        return new String[]{id.toString(), username,email, roles.toString(), registrationDate.toString(), String.valueOf(locked)};
+    }
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", roles=" + roles +
                 ", registrationDate=" + registrationDate +
-                ", locked=" + locked +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        else if (!(obj instanceof User)) return false;
+        else return this.getId().equals(((User) obj).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId().intValue();
     }
 }

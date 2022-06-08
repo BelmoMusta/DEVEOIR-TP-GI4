@@ -1,29 +1,19 @@
 package com.ensa.gi4.controller;
 
-import com.ensa.gi4.datatabase.api.RoleDao;
-import com.ensa.gi4.datatabase.api.UserDao;
 import com.ensa.gi4.listeners.ApplicationPublisher;
-import com.ensa.gi4.listeners.EventType;
-import com.ensa.gi4.listeners.MyEvent;
-import com.ensa.gi4.modele.Livre;
-import com.ensa.gi4.modele.User;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import com.ensa.gi4.service.api.I18nService;
-import com.ensa.gi4.service.api.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
-import javax.annotation.PostConstruct;
+import java.sql.SQLOutput;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Scanner;
 
-@Controller("controllerMateriel")
-@Lazy
+@Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GestionMaterielController {
     @Value("${materiel.types}")
@@ -34,11 +24,12 @@ public class GestionMaterielController {
     final GestionMaterielService gestionMaterielService;
 
 
-    void listerMateriel(){
+    public void listerMateriel(){
         gestionMaterielService.listerMateriel();
     }
 
-    void ajouterMaterile(){
+    public void ajouterMaterile(){
+
         String[] types_materiel = TYPES.split(",");
         System.out.print(i18nService.getFormattedText("prompt.select.type", TYPES));
         String type = scanner.next().toUpperCase();
@@ -61,42 +52,85 @@ public class GestionMaterielController {
 
     }
 
-    void chercherMateriel(){
-        //TODO : chercherMateriel()
+    public void chercherMateriel(){
+        System.out.println("Search criteria: " + i18nService.getText("table.header").toLowerCase());
+        System.out.print(i18nService.getText("prompt.input.search"));
+        scanner.nextLine(); //Consume \n
+        String search = scanner.nextLine();
+        gestionMaterielService.chercherMateriel(search);
     }
 
-    void supprimerMateriel(){
-        //TODO : supprimerMateriel()
+    public void supprimerMateriel(){
+        System.out.print(i18nService.getText("prompt.input.materielid"));
+        gestionMaterielService.supprimerMateriel(scanner.nextInt());
     }
 
-    //TODO : Allocation d'un materiel
+    public void modifierMateriel(){
+        System.out.print(i18nService.getText("prompt.input.materielid"));
+        gestionMaterielService.modifierMateriel(scanner.nextInt());
+    }
+
+    public void allouerMateriel(){
+        System.out.print(i18nService.getText("prompt.input.materielid"));
+        int id = scanner.nextInt();
+        gestionMaterielService.allouerMateriel(id);
+    }
+
+    public void desallouerMateriel(){
+        System.out.print(i18nService.getText("prompt.input.materielid"));
+        int id = scanner.nextInt();
+        gestionMaterielService.desallouerMateriel(id);
+    }
+
+    public void listerMaterielAlloue(){
+        gestionMaterielService.listerMaterielAlloue();
+    }
+
+    public void  listerAllocationsHistory(){
+        int input;
+        do{
+            System.out.print(i18nService.getText("prompt.input.materiel.groupby"));
+            input = scanner.nextInt();
+        }while(input!=1 && input!=2);
+        gestionMaterielService.listerAllocationHistory(input);
+    }
 
 
 
 
-    public void afficherMenu() {
-        boolean breakFromWhile = false;
+    public void afficherMenuGestion() {
+        boolean exit = false;
         while(true){
             System.out.println(i18nService.getText("menu.gestion.materiel"));
             System.out.format(i18nService.getText("prompt.select.number"));
             switch(scanner.nextInt()){
-                case(1) -> listerMateriel();
-                case(2) -> ajouterMaterile();
-                case(3) -> chercherMateriel();
-                case(4) -> supprimerMateriel();
-                case(0) -> breakFromWhile = true;
+                case 1 -> listerMateriel();
+                case 2 -> ajouterMaterile();
+                case 3 -> chercherMateriel();
+                case 4 -> supprimerMateriel();
+                case 5 -> modifierMateriel();
+                case 6 -> afficherMenuAllocation();
+                case 0 -> exit = true;
             }
-            if (breakFromWhile) break;
+            if (exit) break;
         }
-
-
-
-
-
     }
 
-    private void sortirDeLApplication() {
-        System.exit(0);
+    public void afficherMenuAllocation(){
+        boolean exit = false;
+        while (true){
+            System.out.println(i18nService.getText("menu.gestion.materiel.allocation"));
+            System.out.format(i18nService.getText("prompt.select.number"));
+            switch(scanner.nextInt()){
+                case 1 -> allouerMateriel();
+                case 2 -> desallouerMateriel();
+                case 3 -> listerMaterielAlloue();
+                case 4 -> listerAllocationsHistory();
+                case 0 -> exit = true;
+            }
+            if (exit) break;
+        }
     }
+
 
 }

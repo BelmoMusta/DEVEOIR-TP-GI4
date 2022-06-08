@@ -10,4 +10,9 @@ public interface UserService {
     void deleteUser(int id);
     boolean isUserExpired();
     User getLoggedUser();
+    boolean isPasswordMatch(String password);
+    void refreshValidity();
+    boolean hasRole(String role);
+    void listUsers();
+    void lockUser(int nextInt, boolean value);
 }

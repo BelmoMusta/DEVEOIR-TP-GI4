@@ -11,6 +11,7 @@ public class Chaise extends Materiel {
     }
 
 
+
     @Override
     public String toString() {
         return "Chaise {" +
@@ -18,7 +19,7 @@ public class Chaise extends Materiel {
                 ", name='" + this.getName() + '\'' +
                 ", type='" + this.getType() + '\'' +
                 ", wood='" + this.wood + '\'' +
-                ", allocated=" + this.isAllocated() +
+                ", available=" + this.getAvailable() +
                 '}';
     }
 

@@ -1,13 +1,16 @@
 package com.ensa.gi4.modele;
 
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class AllocationDetails implements Entity{
     private Integer id;
     private User user;
     private Materiel materiel;
-    private Date date;
+    private Timestamp date;
 
     @Override
     public Integer getId() {
@@ -34,11 +37,22 @@ public class AllocationDetails implements Entity{
         this.materiel = materiel;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return "AllocationDetails{" +
+                "id=" + id +
+                ", user=" + user.getUsername() +
+                ", materiel=" + materiel.getName() +
+                ", date=" + simpleDateFormat.format(new Date(getDate().getTime())) +
+                '}';
     }
 }

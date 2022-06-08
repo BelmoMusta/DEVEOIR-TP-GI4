@@ -7,12 +7,15 @@ import com.ensa.gi4.modele.AllocationDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Repository
 public class AllocationDetailsDaoImpl extends GenericDAO<AllocationDetails> implements AllocationDetailsDao {
     private final UserDao userDao;
     private final MaterielDao materielDao;
@@ -21,6 +24,7 @@ public class AllocationDetailsDaoImpl extends GenericDAO<AllocationDetails> impl
     public List<AllocationDetails> findAll() {
         return super.findAll("SELECT * FROM allocation_details;");
     }
+
 
     @Override
     public AllocationDetails findOneById(Long id) {
@@ -38,6 +42,14 @@ public class AllocationDetailsDaoImpl extends GenericDAO<AllocationDetails> impl
     }
 
     @Override
+    public void save(AllocationDetails allocationDetails) {
+        int materiel_id = allocationDetails.getMateriel().getId();
+        int user_id = allocationDetails.getUser().getId().intValue();
+        Timestamp timestamp = allocationDetails.getDate();
+        this.jdbcTemplate.update("INSERT INTO allocation_details(materiel_id,user_id,date) VALUES(?,?,?)", materiel_id, user_id, timestamp);
+    }
+
+    @Override
     protected RowMapper<AllocationDetails> getRowMapper() {
         return new AllocationDetailsRowMapper(userDao, materielDao);
     }
@@ -49,9 +61,10 @@ record AllocationDetailsRowMapper(UserDao userDao,
     @Override
     public AllocationDetails mapRow(ResultSet rs, int i) throws SQLException {
         AllocationDetails allocationDetails = new AllocationDetails();
-        allocationDetails.setDate(rs.getDate("date"));
+        allocationDetails.setId(rs.getInt("id"));
+        allocationDetails.setDate(rs.getTimestamp("date"));
         allocationDetails.setUser(userDao.findOneById(rs.getLong("user_id")));
-        allocationDetails.setMateriel(materielDao.findOne(rs.getLong("materiel_id")));
+        allocationDetails.setMateriel(materielDao.findOne(rs.getInt("materiel_id")));
         return allocationDetails;
     }
 }

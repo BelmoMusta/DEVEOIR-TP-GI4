@@ -1,6 +1,5 @@
 package com.ensa.gi4.modele;
 
-import java.util.Arrays;
 
 
 public class Livre extends Materiel {
@@ -13,7 +12,13 @@ public class Livre extends Materiel {
         this.author = author;
     }
 
+    public String getEdition() {
+        return edition;
+    }
 
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
 
     @Override
     public String toString() {
@@ -22,7 +27,7 @@ public class Livre extends Materiel {
                 ", name='" + this.getName() + '\'' +
                 ", type='" + this.getType() + '\'' +
                 ", author='" + this.getAuthor() + '\'' +
-                ", allocated=" + this.isAllocated() +
+                ", available=" + this.getAvailable() +
                 '}';
     }
 }

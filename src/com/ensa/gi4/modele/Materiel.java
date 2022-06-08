@@ -1,7 +1,6 @@
 package com.ensa.gi4.modele;
 
 
-import java.util.Arrays;
 
 
 public abstract class Materiel implements Entity {
@@ -12,7 +11,9 @@ public abstract class Materiel implements Entity {
     protected String type;
     protected String wood;
     protected String author;
-    protected boolean allocated;
+    protected String edition;
+    protected Integer stock;
+    protected Integer available;
 
 
 
@@ -42,14 +43,25 @@ public abstract class Materiel implements Entity {
         this.type = type;
     }
 
-    public boolean isAllocated() {
-        return allocated;
+    public Integer getAvailable() {
+        return available;
     }
 
-    public void setAllocated(boolean allocated) {
-        this.allocated = allocated;
+    public void setAvailable(Integer available) {
+        this.available = available;
     }
 
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public int getAllocatedCount(){
+        return this.stock-this.available;
+    }
 
     @Override
     public String toString() {
@@ -57,7 +69,19 @@ public abstract class Materiel implements Entity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
-                ", allocated=" + allocated +
+                ", available=" + available +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        else if (!(obj instanceof Materiel)) return false;
+        else return this.getId().equals(((Materiel) obj).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId();
     }
 }

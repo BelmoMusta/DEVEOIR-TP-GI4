@@ -10,6 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -27,13 +28,15 @@ public class EntityUtils {
         String[] tmp = entity.getClass().getName().split("\\.");
         String className = tmp[tmp.length-1].toLowerCase();
         List<String> elements = Arrays.asList(environment.getProperty("materiel." + className +".input.fields").split(","));
-
         Field[] entityFields = Materiel.class.getDeclaredFields();
         for( Field field : entityFields){
             field.setAccessible(true);
             if (elements.contains(field.getName())){
                 try {
-                    field.set(entity, fields[index]);
+                    if (field.getType().toString().equals("class java.lang.Integer"))
+                        field.set(entity, Integer.valueOf(fields[index]));
+                    else
+                        field.set(entity, fields[index]);
                     index++;
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -48,7 +51,6 @@ public class EntityUtils {
         String[] tmp = entity.getClass().getName().split("\\.");
         String className = tmp[tmp.length-1].toLowerCase();
         List<String> elements = Arrays.asList(environment.getProperty("materiel." + className +".input.fields").split(","));
-
         Field[] entityFields = Materiel.class.getDeclaredFields();
         for( Field field : entityFields){
             field.setAccessible(true);
@@ -73,6 +75,8 @@ public class EntityUtils {
                 if (predicate!= null && !predicate.test(field.get(entity))) continue;
                 if(field.getType().toString().equals("boolean"))
                     args.add(field.getBoolean(entity)?i18nService.getText("words.yes"):i18nService.getText("words.no"));
+                else if (field.getType().toString().equals("class java.lang.Integer"))
+                    args.add(field.get(entity).toString());
                 else if (field.get(entity) == null)
                     args.add("-");
                 else
@@ -82,6 +86,25 @@ public class EntityUtils {
             }
         }
         return args.toArray(String[]::new);
+    }
+
+    public final <T extends Materiel> void populateEntity(T entity, String[] args){
+        Field[] fields = Materiel.class.getDeclaredFields();
+        for(int i=0; i<fields.length; i++){
+            fields[i].setAccessible(true);
+            try {
+                if(fields[i].getType().toString().equals("class java.lang.Integer"))
+                    fields[i].set(entity, Integer.valueOf(args[i]));
+                else if(fields[i].getType().toString().equals("boolean"))
+                    fields[i].set(entity, args[i].equals(i18nService.getText("words.yes")));
+                else if (args[i].equals("-"))
+                    fields[i].set(entity, null);
+                else
+                    fields[i].set(entity,args[i]);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public final <T extends Materiel> void populateFromResultSet(T materiel,ResultSet rs) {
@@ -98,6 +121,22 @@ public class EntityUtils {
             } catch (IllegalAccessException | SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public Materiel convertToType(Materiel materiel){
+        String type = materiel.getType();
+        String fqn = "com.ensa.gi4.modele." +  type.charAt(0) + type.substring(1).toLowerCase();
+        try {
+            Class<? extends Materiel> clazz = Class.forName(fqn).asSubclass(Materiel.class);
+            Materiel converted = clazz.getConstructor().newInstance();
+            this.populateEntity(converted, this.extractFromEntity(materiel, null));
+            return converted;
+
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            System.out.println("Internal Error");
+            e.printStackTrace();
+            return null;
         }
     }
 }

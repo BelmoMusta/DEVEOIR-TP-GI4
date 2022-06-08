@@ -39,7 +39,9 @@ public class UserDaoImp extends GenericDAO<User> implements UserDao {
     @Override
     public User add(User u) {
         this.jdbcTemplate.update(ADD_USER, u.getUsername(), u.getPassword(), u.getEmail());
-        return this.findOneByUsername(u.getUsername());
+        User newUser = this.findOneByUsername(u.getUsername());
+        this.addRole(newUser, this.roleDao.findOneById(2L));
+        return newUser;
     }
 
 
@@ -54,8 +56,25 @@ public class UserDaoImp extends GenericDAO<User> implements UserDao {
     }
 
     @Override
+    public void lock(Integer id, boolean value) {
+        this.jdbcTemplate.update("UPDATE user SET locked=? WHERE id=?", value,id);
+    }
+
+    @Override
     protected RowMapper<User> getRowMapper() {
         return new UserRowMapper(this.roleDao);
+    }
+
+    public void addRole(User user, Role role){
+        boolean alreadyHasRole = this.roleDao.findUserRoles(user.getId()).contains(role);
+        if (!alreadyHasRole)
+            this.jdbcTemplate.update("INSERT INTO user_roles(id_user,id_role) VALUES (?,?)", user.getId(), role.getId());
+    }
+
+    public void removeRole(User user, Role role){
+        boolean alreadyHasRole = this.roleDao.findUserRoles(user.getId()).contains(role);
+        if (alreadyHasRole)
+            this.jdbcTemplate.update("DELETE FROM user_roles WHERE id_user=? and id_role=?", user.getId(), role.getId());
     }
 }
 

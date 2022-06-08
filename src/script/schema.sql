@@ -12,7 +12,9 @@ CREATE TABLE materiel
     type VARCHAR(250) NOT NULL,
     wood VARCHAR(250) NULL,
     author VARCHAR(250) NULL,
-    allocated BOOLEAN NOT NULL DEFAULT FALSE
+    edition VARCHAR(250) NULL,
+    stock INT NOT NULL,
+    available INT NOT NULL,
 );
 
 CREATE TABLE user(
@@ -21,14 +23,14 @@ CREATE TABLE user(
      password VARCHAR(256) NOT NULL,
      email VARCHAR(100) NOT NULL UNIQUE,
      registration_date DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-     locked BOOLEAN NOT NULL DEFAULT FALSE
+     locked BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE allocation_details(
     id INT AUTO_INCREMENT PRIMARY KEY,
     materiel_id INT NOT NULL,
     user_id INT NOT NULL,
-    date DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     foreign key (materiel_id) references materiel(id),
     foreign key (user_id) references user(id)
 );

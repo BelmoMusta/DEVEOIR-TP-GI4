@@ -11,4 +11,5 @@ public interface UserDao {
     User add(User u);
     void delete(Integer id);
     void delete(String username);
+    void lock(Integer id, boolean value);
 }
