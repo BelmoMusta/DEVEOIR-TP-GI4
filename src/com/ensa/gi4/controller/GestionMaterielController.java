@@ -37,19 +37,22 @@ public class GestionMaterielController {
 	@Autowired
 	GestionMaterielService gestionMaterielServiceImpl;
 	 Scanner scanner = new Scanner(System.in);
+	 private User connecter(String name,String password) {
+		 return gestionUserService.findUser(name,password);
+	 }
 	 public void afficherMenu() {
 		 
-		 System.out.println("entrer votre nom");
+		  System.out.println("entrer votre nom");
 	      String name= scanner.next();
 	      System.out.println("entrer votre mot de passe");
 	      String password = scanner.next();
-	      User userActuelle= gestionUserService.findUser(name,password);
-	      if(userActuelle==null) 
-	      {
-	    	  System.out.println("le nom ou le mot de passe est incorect");
-	      }
+	      User userActuelle= connecter(name,password);
+//	      if(userActuelle==null) 
+//	      {
+//	    	  System.out.println("le nom ou le mot de passe est incorect");
+//	      }
 	      
-	      else {
+	      if(userActuelle!=null)  {
 	    	  afficherMenuPrincipale(userActuelle) ;
 	    	 
 	    
@@ -88,7 +91,7 @@ public class GestionMaterielController {
     		  //afficherMenuAdmin();
     		//  next = scanner.next();
     		  if ("6".equals(next)) {
-    			 creerMateriel(userActuelle.getId());
+    			 creerMateriel();
     	        } else if ("7".equals(next)) {
     	        	 supprimerMateriel();
     	        } else if ("8".equals(next)) {
@@ -173,7 +176,7 @@ public class GestionMaterielController {
 		  Long idMateriel= scanner.nextLong();
 	    	 gestionMaterielServiceImpl.rendreMateriel(idUser,idMateriel);
 	  }
-	  public void  creerMateriel(Long idUser) {
+	  public void  creerMateriel() {
 	         System.out.println("voulez vous ajouter un livre ou une chaise?");
 	         String name= scanner.next().toLowerCase();
 	         Materiel nouveauMateriel;
