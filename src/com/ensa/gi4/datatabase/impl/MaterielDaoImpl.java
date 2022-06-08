@@ -54,7 +54,12 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 
     @Override
     public int renderMaterial(int alloue, Long idUser, Long idMat) {
-        return super.allouer("UPDATE chaise SET alloué=?,user=? WHERE id=?  ;",alloue, idUser,idMat);
+        return super.allouer("UPDATE MATERIEL SET alloué=?,user=? WHERE id=?  ;",alloue, idUser,idMat);
+    }
+
+    @Override
+    public List<Materiel> allMatAlloue(Long id ) {
+        return super.findAllMatAlloue("SELECT * FROM MATERIEL WHERE alloué=1 and id=?;" ,id );
     }
 
 

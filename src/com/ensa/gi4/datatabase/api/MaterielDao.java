@@ -14,4 +14,6 @@ public interface MaterielDao {
     int marquerDisponible(int dispo, Long id);
     int epuise(int dispo, Long id);
     int renderMaterial(int alloue,Long idUser ,Long idMat);
+    List<Materiel> allMatAlloue( Long id );
+
 }

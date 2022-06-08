@@ -124,21 +124,21 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
 
                 System.out.println(materielDao.allouerMateriel(1,userId,id));
-                System.out.println("materiel déja alloué");
+                System.out.println("out od stock");
 
             }
             else if(dispo==1 || epuise==0){
 
 
                 System.out.println(materielDao.allouerMateriel(1,userId,id));
-                System.out.println("materiel déja alloué");
+                System.out.println("materiel indisponible");
 
             }
             else if(dispo==0 || epuise==1){
 
 
                 System.out.println(materielDao.allouerMateriel(1,userId,id));
-                System.out.println("materiel déja alloué");
+                System.out.println("materiel est epuise");
 
             }
 
@@ -216,6 +216,25 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         } catch (Exception e) {
             System.out.println("materiel avec id " + idMateriel+" non trouvé");
         }
+    }
+
+    @Override
+    public void listerMatAllouer() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("enter your  user id plase");
+        Long userId = scanner.nextLong();
+        try {
+            userDao.findOne(userId).getPassword();
+            for (Materiel materiel : materielDao.allMatAlloue(userId)) {
+                System.out.println("list of all material allouer par user avec id " +userId);
+                System.out.println( "name" + materiel.getName() + " code: " + materiel.getCode());
+            }
+        } catch (Exception e) {
+            System.out.println(" des infos entrées sont incorrectes");
+        }
+
+
+
     }
 
 

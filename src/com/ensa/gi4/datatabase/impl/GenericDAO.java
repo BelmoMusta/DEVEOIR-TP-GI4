@@ -55,4 +55,8 @@ public abstract class GenericDAO<T> implements InitializingBean {
     protected int epuise(String query, int epuise, Long id) {
         return jdbcTemplate.update(query,epuise,id);
     }
+
+    protected List<T> findAllMatAlloue(String query , Long id ) {
+        return jdbcTemplate.query(query, getRowMapper(),id);
+    }
 }

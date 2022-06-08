@@ -59,7 +59,7 @@ while (i==0) {
     private void userMunu() {
         System.out.println("0- pour sortir de l'application, entrer 0");
         System.out.println("1- pour lister le matériel, entrer 1");
-        System.out.println("2- pour lister vos materiel, entrer 2");
+        System.out.println("2- pour lister vos materiel alloue, entrer 2");
         System.out.println("3- pour alloer un  matériel par code, entrer 3");
         System.out.println("4- pour chercher un  matériel par id, entrer 4");
         System.out.println("5- pour rendre un  matériel , entrer 5");
@@ -70,7 +70,7 @@ while (i==0) {
         } else if ("1".equals(next)) {
            gestionMaterielService.listerMateriel();
         } else if ("2".equals(next)) {
-            System.out.println("r");
+         gestionMaterielService.listerMatAllouer();
         } else if ("3".equals(next)) {
             gestionMaterielService.allouerMateriel();
         }
@@ -97,6 +97,7 @@ while (i==0) {
         System.out.println("7- pour marquer un materiel dispo ou non  , entrer 7");
         System.out.println("8- pour render un materiel , entrer 8");
         System.out.println("9- pour un materil epuise , entrer 9");
+        System.out.println("10- pour lister le matériel alloue par chaque user , entrer 10");
          Scanner scanner = new Scanner(System.in);
         String next = scanner.next();
         if ("0".equals(next)) {
@@ -120,6 +121,8 @@ while (i==0) {
             gestionMaterielService.renderMateriel();
         }else if ("9".equals(next)) {
             gestionMaterielService.materielEpuise();
+        }else if ("10".equals(next)) {
+            gestionMaterielService.listerMateriel();
         } else{
             System.out.println("choix invalide");
         }
