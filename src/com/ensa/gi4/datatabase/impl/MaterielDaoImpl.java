@@ -1,7 +1,11 @@
 package com.ensa.gi4.datatabase.impl;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
+import com.ensa.gi4.listeners.ApplicationPublisher;
+import com.ensa.gi4.listeners.EventType;
+import com.ensa.gi4.listeners.MyEvent;
 import com.ensa.gi4.modele.Materiel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,7 +24,8 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 
     @Override
     public int aadd(Materiel materiel) {
-        return super.add("INSERT INTO MATERIEL (NAME,CODE) VALUES (?, ?)",materiel.getName(),materiel.getCode());
+        return super.add("INSERT INTO MATERIEL (NAME,CODE,DISPO,ÉPUISÉ) VALUES (?, ?,?,?)",materiel.getName(),materiel.getCode(),1,1);
+
     }
 
     @Override

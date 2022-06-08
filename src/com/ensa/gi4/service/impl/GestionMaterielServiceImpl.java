@@ -2,6 +2,9 @@ package com.ensa.gi4.service.impl;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.datatabase.api.UserDao;
+import com.ensa.gi4.listeners.ApplicationPublisher;
+import com.ensa.gi4.listeners.EventType;
+import com.ensa.gi4.listeners.MyEvent;
 import com.ensa.gi4.modele.Chaise;
 import com.ensa.gi4.modele.Livre;
 import com.ensa.gi4.modele.Materiel;
@@ -18,6 +21,8 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     @Autowired
     UserDao userDao;
 
+    @Autowired
+    ApplicationPublisher publisher;
     @Override
     public void init() {
         System.out.println("inititialisation du service");
@@ -25,8 +30,8 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void listerMateriel() {
+        System.out.println("list of all material");
         for (Materiel materiel : materielDao.findAll()) {
-            System.out.println("list of all material");
             System.out.println(materiel.getName() + " code: " + materiel.getCode());
         }
     }
@@ -48,6 +53,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             l.setCode(code);
             materielDao.aadd(l);
             System.out.println("L'ajout du matériel " + l.getName() + " effectué avec succès !");
+            publisher.publish(new MyEvent<>(l, EventType.ADD));
         }
         else if(saisir == 2)
         {
@@ -60,6 +66,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             c.setName(code);
             materielDao.aadd(c);
             System.out.println("L'ajout du matériel " + c.getName() + " effectué avec succès !");
+            publisher.publish(new MyEvent<>(c, EventType.ADD));
         }
 
     }
@@ -84,6 +91,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         System.out.println("Entrer le nom de materiel a supprimer : ");
         String code = scanner.next();
         materielDao.deleteMateriel(code);
+       // publisher.publish(new MyEvent<>(code, EventType.REMOVE));
         System.out.println("Materiel avec le code  " + code + " Supprimé");
     }
     @Override
@@ -96,6 +104,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             System.out.println("code : ");
             String newNmae = scanner.next();
             materielDao .updateMateril(code,newNmae);
+        //publisher.publish(new MyEvent<>(material, EventType.UPDATE));
         System.out.println("Materiel avec le code  " + newNmae + " est modiffier");
 
 
@@ -225,8 +234,8 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         Long userId = scanner.nextLong();
         try {
             userDao.findOne(userId).getPassword();
+            System.out.println("list of all material allouer par user avec id " +userId);
             for (Materiel materiel : materielDao.allMatAlloue(userId)) {
-                System.out.println("list of all material allouer par user avec id " +userId);
                 System.out.println( "name" + materiel.getName() + " code: " + materiel.getCode());
             }
         } catch (Exception e) {

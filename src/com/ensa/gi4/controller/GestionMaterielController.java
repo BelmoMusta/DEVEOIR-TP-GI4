@@ -14,9 +14,7 @@ import org.springframework.stereotype.Component;
 @Component("controllerPricipal")
 public class GestionMaterielController {
 
-    @Autowired
 
-    ApplicationPublisher publisher;
 
    @Autowired
     GestionUserImp gestionUserImp;
