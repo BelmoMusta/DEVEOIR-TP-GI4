@@ -10,8 +10,6 @@ public interface MaterielDao {
    int aadd(Materiel materiel);
     int deleteMateriel(String code);
     int updateMateril(String code, String newCode);
-
-    void allouerMateriel(String nom);
-
+  int allouerMateriel(int alloue,Long idUser ,Long idMat);
     int marquerDisponible(int dispo, Long id);
 }

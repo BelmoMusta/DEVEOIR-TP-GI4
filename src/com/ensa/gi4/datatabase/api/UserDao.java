@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserDao {
     List<User> findUser(User user);
-
+    User findOne(Long userId);
 }

@@ -1,6 +1,7 @@
 package com.ensa.gi4.service.impl;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
+import com.ensa.gi4.datatabase.api.UserDao;
 import com.ensa.gi4.modele.Chaise;
 import com.ensa.gi4.modele.Livre;
 import com.ensa.gi4.modele.Materiel;
@@ -14,6 +15,8 @@ import java.util.Scanner;
 public class GestionMaterielServiceImpl implements GestionMaterielService {
     @Autowired
     MaterielDao materielDao;
+    @Autowired
+    UserDao userDao;
 
     @Override
     public void init() {
@@ -101,26 +104,57 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void allouerMateriel() {
+        System.out.println("Entrer le id  de materiel a allouer : ");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Entrer le nom de materiel a allouer : ");
-        String  nom = scanner.next();
-        materielDao.allouerMateriel(nom);
-}
+        Long id = scanner.nextLong();
+        System.out.println("enter your id plase");
+
+        Long userId = scanner.nextLong();
+
+        try{
+            userDao.findOne(userId).getPassword();
+            int dispo= materielDao.findOne(id).getDisponible();
+            int alloué= materielDao.findOne(id).getAlloué();
+            if(alloué==1){
+                
+                System.out.println("materiel déja alloué");
+            }
+            else if(dispo==1){
+
+
+                System.out.println(materielDao.allouerMateriel(1,userId,id));
+            }
+
+            else{
+                System.out.println("materiel indisponible");
+            }
+
+        } catch (Exception e) {
+            System.out.println(" des infos entrées sont incorrectes");
+        }
+
+    }
+
+
     @Override
     public void marquerIndispoouDispo() {
         System.out.println("entrer l'id'du materiel que vous voulez marquer disponible");
         Scanner id = new Scanner(System.in);
         Long ida = id.nextLong();
         System.out.println("tapez 0 pour rendre indisponible ou 1 pour rendre disponible");
-        Scanner dispo = new Scanner(System.in);
-        int dispoa = id.nextInt();
-        if(0==dispoa){
+        //Scanner dispo = new Scanner(System.in);
+        int matdispo = id.nextInt();
+        if(0==matdispo){
             materielDao.marquerDisponible(0,ida);
         }
-        else if(1==dispoa){
+        else if(1==matdispo){
             materielDao.marquerDisponible(1,ida);
         }
 
+
+    }
+    void sortirDeLApplication() {
+        System.exit(0);
     }
 }
 

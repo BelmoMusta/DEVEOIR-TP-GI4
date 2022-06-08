@@ -57,7 +57,7 @@ while (i==0) {
 }}
 
     private void userMunu() {
-
+        System.out.println("0- pour sortir de l'application, entrer 0");
         System.out.println("1- pour lister le matériel, entrer 1");
         System.out.println("2- pour lister vos materiel, entrer 2");
         System.out.println("3- pour alloer un  matériel par code, entrer 3");
@@ -66,12 +66,13 @@ while (i==0) {
         Scanner scanner = new Scanner(System.in);
         String next = scanner.next();
         if ("0".equals(next)) {
+            gestionMaterielService.sortirDeLApplication();
         } else if ("1".equals(next)) {
            gestionMaterielService.listerMateriel();
         } else if ("2".equals(next)) {
             System.out.println("r");
         } else if ("3".equals(next)) {
-            System.out.println("r");
+            gestionMaterielService.allouerMateriel();
         }
         else if ("4".equals(next)) {
             gestionMaterielService.search();
@@ -86,18 +87,18 @@ while (i==0) {
 
 
     private void adminMunu() {
-
+        System.out.println("0- pour sortir de l'application, entrer 0");
         System.out.println("1- pour lister le matériel, entrer 1");
         System.out.println("2- pour ajouter un nouveau matériel, entrer 2");
         System.out.println("3- pour supprimer un  matériel par id, entrer 3");
         System.out.println("4- pour chercher un  matériel par id, entrer 4");
         System.out.println("5- pour modifier un  matériel , entrer 5");
-        System.out.println("6- pour allocer un  matériel , entrer 6");
+        System.out.println("6- pour allouer un  matériel , entrer 6");
         System.out.println("6- pour marquer un materiel dispo ou non  , entrer 7");
-        System.out.println("0- pour sortir de l'application, entrer 0");
          Scanner scanner = new Scanner(System.in);
         String next = scanner.next();
         if ("0".equals(next)) {
+            gestionMaterielService.sortirDeLApplication();
         } else if ("1".equals(next)) {
             gestionMaterielService.listerMateriel();
         } else if ("2".equals(next)) {
@@ -110,7 +111,7 @@ while (i==0) {
         } else if ("5".equals(next)) {
             gestionMaterielService.update();
         }else if ("6".equals(next)) {
-            System.out.println("r");
+            gestionMaterielService.allouerMateriel();
         }else if ("7".equals(next)) {
         gestionMaterielService.marquerIndispoouDispo();
         } else{
@@ -118,4 +119,5 @@ while (i==0) {
         }
 
     }
+
     }

@@ -27,8 +27,6 @@ public class GestionMaterielController {
     }
 
 
-    private void sortirDeLApplication() {
-        System.exit(0);
-    }
+
 
 }

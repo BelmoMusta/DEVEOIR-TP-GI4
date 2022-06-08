@@ -1,5 +1,6 @@
 package com.ensa.gi4.datatabase.impl;
 
+import com.ensa.gi4.modele.Materiel;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,9 +35,10 @@ public abstract class GenericDAO<T> implements InitializingBean {
     protected int update(String query, String code, String newCode) {
         return jdbcTemplate.update(query,code,newCode);
     }
-    protected T get(String query, String code) {
-        return jdbcTemplate.queryForObject(query, getRowMapper(),code);
+    protected int  allouer(String query, int alloue ,Long userId,Long matId) {return jdbcTemplate.update(query,alloue,userId,matId);
     }
+
+
 
     protected abstract RowMapper<T> getRowMapper();
 
