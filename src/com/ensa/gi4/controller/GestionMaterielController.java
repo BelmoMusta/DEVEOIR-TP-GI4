@@ -216,7 +216,7 @@ public class GestionMaterielController {
              }else if("4".equals(next)) {
             	 gestionMaterielService.listeMaterielAlloue(gestionUtilisateurService.connexion(nom, password).getId());
              }else if("5".equals(next)) {
-            	 gestionMaterielService.listeMaterielAlloueAll();
+            	 gestionMaterielService.listerMateriel();
              }else {
                  System.out.println("Choix invalide !!!");
              }
