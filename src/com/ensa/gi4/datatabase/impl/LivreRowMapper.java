@@ -15,10 +15,12 @@ public class LivreRowMapper implements RowMapper<Livre> {
         livre.setId(id);
         livre.setName(resultSet.getString("name"));
         livre.setType(resultSet.getString("type"));
-        if("true".equalsIgnoreCase(resultSet.getString("allocated"))){
-            livre.setAllocated(true);
-        }else
-            livre.setAllocated(false);
+        int stock = resultSet.getInt("stock");
+        livre.setStock(stock);
+        livre.setAllocated(resultSet.getInt("allocated"));
+        String available = resultSet.getString("available");
+        if("yes".equalsIgnoreCase(available)) livre.setAvailable(true);
+        else livre.setAvailable(false);
         return livre;
     }
 }

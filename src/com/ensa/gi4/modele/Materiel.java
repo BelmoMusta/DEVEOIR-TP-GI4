@@ -1,12 +1,38 @@
 package com.ensa.gi4.modele;
 
-public abstract class Materiel {
+public  class Materiel {
     private int id ;
     private String type;
     private String name;
-    private Boolean isAllocated ;
+    private int isAllocated ;
+    private int stock ;
+    private Boolean available ;
 
-    public Boolean getAllocated() {
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public Materiel() {
+    }
+
+    public Materiel(String name , String type) {
+        this.type = type;
+        this.name = name;
+    }
+
+    public int getAllocated() {
         return isAllocated;
     }
 
@@ -18,7 +44,7 @@ public abstract class Materiel {
         this.id = id;
     }
 
-    public void setAllocated(Boolean allocated) {
+    public void setAllocated(int allocated) {
         isAllocated = allocated;
     }
 

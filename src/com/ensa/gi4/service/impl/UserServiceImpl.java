@@ -51,6 +51,11 @@ public class UserServiceImpl implements UserService {
         return userDao.findUserByName(username);
     }
 
+    @Override
+    public User getUserById(int id) {
+        return this.userDao.findOneById(id);
+    }
+
 
     public void setUsercurrent(User u){
         this.userCurrent = u ;

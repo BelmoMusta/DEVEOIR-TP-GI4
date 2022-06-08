@@ -12,4 +12,5 @@ public interface UserService {
     boolean isAdmin();
     List<Role> getUserAllRoles(User user);
     User getUserByName(String username);
+    User getUserById(int id);
 }

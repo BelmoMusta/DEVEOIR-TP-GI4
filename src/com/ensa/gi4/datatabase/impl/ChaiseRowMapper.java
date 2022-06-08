@@ -14,10 +14,12 @@ public class ChaiseRowMapper implements RowMapper<Chaise> {
         chaise.setId(id);
         chaise.setName(resultSet.getString("name"));
         chaise.setType(resultSet.getString("type"));
-        if("true".equalsIgnoreCase(resultSet.getString("allocated"))){
-            chaise.setAllocated(true);
-        }else
-            chaise.setAllocated(false);
+        int stock = resultSet.getInt("stock");
+        chaise.setStock(stock);
+        chaise.setAllocated(resultSet.getInt("allocated"));
+        String available = resultSet.getString("available");
+        if("yes".equalsIgnoreCase(available)) chaise.setAvailable(true);
+        else chaise.setAvailable(false);
         return chaise;
     }
 }
