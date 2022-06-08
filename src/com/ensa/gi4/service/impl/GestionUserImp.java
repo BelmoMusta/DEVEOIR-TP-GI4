@@ -22,8 +22,9 @@ public class GestionUserImp implements GestionUser {
     public void userLogin() {
 int i=0;
 while (i==0) {
-    Scanner scanner = new Scanner(System.in);
+
     System.out.println("your NAME : ");
+    Scanner scanner = new Scanner(System.in);
     String name = scanner.next();
     System.out.println("your Password : ");
     String pass = scanner.next();
@@ -32,7 +33,12 @@ while (i==0) {
     user.setPassword(pass);
 
     if (userDao.findUser(user).isEmpty()) {
-        System.out.println("name or password incorrect");
+        System.out.println("name or password incorrect ");
+        System.out.println("taper 0 pour quiter l'app ");
+        Scanner t = new Scanner(System.in);
+        if ("0".equals(t)) {
+             gestionMaterielService.sortirDeLApplication();
+        }
     }
 
     if (!userDao.findUser(user).isEmpty()) {
