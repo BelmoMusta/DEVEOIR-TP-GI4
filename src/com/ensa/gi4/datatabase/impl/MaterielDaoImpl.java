@@ -29,23 +29,21 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     }
     @Override
     public void deleteMateriel(Long id) {
-    	super.execute("DELETE FROM MATERIEL WHERE id = "+id+"");
+    	super.execute("DELETE FROM MATERIEL WHERE ID_MATERIEL = "+id);
     }
 
 	@Override
 	public void marquerMaterielIndisponible(Long id) {
-		super.execute("UPDATE MATERIEL SET DISPONIBLE = FALSE WHERE ID_MATERIEL="+id);
-		
+		super.execute("UPDATE MATERIEL SET DISPONIBLE = FALSE WHERE ID_MATERIEL="+id);	
 	}
 
 	@Override
-	public void allouerMateriel(Long idMateriel, String dure, Long idUtilisateur) {
-		super.execute("UPDATE MATERIEL SET ALLOUE = TRUE , DUREE='"+dure+"' , UTILISATEUR_ID = "+idUtilisateur+" WHERE ID_MATERIEL="+idMateriel);
-		
+	public void allouerMateriel(Long idMateriel, String dure, Long idUtilisateur, String usernameUtilisateur) {
+		super.execute("UPDATE MATERIEL SET ALLOUE = TRUE , DUREE='"+dure+"' , UTILISATEUR_ID = "+idUtilisateur+" , UTILISATEUR_USERNAME = '"+usernameUtilisateur+"' WHERE ID_MATERIEL="+idMateriel);
 	}
 	@Override
 	public void rendreMateriel(Long idMateriel) {
-		super.execute("UPDATE MATERIEL SET ALLOUE = FALSE  , UTILISATEUR_ID = NULL, DUREE = NULL WHERE ID_MATERIEL="+idMateriel);
+		super.execute("UPDATE MATERIEL SET ALLOUE = FALSE  , UTILISATEUR_ID = NULL, DUREE = NULL, UTILISATEUR_USERNAME = NULL WHERE ID_MATERIEL="+idMateriel);
 		
 	}
 
@@ -60,7 +58,7 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	}
 
 	@Override
-	public void modifierMateriel(Long id, String nom, String code) {
-		super.execute("UPDATE MATERIEL SET NAME =  '"+nom+"', CODE = '"+code+"' WHERE ID_MATERIEL="+id);
+	public void modifierMateriel(Long id, String code) {
+		super.execute("UPDATE MATERIEL SET CODE = '"+code+"' WHERE ID_MATERIEL="+id);
 	}
 }

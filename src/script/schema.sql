@@ -18,6 +18,7 @@ CREATE TABLE materiel
 (
     id_materiel INT AUTO_INCREMENT PRIMARY KEY,
     utilisateur_id VARCHAR(250) DEFAULT NULL, 
+    utilisateur_username VARCHAR(250) DEFAULT NULL references utilisateur(username),
     name VARCHAR(250) NOT NULL,
     code VARCHAR(250) NOT NULL,
     disponible BOOLEAN DEFAULT true ,

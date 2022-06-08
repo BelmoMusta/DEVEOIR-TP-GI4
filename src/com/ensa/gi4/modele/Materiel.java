@@ -6,12 +6,40 @@ public abstract class Materiel {
     private String code;
     private String name;
     private String dure;
+    private boolean alloue;
+    private boolean disponible;
+    private String usernameUtilisateur;
 
-    public String getName() {
+
+	public String getUsernameUtilisateur() {
+		return usernameUtilisateur;
+	}
+
+	public void setUsernameUtilisateur(String usernameUtilisateur) {
+		this.usernameUtilisateur = usernameUtilisateur;
+	}
+
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+
+	public String getName() {
         return name;
     }
 
-    public Long getId() {
+    public boolean isAlloue() {
+		return alloue;
+	}
+
+	public void setAlloue(boolean alloue) {
+		this.alloue = alloue;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -50,8 +78,8 @@ public abstract class Materiel {
 
 	@Override
 	public String toString() {
-		return "Materiel [id=" + id + ", idUtilisateur=" + idUtilisateur + ", code=" + code + ", name=" + name
-				+ ", dure=" + dure + "]";
+		return "Materiel [id=" + id + ", idUtilisateur=" + idUtilisateur + ", usernameUtilisateur=" + usernameUtilisateur + ", code=" + code + ", name=" + name
+				+ ", dure=" + dure + ", alloue=" + alloue + ", disponible=" + disponible +  "]";
 	}
 
 	

@@ -44,7 +44,7 @@ public class GestionChaiseServiceImpl implements GestionMaterielService, SmartIn
 		}
 
 		@Override
-		public void allouerMateriel(Long idMateriel, String dure, Long idUtilisateur) {
+		public void allouerMateriel(Long idMateriel, String dure, Long idUtilisateur, String usernameUtilisateur) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -68,10 +68,38 @@ public class GestionChaiseServiceImpl implements GestionMaterielService, SmartIn
 		}
 
 		@Override
-		public void modifierMateriel(Long id, String name, String code) {
+		public void modifierMateriel(Long id, String code) {
 			// TODO Auto-generated method stub
 			
 		}
+
+		
+
+		@Override
+		public boolean isDisponible(Long id) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean isExiste(Long id) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean isAlloue(Long id) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Materiel findMateriel(Long id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+	
 
 		
 }
