@@ -19,10 +19,18 @@ public  class Material {
     {
 
     }
-    public Material(int material_id, int quantity, String material_type) {
+
+    public Material(String name, int quantity, String material_type) {
+        this.quantity = quantity;
+        this.material_type = material_type;
+        this.name = name;
+    }
+
+    public Material(int material_id,String name, int quantity, String material_type) {
         this.material_id = material_id;
         this.quantity = quantity;
         this.material_type = material_type;
+        this.name = name;
     }
 
     public int getMaterial_id() {
@@ -51,10 +59,10 @@ public  class Material {
 
     @Override
     public String toString() {
-        return "Material{" +
-                "material_id=" + material_id +
-                ", quantity=" + quantity +
-                ", material_type='" + material_type + '\'' +
-                '}';
+        return
+                "Id = " + material_id +
+                ", Quantity = " + quantity +
+                ", Type = '" + material_type + '\'' +
+                ", Name = '" + name + '\'';
     }
 }

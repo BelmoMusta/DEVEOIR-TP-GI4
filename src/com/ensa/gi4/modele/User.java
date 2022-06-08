@@ -6,6 +6,13 @@ public class User {
     private String hashed_password;
     private int role_id;
 
+    //Related role table
+    private Role role;
+
+
+
+
+
 
     public User() {
     }
@@ -23,6 +30,13 @@ public class User {
         this.role_id = role_id;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
     public int getUser_id() {
         return user_id;
     }

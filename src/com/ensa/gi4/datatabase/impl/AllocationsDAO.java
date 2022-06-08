@@ -7,11 +7,13 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class AllocationsDAO implements DAO<Allocation>, InitializingBean {
 
     @Autowired
@@ -23,14 +25,14 @@ public class AllocationsDAO implements DAO<Allocation>, InitializingBean {
 
     @Override
     public List<Allocation> getAll() {
-        String sql = "SELECT * FROM allocations";
+        String sql = "SELECT * FROM allocations JOIN users ON users.user_id = allocations.user_id";
 
         return jdbcTemplate.query(sql,rowMapper);
     }
 
     @Override
     public Optional<Allocation> getById(int id) {
-        String sql = "SELECT * FROM allocations WHERE allocation_id = ?";
+        String sql = "SELECT * FROM allocations JOIN users ON users.user_id = allocations.user_id WHERE allocations.allocation_id = ?";
         Allocation allocation = null;
         try {
             allocation = jdbcTemplate.queryForObject(sql, rowMapper,id);
@@ -65,4 +67,26 @@ public class AllocationsDAO implements DAO<Allocation>, InitializingBean {
     public void afterPropertiesSet() throws Exception {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
+    //Methods added other than Interface's ones
+    public List<Allocation> getAllByUserId(int id)
+    {
+        String sql = "SELECT * FROM ALLOCATIONS JOIN materials ON materials.material_id = allocations.material_id JOIN users ON users.user_id = allocations.user_id JOIN roles ON roles.role_id = users.role_id WHERE allocations.user_id = ?";
+
+        return jdbcTemplate.query(sql,rowMapper,id);
+    }
+
+    public void deleteByUserIdAndMaterialId(int material_id,int user_id) {
+        String sql = "DELETE FROM allocations WHERE material_id = ? AND user_id = ?";
+        if (jdbcTemplate.update(sql, material_id,user_id) == 1)
+            System.out.println("Material returned");
+    }
+
+    public List<Allocation> getAllocationsByMaterialId(int material_id)
+    {
+        String sql = "SELECT * FROM allocations WHERE material_id = ?";
+        return jdbcTemplate.query(sql,rowMapper,material_id);
+    }
+
+
 }

@@ -25,14 +25,14 @@ public class UsersDAO implements DAO<User>, InitializingBean {
 
     @Override
     public List<User> getAll() {
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM users JOIN roles ON roles.role_id = users.role_id";
 
         return jdbcTemplate.query(sql,rowMapper);
     }
 
     @Override
     public Optional<User> getById(int id) {
-        String sql = "SELECT * FROM users WHERE user_id = ?";
+        String sql = "SELECT * FROM USERS JOIN roles ON roles.role_id = users.role_id WHERE users.user_id = ?";
         User user = null;
         try {
             user = jdbcTemplate.queryForObject(sql, rowMapper,id);
