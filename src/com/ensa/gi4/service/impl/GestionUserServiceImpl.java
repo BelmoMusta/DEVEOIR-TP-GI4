@@ -14,6 +14,8 @@ public class GestionUserServiceImpl implements GestionUserService{
 	
 	@Autowired
 	UserDao userDao;
+	
+
   @Autowired
   MaterielDao materielDao;
   
@@ -34,7 +36,7 @@ public class GestionUserServiceImpl implements GestionUserService{
 		
 		if(user!= null){
 			
-			System.out.println("Vous �tes connect�(e)!");
+			System.out.println("Vous êtes connecté(e)! 🎉");
 			return user;
 			
 			
@@ -42,7 +44,7 @@ public class GestionUserServiceImpl implements GestionUserService{
 		
 		
 		else {
-			System.out.print("Votre nom ou mot de passe est erron�");
+			System.out.print("Votre nom ou mot de passe est erroné");
 			return null;
 		}
 	
@@ -74,7 +76,7 @@ public Boolean  isAdmin(String name, String password) {
 					userDao.allouerMateriel(code, duree);
 					materielDao.nonDispo(code);
 					
-					System.out.println("Votre allocation du "+materielDao.findWithCode(code).getName()+"a �t� effectu�e");
+					System.out.println("Votre allocation du "+materielDao.findWithCode(code).getName()+" a été effectuée");
 					
 					
 				
@@ -82,7 +84,7 @@ public Boolean  isAdmin(String name, String password) {
 				System.out.println("Le materiel n'est pas disponible");
 			}
 		} else {
-			System.out.println("Le Code entr� n'existe pas");
+			System.out.println("Le Code entré n'existe pas");
 		}
 	}
 	
@@ -92,15 +94,38 @@ public Boolean  isAdmin(String name, String password) {
 	public void rendreMateriel(int id) {
 
 				if(userDao.rendreMateriel(id)) {
-				System.out.println("Le materiel a �t� bien rendue");
+				System.out.println("Le materiel a été bien rendue");
 			} else {
-				System.out.println("Aucun materiel n'est allou�");
+				System.out.println("Aucun materiel n'est alloué");
 			}
 		
 	}
 
-	
+	@Override
+	public void listeMaterielAlloue(String name) {
 
+		if(!materielDao.listeAllocation(name).isEmpty()) {
+			for(int i =0; i< materielDao.listeAllocation(name).size();i++)
+		     System.out.println(materielDao.listeAllocation(name).get(i));
+		
+		}
+	
+	
+		else {
+			System.out.println("Vous n'avez pas alloué(e) aucun matériel");
+		}
+		
+	}
+	 
+
+	public void supprimerMateriel(int id) {
+		if(materielDao.supprimmerMateriel(id)) {
+			System.out.println("La suppression a bien été effectuée");
+		}else {
+			System.out.println("une erreur a été survenu veuillez réessayer à nouveau!");
+		}
+		
+	}
 
 }
 

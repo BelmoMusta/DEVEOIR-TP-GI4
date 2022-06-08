@@ -8,4 +8,5 @@ public interface GestionUserService {
 	 Boolean isAdmin(String name, String password);
 	void allouerMateriel(String code, String duree);
 	void rendreMateriel(int id);
+	void listeMaterielAlloue(String name);
 }

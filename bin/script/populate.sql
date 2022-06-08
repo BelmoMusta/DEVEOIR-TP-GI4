@@ -1,5 +1,5 @@
 
-INSERT INTO  materiel(name, code,dispo) values ( 'Livre' ,'LI',true);
+INSERT INTO  materiel(name, code,allouer,dispo) values ( 'Livre' ,'LI',2,true);
 INSERT INTO  materiel(name, code) values ( 'Livre' ,'LI2' );
 INSERT INTO  materiel(name, code) values ( 'Livre' ,'LIVRE' );
 

@@ -60,7 +60,9 @@ public abstract class GenericDAO<T> implements InitializingBean {
     	}
     }
  
-   
+   protected int executeWithVerif(String query) {
+	   return this.jdbcTemplate.update(query);
+   }
     
     protected abstract RowMapper<T> getRowMapper();
     protected T findOne(String query, String name,String password) {
@@ -70,4 +72,6 @@ public abstract class GenericDAO<T> implements InitializingBean {
         	return null;
         }
     }
+    
+    
 }

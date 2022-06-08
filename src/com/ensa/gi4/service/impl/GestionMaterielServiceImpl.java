@@ -41,9 +41,29 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 	}
     @Override
     public void ajouterNouveauMateriel(Materiel materiel) {
-
-        System.out.println("L'ajout du matÃ©riel " + materiel.getName() + " effectuÃ© avec succÃ¨s !");
+         if(materielDao.ajouterMateriel(materiel)) {
+        	 System.out.println("L'ajout du matÃ©riel " + materiel.getName() + " effectuÃ© avec succÃ¨s !");
+         }else {
+        	         System.out.println("L'ajout du matÃ©riel " + materiel.getName() + " n'est pas effectué !");
+         }
     }
 
-	
+	@Override
+	public void supprimerMateriel(int id) {
+		if(materielDao.supprimmerMateriel(id)) {
+			System.out.println("La suppression a  été bien effectuée");
+		}else {
+			System.out.println("une erreur a été survenu !");
+		}
+		
+	}
+  
+	public void modifierMateriel(int id, String nom, String code) {
+		if(materielDao.modifierMateriel(id, nom, code)) {
+			System.out.println("La modification a bien été effectuée");
+		}else {
+			System.out.println("une erreur a été survenu veuillez réessayer à nouveau!");
+		}
+		
+	}
 }
