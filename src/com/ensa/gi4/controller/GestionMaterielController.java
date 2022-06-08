@@ -108,7 +108,10 @@ public class GestionMaterielController {
         	    		}
         	    		else if (choix.equals("8")) 
         	    		{
-        	    			
+        	    			System.out.println("saisir le nom du materile à rendre : ");
+         	    		   String m = scanner.next();
+         	    		  gestionPersonneService.rendreMateriel(m);
+         	    		   
         	    		}
         	    		else if (choix.equals("9")) 
         	    		{

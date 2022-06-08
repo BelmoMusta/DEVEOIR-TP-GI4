@@ -7,5 +7,6 @@ public interface GestionPersonneService {
 	void creerCompte(String nom, String pw);
 	 Boolean isAdmin(String name, String password);
 	 void allouerMateriel(String nom, String duree);	
+	 void rendreMateriel(String nom);
 
 }

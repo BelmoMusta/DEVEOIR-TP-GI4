@@ -21,7 +21,8 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	@Override
 	public Personne findPersonne(String nom, String pw) {
 		String sql = "Select * from users where name ='"+nom+"' and pw = '"+pw+"'";
-		return super.executeQuery(sql);
+		personneConnecte = super.executeQuery(sql);
+		return personneConnecte;
 			
 	}
 	@Override
@@ -43,6 +44,22 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 			if (super.inseretUpdateDelete(sql) !=0) {
 				return true;
 			}else {
+				return false;
+			}
+
+		} 
+			return false;
+	}
+
+	@Override
+	public boolean rendreMateriel(String nom) {
+		if (personneConnecte != null) {
+			String sql = "update materiel set allouer= 'NULL', duree = 'NULL' where allouer = "+personneConnecte.getId()+" and duree not NULL and name='"+ nom + "' limit 1";
+			if (super.inseretUpdateDelete(sql) !=0) {
+				System.out.println(super.inseretUpdateDelete(sql));
+				return true;
+			}else {
+				System.out.println("false");
 				return false;
 			}
 

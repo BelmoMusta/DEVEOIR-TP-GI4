@@ -53,12 +53,20 @@ public class GestionPersonneServiceImpl implements GestionPersonneService {
     	}
     @Override
 	public void allouerMateriel(String nom, String duree) {
-		if(personneDao.allouerMateriel(nom, duree)) {
+		if(personneDao.allouerMateriel(nom, duree)) { 
 			System.out.println("Votre allocation a bien été effectuée, merci de rendre la materiel avant "
 											+ duree + " jours");
 		}else {
 			System.out.println("Ce materiel n'est pas disponible ou epuisé");
 		}
 		
+	}
+	@Override
+	public void rendreMateriel(String nom) {
+		if(personneDao.rendreMateriel(nom)) {
+			System.out.println("Vous avez bien rendu le matériel");
+		} else {
+			System.out.println("Vous n'avez pas alloué ce matériel");
+		}
 	}
 }

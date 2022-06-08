@@ -16,11 +16,12 @@ public class PersonneRowMapper implements RowMapper<Personne> {
 		 Personne personne = new Personne() { // because it is abstract
 	        };
 
+	        int id = resultSet.getInt("id");
 	        String name = resultSet.getString("name");
-	        //String name_ = resultSet.getString("NAME");
-	        //String code_ = resultSet.getString("CODE");
 	        String pw = resultSet.getString("pw");
 	        String role = resultSet.getString("role");
+	        
+	        personne.setId(id);
 	        personne.setName(name);
 	        personne.setPw(pw);
 	        personne.setRole(role);
