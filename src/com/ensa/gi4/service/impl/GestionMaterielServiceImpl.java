@@ -8,8 +8,12 @@ import org.springframework.stereotype.Component;
 
 @Component("materielService")
 public class GestionMaterielServiceImpl implements GestionMaterielService {
-    @Autowired
+    
     MaterielDao materielDao;
+    @Autowired
+    public GestionMaterielServiceImpl(MaterielDao materiel ) {
+    	this.materielDao=materiel;
+    }
 
     @Override
     public void init() {
@@ -23,7 +27,66 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void ajouterNouveauMateriel(Materiel materiel) {
+    	if((materiel != null) && (materielDao.matereielExiste(materiel.getName())==null )) {
+    		materielDao.ajouterNvMateriel(materiel);
+    		 System.out.println("L'ajout du matriel " + materiel.getName() + " effectué avec succées !");    		
+    	}
+    	else if((materiel != null) && (materielDao.matereielExiste(materiel.getName())!=null )) {
+    		 System.out.println("Le matriel " + materiel.getName() + " déjà existe dans la base de données !");   
+    	}else
+    	{
+    		System.out.println(" Veuillez remplir les champs correctement!");   
+    		
+    	}
 
-        System.out.println("L'ajout du matÃ©riel " + materiel.getName() + " effectuÃ© avec succÃ¨s !");
+       
     }
+    @Override
+	public void supprimerMateriel(Long id) {
+    	if((id != null) && (materielDao.findOne(id)!=null )) {
+    		materielDao.supprimerMateriel(id);
+    		 System.out.println("La suppression du matriel  effectué avec succées !");    		
+    	}
+    	else if ((id != null) && (materielDao.findOne(id)==null )) {
+    		 System.out.println("L'id que vous avez entrer n'exise pas dans la base de données!");  
+    	}
+    	else {
+    		 System.out.println("La suppression n'est pas effectuer, ressayer à nouveau!");  
+    	}
+		
+	}
+    
+    
+	@Override
+	public void findMateriel(Long id) {
+		if(materielDao.findOne(id)!=null) {
+			System.out.println(materielDao.findOne(id));
+		}else {
+			System.out.println("le matériel n'existe pas");
+		}
+
+
+	}
+
+	@Override
+	public void modifierInfosMateriel(Long id, String nom, String code) {
+		if(materielDao.modifierInfosMateriel(id, nom, code)) {
+			System.out.println("La modification a été bien effectuée");
+		}else {
+			System.out.println("une erreur a été survenu veuillez réessayer à nouveau!");
+		}
+		
+	}
+
+	@Override
+	public void indisponibleMateriel(Long id) {
+		if(materielDao.indisponibleMateriel(id)) {
+			System.out.println("Le materiel qui porte L'id :"+id +" n'est plus disponible");
+		}else {
+			System.out.println("L'id n'existe pas ,veuillez réessayer à nouveau!");
+		}
+		
+	}
+
+	
 }
