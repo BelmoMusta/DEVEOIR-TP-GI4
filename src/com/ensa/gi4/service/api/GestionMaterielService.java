@@ -16,5 +16,6 @@ public interface GestionMaterielService {
     void modifierMateriel(Long idMateriel,String name,String code);
     void  indisponibleMateriel(Long idMateriel);
     void  listerMaterielAlloue();
+    Materiel trouverMateriel(Long id);
     
 }

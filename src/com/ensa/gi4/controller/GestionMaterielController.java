@@ -19,18 +19,16 @@ import java.util.Scanner;
 @Component("controllerPricipal")
 public class GestionMaterielController {
 
-//    @Autowired
-//
-//    ApplicationPublisher publisher;
-//
+    @Autowired
+
+    ApplicationPublisher publisher;
+
 //    public void afficherMenu() {
 //        Scanner scanner  = new Scanner(System.in);
-//        //publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));
+//        publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));
 //    }
-//
-//    private void sortirDeLApplication() {
-//        System.exit(0);
-//    }
+
+
 	
 	@Autowired
 	GestionUserService gestionUserService ;
@@ -116,7 +114,7 @@ public class GestionMaterielController {
 		 System.out.println("0- pour sortir de l'application, entrer 0");
 		 System.out.println("1- pour Afficher la liste de tous les matériels, entrer 1");
          System.out.println("2- pour Chercher un matériel, entrer 2");
-         System.out.println("3- pour Allouer un matériel");
+         System.out.println("3- pour Allouer un matériel, entrer 3");
          System.out.println("4- pour Afficher la liste des matériels alloués par lui même, entrer 4");
          System.out.println("5- pour Rendre un matériel, entrer 5");
         
@@ -195,11 +193,15 @@ public class GestionMaterielController {
 			  name= scanner.next().toLowerCase(); 
 			  
 		  }while(!"livre".equals(name) && !"chaise".equals(name));
-		  if ("livre".equals(name)) nouveauMateriel=new Livre();
-	        else nouveauMateriel=new Chaise();
+		  if ("livre".equals(name)) { nouveauMateriel=new Livre();
+		  
+		  }
+	        else {nouveauMateriel=new Chaise();
+	        }
 	        System.out.println("saisir le code du materiel");
 	        nouveauMateriel.setCode(scanner.next());
 	        gestionMaterielServiceImpl.ajouterNouveauMateriel(nouveauMateriel);
+	        publisher.publish(new MyEvent<>(nouveauMateriel, EventType.ADD));
 		  
 	  }
 	  //Supprimer un matériel
@@ -219,7 +221,11 @@ public class GestionMaterielController {
 			  System.out.println("le type est invalide,entrer un nombre");
 			
 		  }}while(verif==0);
+		 if( gestionMaterielServiceImpl.trouverMateriel(id)!=null)
+		  publisher.publish(new MyEvent<>(gestionMaterielServiceImpl.trouverMateriel(id), EventType.REMOVE));
 		  gestionMaterielServiceImpl.supprimerMateriel(id);
+		  
+		
 	  }
 	  //Modifier les informations d'un matériel
 	  public void  modifierMateriel() {
@@ -248,6 +254,8 @@ public class GestionMaterielController {
 		 System.out.println("Veuillez saisir le nouveau code"); 
 		 String code= scanner.next();
 		  gestionMaterielServiceImpl.modifierMateriel(id,name,code);
+		  if( gestionMaterielServiceImpl.trouverMateriel(id)!=null)
+			  publisher.publish(new MyEvent<>(gestionMaterielServiceImpl.trouverMateriel(id), EventType. UPDATE));
 	
 	  }
 	  //Marquer un matériel indisponible

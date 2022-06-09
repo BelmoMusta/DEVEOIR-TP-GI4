@@ -111,5 +111,12 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 		 System.out.println(materielDao.findAllAlloue());
 		else System.out.println("aucun matériel a été alloué");
 	}
+	 @Override
+	    public Materiel trouverMateriel(Long id) {
+	    	
+	    	return materielDao.findOne(id);
+	    	
+	    	
+	    }
     
 }
