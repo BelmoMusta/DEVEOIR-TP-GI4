@@ -51,8 +51,10 @@ public class AuthenticationServiceImpl implements AuthenticationService, Initial
         String sql = "SELECT * FROM users WHERE username = ?";
         List<User> users = jdbcTemplate.query(sql,rowMapper,username.toLowerCase());
 
+        //checking if user exists before porceeding
         if(users.isEmpty())
             return null;
+        //checking if username and password are correct
         else if(users.size() == 1 && isPasswordValid(users.get(0).getHashed_password(),password))
             return users.get(0);
 

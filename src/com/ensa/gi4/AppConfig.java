@@ -2,6 +2,7 @@ package com.ensa.gi4;
 
 import com.ensa.gi4.controller.AuthenticationController;
 import com.ensa.gi4.controller.GestionMaterielController;
+import com.ensa.gi4.listeners.ApplicationPublisher;
 import com.ensa.gi4.service.api.AuthenticationService;
 import com.ensa.gi4.service.api.MaterialsManagingService;
 import com.ensa.gi4.service.impl.AuthenticationServiceImpl;
@@ -26,8 +27,8 @@ public class AppConfig {
         return new AuthenticationController();
     }
 
-//    @Bean
-//    public ApplicationPublisher applicationPublisherBean() { return new ApplicationPublisher();}
+    @Bean
+    public ApplicationPublisher applicationPublisherBean() { return new ApplicationPublisher();}
 
     @Bean
     @Lazy

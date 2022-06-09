@@ -2,12 +2,16 @@ package com.ensa.gi4.service.impl;
 
 import com.ensa.gi4.datatabase.api.DAO;
 import com.ensa.gi4.datatabase.impl.AllocationsDAO;
+import com.ensa.gi4.listeners.ApplicationPublisher;
+import com.ensa.gi4.listeners.EventType;
+import com.ensa.gi4.listeners.MyEvent;
 import com.ensa.gi4.modele.Allocation;
 import com.ensa.gi4.modele.Material;
 import com.ensa.gi4.service.api.MaterialsManagingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.events.Event;
 
 import java.util.List;
 import java.util.Scanner;
@@ -20,6 +24,8 @@ public class MaterialsManagingServiceImpl implements MaterialsManagingService {
     DAO<Material> materialsDAO;
     @Autowired
     AllocationsDAO allocationsDAO;
+    @Autowired
+    ApplicationPublisher publisher;
 
     @Override
     public void addMaterial() {
@@ -31,7 +37,8 @@ public class MaterialsManagingServiceImpl implements MaterialsManagingService {
         System.out.println("Enter Material Type CH (for Chair), BK (for Book) : ");
         String type = sc.next();
         Material material = new Material(name,quantity,type);
-        materialsDAO.add(material);
+        //Using publisher pattern to add entity
+        publisher.publish(new MyEvent(material, EventType.ADD));
     }
 
     @Override
@@ -41,7 +48,8 @@ public class MaterialsManagingServiceImpl implements MaterialsManagingService {
         List<Allocation> allocations = allocationsDAO.getAllocationsByMaterialId(id);
         if(!allocations.isEmpty())
             System.out.println("There are still some allocations with this material, please return them before proceeding with delete");
-        else materialsDAO.delete(id);
+        //using publisher pattern to remove entity
+        else publisher.publish(new MyEvent(id, EventType.REMOVE));
     }
 
     @Override

@@ -14,8 +14,7 @@ import java.util.Scanner;
 @Component("controllerPricipal")
 public class GestionMaterielController {
 
-//    @Autowired
-//    ApplicationPublisher publisher;
+
 
     @Autowired
     MaterialsManagingService materialsManagingService;
