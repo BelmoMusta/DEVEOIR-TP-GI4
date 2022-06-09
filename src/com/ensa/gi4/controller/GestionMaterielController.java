@@ -160,22 +160,13 @@ public class GestionMaterielController {
             Scanner s6 = new Scanner(System.in);
             String n6 = scanner.next();
 
-            if(n6.length()==0){
-                //nom
-               gestionMaterielService.modifierNomMateriel( n5,id);
-            }
-            else if(n5.isEmpty()){
 
-                //code
-                gestionMaterielService.modifierCodeMateriel(  n6,id);
 
-            }
-            else{
                 //nom&code
                 gestionMaterielService.modifierNomMateriel( n5,id);
                 gestionMaterielService.modifierCodeMateriel( n6,id);
 
-            }
+            System.out.println("La modification du materiel dont l 'id est "+id+" a ete effectue avec succes");
 
 
 
@@ -200,7 +191,7 @@ public class GestionMaterielController {
 
         }
         else if ("7".equals(next)) {
-            System.out.println("Si vous souhaitez allouer un materiel veuillez resaisir votre nom ");
+            System.out.println("Si vous souhaitez allouer un materiel veuillez re-saisir votre nom ");
             Scanner s = new Scanner(System.in);
             String name = s.next();
             System.out.println("Entrez l'id du materiel à allouer");
@@ -212,7 +203,7 @@ public class GestionMaterielController {
             gestionMaterielService.chercherMateriel(id).setNonAlloue(false);
             gestionMaterielService.chercherMateriel(id).setAlloue(true);
                gestionMaterielService.allouerMateriel(name,true,false,id);
-              System.out.println("Le livre dont l 'id est ="+" "+id+"a ete allouer avec succes par l'utilisateur "+" "+name);
+              System.out.println("Le livre dont l 'id est ="+" "+id+" a ete allouer avec succes par l'utilisateur "+" "+name);
           }
           else {
 
@@ -237,23 +228,29 @@ public class GestionMaterielController {
         }
         else if ("9".equals(next)) {
            List<Materiel> materiels=gestionMaterielService.listerMateriel();
+           int i=0;
             for (Materiel materiel:materiels
                  ) {
                 if (materiel.isAlloue()==true){
                     System.out.println("Les livres alloues sont "+" "+"["+materiel.getName()+","+materiel.getCode()+"]");
 
                 }
-                else {
-
-                    System.out.println("Tous les materiels ne sont pas alloues !");
-                }
+               else {
+                   i=i+1;
 
 
+               }
+
+
+            }
+            if(i!=0){
+                System.out.println("aucun materiel n'est alloue");
             }
 
         }
         else if ("10".equals(next)) {
             List<Materiel> materiels=gestionMaterielService.listerMateriel();
+            int i=0;
             for (Materiel materiel:materiels
             ) {
                 if (materiel.getUser().equals("admin")){
@@ -261,10 +258,7 @@ public class GestionMaterielController {
                     System.out.println("Les livres alloues par l' utilisateur"+" "+materiel.getUser()+" "+" sont "+" "+"["+materiel.getName()+","+materiel.getCode()+"]");
 
                 }
-                else {
 
-                    System.out.println("Tous les materiels ne sont pas alloues !");
-                }
                 }
                 else if(materiel.getUser().equals("employee")){
 
@@ -272,17 +266,17 @@ public class GestionMaterielController {
                         System.out.println("Les livres alloues par l'utilisateur"+" "+materiel.getUser()+" "+"sont "+" "+"["+materiel.getName()+","+materiel.getCode()+"]");
 
                     }
-                    else {
 
-                        System.out.println("Tous les materiels ne sont pas alloues !");
-                    }
                 }
                 else {
 
-                    System.out.println("aucun livre alloue");
+                  i=i+1;
                 }
 
 
+            }
+            if (i!=0){
+                System.out.println("aucun livre n'est alloue ");
             }
 
         }
