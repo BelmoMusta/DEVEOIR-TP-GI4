@@ -136,11 +136,15 @@ public class GestionMaterielController {
             case "1" :
                 findOneItem();
                 break;
-            case "2" : sortirDeLApplication();
+            case "2" :
+                allocateItem();
+                break;
             case "3" :
                 returnItem();
                 break;
-            case "4" : sortirDeLApplication();
+            case "4" :
+                userItemAllocated();
+                break;
             case "5" :
                 showAllItems();
                 break;
@@ -242,8 +246,9 @@ public class GestionMaterielController {
             System.out.println("Matériel non trouvé !! Id introuvable");
             return ;
         }
-        this.gestionMaterielService.deleteMateriel(materiel);
-        System.out.println(materiel.getName()+" supprimé avec succès !!");
+        if(this.gestionMaterielService.deleteMateriel(materiel)){
+            System.out.println(materiel.getName()+" supprimé avec succès !!");
+        }else System.out.println("Ce matériel ne peut pas etre supprimer car il est deja alloué");
     }
 
     public void allocateItem(){

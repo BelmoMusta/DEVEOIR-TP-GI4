@@ -11,7 +11,7 @@ public interface GestionMaterielService {
     List<Materiel> showAll();
     void addNew(Materiel materiel);
     void editMateriel(Materiel materiel);
-    void deleteMateriel(Materiel materiel);
+    boolean deleteMateriel(Materiel materiel);
     Boolean toAllocate(int id,int id_user);
     Boolean toReturn(int id,int id_user);
     void editAvailable(int id,String change);

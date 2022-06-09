@@ -59,8 +59,13 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     }
 
     @Override
-    public void deleteMateriel(Materiel materiel) {
+    public boolean deleteMateriel(Materiel materiel) {
+        if(this.materielDao.isAllocated(materiel.getId())){
+            return false;
+        } else {
         this.materielDao.delete(materiel.getId());
+        return true ;
+        }
     }
 
     @Override
