@@ -510,3 +510,7 @@ ELMESS-ROG/192.168.56.1 - [09-06-2022 11:45:15][INFO] Accessing to database : ur
 ELMESS-ROG/192.168.56.1 - [09-06-2022 11:45:15][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
 09-06-2022 11:45:20 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', available=5}
 ELMESS-ROG/192.168.56.1 - [09-06-2022 11:45:20][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', available=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 12:06:14][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 12:06:14][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+09-06-2022 12:06:19 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', available=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 12:06:19][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', available=5}
