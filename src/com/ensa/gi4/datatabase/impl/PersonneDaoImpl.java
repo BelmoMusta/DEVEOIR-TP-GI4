@@ -58,10 +58,20 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	@Override
 	public Personne findPersonne(String nom, String pw) {
 		String sql = "Select * from users where name ='"+nom+"' and pw = '"+pw+"'";
-		personneConnecte = super.executeQuery(sql);
+		List<Personne> listPersonne = super.findAll(sql);
+		for (int i = 0; i < listPersonne.size(); i++) {
+			if (verifierPW(pw, listPersonne.get(i).getPw())) {
+
+				personneConnecte = listPersonne.get(i);
+				break;
+			}
+		}
+
 		return personneConnecte;
 			
 	}
+	
+	
 	@Override
 	public void ajouterPersonne(String nom, String pw) {
 		String sql = "INSERT INTO users (name,pw) VALUES('"+nom+"','"+pw+"')";
