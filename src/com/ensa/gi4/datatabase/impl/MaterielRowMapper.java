@@ -28,7 +28,6 @@ public class MaterielRowMapper implements RowMapper<Materiel> {
         String type = resultSet.getString(4);
         Long stock = resultSet.getLong(5);
         Boolean dispo = resultSet.getBoolean(6);
-        System.out.println(dispo);
 
         materiel.setId(id);
         materiel.setName(name);

@@ -42,9 +42,6 @@ CREATE TABLE allocation
 
     allocationDuration TIMESTAMP NOT NULL,
 
-    CONSTRAINT FK_idUser FOREIGN KEY (idUser) REFERENCES user(id),
-
-    CONSTRAINT FK_idMat FOREIGN KEY (idMat) REFERENCES materiel(id),
 
 );
 
