@@ -22,6 +22,14 @@ public class GestionUserServiceImpl implements GestionUserService {
 	if(user.getRole().equals("admin")) return true;
 	return false;
 	}
+	
+	    @Override
+	    public void listerUsers() {
+	        
+	        if(userDao.findAll().size()>0)
+	        	System.out.println(userDao.findAll());
+				else System.out.println("aucun matériel");
+	    }
  
 
 }

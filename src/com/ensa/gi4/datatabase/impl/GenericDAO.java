@@ -46,6 +46,15 @@ public abstract class GenericDAO<T> implements InitializingBean {
           }
     	
     }
+    
+    protected T findUser(String query,String name,String password) {
+    	try {
+        return jdbcTemplate.queryForObject(query, getRowMapper(),name, password);
+    	}
+    	catch(Exception e){
+    	return null;
+    }
+    }
   
     protected int allouer(String query,Long alloue,String date,String name) {
     	try {
@@ -80,6 +89,15 @@ public abstract class GenericDAO<T> implements InitializingBean {
        	catch(Exception e){
        	return 0;
        }
+    }
+    ///hasherPassword 
+    protected void hasherPassword(String query,String name,Long id) {
+    	try {
+   		 jdbcTemplate.update(query,name,id);
+      	}
+      	catch(Exception e){
+      	
+      }
     }
     protected abstract RowMapper<T> getRowMapper();
 }

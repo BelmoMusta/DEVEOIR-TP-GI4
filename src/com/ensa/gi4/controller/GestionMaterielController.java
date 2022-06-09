@@ -37,29 +37,18 @@ public class GestionMaterielController {
 	@Autowired
 	GestionMaterielService gestionMaterielServiceImpl;
 	 Scanner scanner = new Scanner(System.in);
-	 private User connecter(String name,String password) {
-		 return gestionUserService.findUser(name,password);
-	 }
-	 public void afficherMenu() {
-		 
-		  System.out.println("entrer votre nom");
+
+	 public User connecter() {
+		 System.out.println("entrer votre nom");
 	      String name= scanner.next();
 	      System.out.println("entrer votre mot de passe");
 	      String password = scanner.next();
-	      User userActuelle= connecter(name,password);
-//	      if(userActuelle==null) 
-//	      {
-//	    	  System.out.println("le nom ou le mot de passe est incorect");
-//	      }
-	      
-	      if(userActuelle!=null)  {
-	    	  afficherMenuPrincipale(userActuelle) ;
-	    	 
-	    
-	      }
-	     
-   }
+	  
+		 return gestionUserService.findUser(name,password);
+	 }
+		
 	 public void afficherMenuPrincipale(User userActuelle) {
+		
 		  String next;
     	  afficherMenuUser();
     	  if(userAdmin(userActuelle)) {
@@ -147,80 +136,140 @@ public class GestionMaterielController {
 	  private void sortirDeLApplication() {
 	        System.exit(0);
 	    }
+	  //Afficher la liste de tous les matériels
 	  private void listerMateriel() {
 		  System.out.println("voici la liste de tous les matériels");
 		  gestionMaterielServiceImpl.listerMateriel();
 	  }
+	  // Chercher un matériel
 	  public void chercherMateriel() {
 		  System.out.println("Veuillez saisir l'id du materiel");
-		  Long id= scanner.nextLong();
+		  String idString;
+		  Long id = null;
+		  int verif=0;
+		do  {
+			  idString=scanner.next();
+		  try {
+			 
+			  id =Long.parseLong(idString);
+			  verif=1;
+		  }
+		  catch(Exception e) {
+			  System.out.println("le type est invalide,entrer un nombre");
+			
+		  }}while(verif==0);
+		
 	    	 gestionMaterielServiceImpl.chercherMateriel(id);
 	    }
+	  //Allouer un matériel
 	  public void allouerMateriel(User user) {
-		  System.out.println("Veuillez saisir le nom du materiel ,entrer livre ou chaise");//car on a seulement de type de materiel chaise et livre
-		  																					//donc il ne faut pas entrer un nom quelconque
-		  String name= scanner.next().toLowerCase();
-		  if("livre".equals(name) || "chaise".equals(name)) {
-			  System.out.println("saisir la date de l'allocation");
-			  String date=scanner.next();
-			  gestionMaterielServiceImpl.alloue(name,user.getId(),date);
-		  }
-		  else System.out.println("choix invalide,les matériels disponibles sont des livres ou des chaises");
-	    	
+		 String name;
+		  do {
+			  System.out.println("Veuillez saisir le nom du materiel ,entrer livre ou chaise");//car on a seulement de type de materiel chaise et livre
+  																								//donc il ne faut pas entrer un nom quelconque
+			  name= scanner.next().toLowerCase(); 
+			  
+		  }while(!"livre".equals(name) && !"chaise".equals(name));
+		  System.out.println("saisir la date de l'allocation");
+		  String date=scanner.next();
+		  gestionMaterielServiceImpl.alloue(name,user.getId(),date);
+		 
 	  }
+	  //Afficher la liste des matériels alloués par lui même
 	  public void ListerMesAllocations(User user) {
 		  gestionMaterielServiceImpl.ListerMesAllocations(user);
 	  }
+	  //Rendre un matériel
 	  public void rendreMateriel(Long idUser) {
 		  System.out.println("Veuillez saisir l'id du materiel");
 		  Long idMateriel= scanner.nextLong();
 	    	 gestionMaterielServiceImpl.rendreMateriel(idUser,idMateriel);
 	  }
+	  // Créer un nouveau matériel
 	  public void  creerMateriel() {
-	         System.out.println("voulez vous ajouter un livre ou une chaise?");
-	         String name= scanner.next().toLowerCase();
-	         Materiel nouveauMateriel;
-	         if("livre".equals(name) || "chaise".equals(name)) {
-	        	 
-	        if ("livre".equals(name)) nouveauMateriel=new Livre();
+		  String name;
+		  Materiel nouveauMateriel;
+		  do {
+			  System.out.println("Veuillez saisir le nom du materiel ,entrer livre ou chaise");//car on a seulement de type de materiel chaise et livre
+  																								//donc il ne faut pas entrer un nom quelconque
+			  name= scanner.next().toLowerCase(); 
+			  
+		  }while(!"livre".equals(name) && !"chaise".equals(name));
+		  if ("livre".equals(name)) nouveauMateriel=new Livre();
 	        else nouveauMateriel=new Chaise();
 	        System.out.println("saisir le code du materiel");
 	        nouveauMateriel.setCode(scanner.next());
 	        gestionMaterielServiceImpl.ajouterNouveauMateriel(nouveauMateriel);
-	        
-	        }
-	        else {System.out.println("choix invalide,les matériels disponibles sont des livres ou des chaises");}
-	         
-	  }
-	  
-	  public void supprimerMateriel() {
-		  System.out.println("Veuillez saisir l'id du materiel"); 
-		  Long idMateriel= scanner.nextLong();
-		  gestionMaterielServiceImpl.supprimerMateriel(idMateriel);
-	  }
-	  public void  modifierMateriel() {
-		  System.out.println("Veuillez saisir l'id du materiel"); 
-		  Long idMateriel= scanner.nextLong();
-		  System.out.println("le nouveau nom, s'il est un Livre entrer 1 ,et s'il est une chaise entrer 2 "); //car on a seulement de type de materiel chaise et livre
-		  																									  //donc il ne faut pas entrer un nom quelconque
-		  String nom = scanner.next();
-		  String code;
-		  if ("1".equals(nom) || "2".equals(nom)) {
-			  if ("1".equals(nom)) nom="Livre";
-			  else nom="Chaise";
-			  System.out.println("Veuillez saisir le nouveau code"); 
-			  code= scanner.next();
-			  gestionMaterielServiceImpl.modifierMateriel(idMateriel,nom,code);
- 	        } 
 		  
-		  else System.out.println("choix invalide");
- 
 	  }
+	  //Supprimer un matériel
+	  public void supprimerMateriel() {
+		  System.out.println("Veuillez saisir l'id du materiel");
+		  String idString;
+		  Long id = null;
+		  int verif=0;
+		do  {
+			  idString=scanner.next();
+		  try {
+			 
+			  id =Long.parseLong(idString);
+			  verif=1;
+		  }
+		  catch(Exception e) {
+			  System.out.println("le type est invalide,entrer un nombre");
+			
+		  }}while(verif==0);
+		  gestionMaterielServiceImpl.supprimerMateriel(id);
+	  }
+	  //Modifier les informations d'un matériel
+	  public void  modifierMateriel() {
+		  System.out.println("Veuillez saisir l'id du materiel");
+		  String idString;
+		  Long id = null;
+		  int verif=0;
+		do  {
+			  idString=scanner.next();
+		  try {
+			 
+			  id =Long.parseLong(idString);
+			  verif=1;
+		  }
+		  catch(Exception e) {
+			  System.out.println("le type est invalide,entrer un nombre");
+			
+		  }}while(verif==0);
+		 String name;
+		 do {
+			  System.out.println("Veuillez saisir le nouveau nom, entrer livre ou chaise");//car on a seulement de type de materiel chaise et livre
+ 																								//donc il ne faut pas entrer un nom quelconque
+			  name= scanner.next().toLowerCase(); 
+			  
+		  }while(!"livre".equals(name) && !"chaise".equals(name));
+		 System.out.println("Veuillez saisir le nouveau code"); 
+		 String code= scanner.next();
+		  gestionMaterielServiceImpl.modifierMateriel(id,name,code);
+	
+	  }
+	  //Marquer un matériel indisponible
 	  public void  indisponibleMateriel() {
-		  System.out.println("Veuillez saisir l'id du materiel"); 
-		  Long idMateriel= scanner.nextLong();
-		  gestionMaterielServiceImpl.indisponibleMateriel(idMateriel);
+		  System.out.println("Veuillez saisir l'id du materiel");
+		  String idString;
+		  Long id = null;
+		  int verif=0;
+		do  {
+			  idString=scanner.next();
+		  try {
+			 
+			  id =Long.parseLong(idString);
+			  verif=1;
+		  }
+		  catch(Exception e) {
+			  System.out.println("le type est invalide,entrer un nombre");
+			
+		  }}while(verif==0);
+		  gestionMaterielServiceImpl.indisponibleMateriel(id);
 	  }
+	  //Afficher la liste des matériels alloués par chaque utilisateur
 	  public void  listerMaterielAlloue() {
 		  gestionMaterielServiceImpl.listerMaterielAlloue();
 	  }
