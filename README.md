@@ -1,73 +1,43 @@
 
-###  Aspects fonctionnelles (15 points)
+# Devoir Spring: Application de gestion de materiel
+Version de Java utilise: 11
 
 
-#####  TLDR; Une application de gestion d'allocation et de restitution de matériel.
+## les fonctionalite de l'application selon le role de l'utilisateur:
+N.B: Un Utilisateur peut avoir plus qu'un role (Ex: administrateur et utilisateur)
+### utilisateur ayant le role: Employee
 
+1. Chercher Un Materiel:
+- Recherche Par Identifiant : Si le materiel n'existe pas, une message convenable s'affichera
+- Recherche Par Type de Materiel
+2. Allouer Un Materiel:
+- Entrer l'identifiant du material a allouer, Puis saisir la duree de location en jours. Si le materiel est indisponible ou tous le stock est deja alloue, une message convenable s'affichera
+3. Rendre Un Materiel:
+- Si l'utilisateur a des materiaux a rendre aujourd'hui, une message d'attention s'affichera avant le menu principal
+- Si l'utilisateur veut rendre un materiel, il doit entrer l'identifiant a rendre.
+4. Afficher La Liste Des Materiaux Alloues Par Un Utilisateur:
+- Afficher les informations de tous les materiaux alloues par l'utilisateur authentifie, si il ya rien, l'application lui affichera une message convenable.
+5. Afficher la liste de tous les materiaux.
 
-Il doit y exister 2 types d'utilisateurs : Administrateur et Employée
-- Un administrateur a tous les privilèges sur les matériels : Ajout, Suppression, Modification, Listing ...
-- Un Employée peut seulement allouer un matériel pour une durée donnée, et le rendre par la suite.
+### Utilisateur Ayant Le Role: administrateur
+N.B: Un utilisateur qui a le role administrateur a tous les privilege d'un employee plus ceux-ci:
+1. Creer Un Nouveau Materiel:
+- Pour cree un materiel il faut saisir, son nom, selectionner un type de materiel existant ou creer un nouveau type, le stock et la disponibilite.
+2. Modifier Un Materiel Existant:
+- saisir les nouvaux information sur le materiel avec certains conditions: le stock ne doit pas etre inferieur a le nombre de location du materiel a modifier
+3. Supprimer Un Materiel Existant:
+- condition de suppression: le materiel ne doit pas etre alloue par un utilisateur
+4. Marquer Un Materiel Comme Disponible/Indisponible:
+- Si le materiel est disponible, marquer-le comme disponible, sinon marquer-le comme disponible
+5. Afficher La Liste Des Materiaux Allour Par Chaque Utilisateur:
+- Afficher tous les information sur les materiaux alloues par chaque utilisateur
 
-L'application contiendra donc une table User qui comprend les informations : username, password, role ...
-(Pour but de simplification, insérer les utilisateurs par script **sql** lors du lancement de l'application, )
-
-
-Chaque type de matériel se voit avoir une quantité de stock : 5 tables toutes allouées veut dire que la prochaine allocation ne sera pas possible.
-
-#### Scénario nominal 1:
-Un utilisateur ayant le rôle employée se connecte à l'application en fournissant le couple (username, password).
-Si la connexion est réussie, alors on lui affiche le menu :
-
-1. Chercher un matériel;
-1. Allouer un matériel;
-1. Rendre un matériel;
-1. Afficher la liste des matériels alloués par lui même
-1. Afficher la liste de tous les matériels
-
-et d'après son choix on effectue les traitements nécessaires;
-####  Scénario nominal 2 :
-Un utilisateur ayant le rôle administrateur se connecte à l'application en fournissant le couple (username, password).
-Si la connexion est réussie, alors on lui affiche le menu :
-1. Chercher un matériel;
-1. Créer un nouveau matériel;
-1. Supprimer un matériel;
-1. Modifier les informations d'un matériel
-1. Marquer un matériel indisponible
-1. Allouer un matériel;
-1. Rendre un matériel;
-1. Afficher la liste des matériels alloués par lui même
-1. Afficher la liste des matériels alloués par chaque utilisateur
-1. Afficher la liste de tous les matériels
-et d'après son choix on effectue les traitements nécessaires;
-
-####  Scénario non-nominal 1 :
-Un utilisateur fournit un couple (username, password) qui est erroné
-1. Lui afficher un message d'erreur convenable;
-1. Lui proposer de ressaisir ses informations ou bien quitter l'application.
-
-####  Scénario non-nominal 2 :
-Un utilisateur veut allouer un matériel non disponible ou épuisé
-1. Lui afficher un message d'erreur convenable;
-1. Lui réafficher le menu initial correspondant;
-
-
-### Aspects techniques (15 points)
-
-1. Foker le repo suivant, https://github.com/BelmoMusta/DEVEOIR-TP-GI4  pour soumission de travail, créer un PR sur github dont le titre sera votre nom complet;
-1. Créer les tables nécessaires, et aussi les relations entre elles;
-1. Respecter la décomposition des couches : dao, service, controller ....;
-1. Prévoir les beans spring nécessaire, et les injecter aux bons endroits;
-1. Utiliser JdbcTemplate avec les mappers nécessaires;
-1. Externaliser, à la limite du possible, les messages en dur sur des fichiers properties et les charger au démarrage;
-1. Prévoir un schéma d'héritage entre les entités;
-1. Utiliser le pattern publisher-listener uniquement pour la création et la modification des entités;
-1. Un point pour un code réfactoré x
-1. un point pour un code clean ( nommage, structure, **SOLID**, ...etc)
-
-
-### Bonus : 10 points
-1. Hasher les mots de passes des utilisateurs en utilisant un algorithme asymétrique  (**bCrypt** par exemple)
-1. Utilser **l'AOP** pour gérer l'authentification;
-1. Utiliser une table de rôles : un utilisateur peut avoir plusieurs rôles à la fois;
-1. créer des test unitaires avec **Junit**.
+## Des Information Supplementaire
+- Les Chaines de caractere vide ne sont pas traites dans l'application
+- Algorithme de cryptage: sha256
+- Pour se Connecter comme etant un admin:
+    - username: mohamed1302
+    - password: 1234567890
+- Pour se connected comme etant un employee:
+    - username: gilgamesh1302
+    - password: 1234567890
