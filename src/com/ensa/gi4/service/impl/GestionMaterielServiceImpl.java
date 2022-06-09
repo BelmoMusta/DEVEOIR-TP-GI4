@@ -8,8 +8,9 @@ import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component("materielService")
+@Service("materielService")
 public class GestionMaterielServiceImpl implements GestionMaterielService {
 	@Autowired
 	PersonneDAO personneDao;

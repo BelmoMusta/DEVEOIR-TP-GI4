@@ -3,13 +3,14 @@ package com.ensa.gi4.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.datatabase.api.PersonneDAO;
 import com.ensa.gi4.modele.Personne;
 import com.ensa.gi4.service.api.GestionPersonneService;
 
-@Component
+@Service
 public class GestionPersonneServiceImpl implements GestionPersonneService {
 	@Autowired
 	PersonneDAO personneDao;

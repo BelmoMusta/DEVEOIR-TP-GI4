@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.datatabase.api.PersonneDAO;
 import com.ensa.gi4.modele.Personne;
 
-@Component
+@Repository
 public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO {
 	private Personne personneConnecte;
 	@Autowired
@@ -24,13 +26,7 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 
 	}
 
-	private boolean verifierPW(String pw, String hashPw) {
-		if (BCrypt.checkpw(pw, hashPw)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+	
 
 	private void hasherPw() {
 		String sql = "select count (*)  from users";
@@ -50,14 +46,10 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 
 	@Override
 	public Personne findPersonne(String nom, String pw) {
-		
-	//	hasherPw();
-
-		String sql = "select * from users where name ='" + nom + "'";
-	
+		String sql = "select * from users where name ='" + nom + "'";	
 		List<Personne> listPersonne = super.findAll(sql);
 		for (int i = 0; i < listPersonne.size(); i++) {
-			if (verifierPW(pw, listPersonne.get(i).getPw())) {
+			if (BCrypt.checkpw(pw, listPersonne.get(i).getPw())) {
 
 				personneConnecte = listPersonne.get(i);
 				break;
