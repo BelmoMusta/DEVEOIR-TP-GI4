@@ -23,7 +23,7 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 
     @Override
     public void afterSingletonsInstantiated() {
-        System.out.println("toto");
+        System.out.println("");
 
     }
     @Override
@@ -48,5 +48,17 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 	public void indisponibleMateriel(Long id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void afficherMaterielAllouerParUtilisateur() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean listerMaterielAlloue() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

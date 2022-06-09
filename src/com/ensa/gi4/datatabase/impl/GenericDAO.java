@@ -53,6 +53,10 @@ public abstract class GenericDAO<T> implements InitializingBean {
     	int i = this.jdbcTemplate.queryForObject(sql, Integer.class);
     	return i;
     }
+    protected String extraireString(String sql ) {
+    	return this.jdbcTemplate.queryForObject(sql, String.class);
+    	
+    }
 
     protected abstract RowMapper<T> getRowMapper();
 }

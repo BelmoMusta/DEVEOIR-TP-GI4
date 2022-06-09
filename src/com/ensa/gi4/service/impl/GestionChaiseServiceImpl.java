@@ -25,7 +25,7 @@ public class GestionChaiseServiceImpl implements GestionMaterielService, SmartIn
 
     @Override
     public void afterSingletonsInstantiated() {
-        System.out.println("totaa");
+        System.out.println("");
 
     }
     @Override
@@ -50,5 +50,17 @@ public class GestionChaiseServiceImpl implements GestionMaterielService, SmartIn
 	public void indisponibleMateriel(Long id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void afficherMaterielAllouerParUtilisateur() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean listerMaterielAlloue() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -1,5 +1,8 @@
 package com.ensa.gi4.datatabase.api;
 
+import java.util.List;
+
+import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.modele.Personne;
 
 public interface PersonneDAO {
@@ -8,5 +11,6 @@ public interface PersonneDAO {
 	 String getRole(String name);
 	 boolean allouerMateriel(String name,String duree);
 	 boolean rendreMateriel(String name);
+	 Personne getPersonneConnecte();
 	 	
 }

@@ -14,6 +14,8 @@ public interface MaterielDao {
     boolean modifierInfosMateriel(Long id, String nom, String code) ;
     boolean indisponibleMateriel(Long id);
     int quantiteMateriel(String name);
+    void afficherMaterielAlloueParUtilisateur();
+    List<Materiel> listerMaterielsAlloue();
     
     
     

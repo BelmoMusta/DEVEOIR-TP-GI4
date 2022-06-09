@@ -87,6 +87,24 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 		}
 		
 	}
+	@Override
+	public void afficherMaterielAllouerParUtilisateur() {
+		materielDao.afficherMaterielAlloueParUtilisateur();
+	}
+	
+	@Override
+	public boolean listerMaterielAlloue() {
+
+		if (!materielDao.listerMaterielsAlloue().isEmpty()) {
+			System.out.println(materielDao.listerMaterielsAlloue());
+			return true;
+		} else {
+			System.out.println("Vous n'avez pas alloué(e) aucun matériel");
+			return false;
+		}
+
+	}
 
 	
 }
+

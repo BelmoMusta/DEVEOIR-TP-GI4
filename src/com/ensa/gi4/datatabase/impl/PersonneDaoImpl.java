@@ -1,17 +1,19 @@
 package com.ensa.gi4.datatabase.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.ensa.gi4.datatabase.api.PersonneDAO;
-
+import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.modele.Personne;
 @Component 
 public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO{
 
 	private Personne personneConnecte;
-	
 	@Override
 	protected RowMapper<Personne> getRowMapper() {
 		// TODO Auto-generated method stub
@@ -54,9 +56,8 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	@Override
 	public boolean rendreMateriel(String nom) {
 		if (personneConnecte != null) {
-			String sql = "update materiel set allouer= 'NULL', duree = 'NULL' where allouer = "+personneConnecte.getId()+" and duree not NULL and name='"+ nom + "' limit 1";
-			if (super.inseretUpdateDelete(sql) !=0) {
-				System.out.println(super.inseretUpdateDelete(sql));
+			String sql = "update materiel set allouer= NULL, duree = 'NULL' where allouer = "+personneConnecte.getId()+" and name='"+ nom + "' limit 1";
+			if (super.inseretUpdateDelete(sql) !=0) {		
 				return true;
 			}else {
 				System.out.println("false");
@@ -66,5 +67,12 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 		} 
 			return false;
 	}
+
+	@Override
+	public Personne getPersonneConnecte() {
+		return personneConnecte;
+	}
+
+	
 
 }

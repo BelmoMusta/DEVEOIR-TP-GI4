@@ -10,4 +10,6 @@ public interface GestionMaterielService {
     void supprimerMateriel(Long id);
     void modifierInfosMateriel(Long id, String nom, String code);
     void indisponibleMateriel(Long id);
+	public void afficherMaterielAllouerParUtilisateur();
+	boolean listerMaterielAlloue();
 }

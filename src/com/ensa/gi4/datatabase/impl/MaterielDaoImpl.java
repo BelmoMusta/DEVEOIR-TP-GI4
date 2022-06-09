@@ -1,13 +1,20 @@
 package com.ensa.gi4.datatabase.impl;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
+import com.ensa.gi4.datatabase.api.PersonneDAO;
 import com.ensa.gi4.modele.Materiel;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao {
+	
+	@Autowired
+	PersonneDAO personneDao;
+	
     @Override
     public List<Materiel> findAll() {
         return super.findAll("SELECT * FROM materiel;");
@@ -73,12 +80,34 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 		return 0;
 	}
 
+	@Override
+	public void afficherMaterielAlloueParUtilisateur() {
+
+		List<Materiel> listMateriel = super.findAll("select * from materiel where allouer is not null");
+		if (!listMateriel.isEmpty()) {
+			for (int i = 0; i < listMateriel.size(); i++) {
+				System.out.println("Name = " + listMateriel.get(i).getName() + " ;code =  "
+						+ listMateriel.get(i).getCode() + " ;nom utilisateur : " + super.extraireString(
+								"select name from users where id =" + listMateriel.get(i).getAllouer() + ""));
+			}
+		} else {
+			System.out.println("pas de matériel alloués");
+		}
+
+	}
 
 
     @Override
     protected MaterielRowMapper getRowMapper() { // template method design pattern
         return new MaterielRowMapper();
     }
+
+	@Override
+	public List<Materiel> listerMaterielsAlloue() {
+		String sql = "select * from materiel where allouer=" + personneDao.getPersonneConnecte().getId() + "";
+		return super.findAll(sql);
+	}
+
 
 
 }

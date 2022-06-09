@@ -54,6 +54,7 @@ public class GestionMaterielController {
         	    		System.out.println("pour rendre un materiele saisir 8 ");
         	    		System.out.println("pour Afficher la liste des matériels alloués  saisir 9 ");
         	    		System.out.println("pour Afficher la liste des matériels alloués par chaque utilisateur saisir 10 ");
+        	    		System.out.println("pour se déconnecter de l'application saisir 0");
         	    		
         	    		System.out.println("---------------------------------------------------------------");
   
@@ -115,7 +116,21 @@ public class GestionMaterielController {
         	    		}
         	    		else if (choix.equals("9")) 
         	    		{
+        	    			  Materiel M= new Materiel() { // because it is abstract
+        	    		        };
+          	    			gestionMaterielService.listerMaterielAlloue();
         	    			
+        	    		}
+        	    		else if(choix.equals("10")){
+        	    			  Materiel M= new Materiel() { // because it is abstract
+      	    		        };
+        	    			gestionMaterielService.afficherMaterielAllouerParUtilisateur();
+        	    		}
+        	    		else if (choix.equals("0")) {
+        	    			sortirDeLApplication();
+        	    		}
+        	    		else {
+        	    			System.out.println("Le choix est invalide !");
         	    		}
         	    		
         	    		
@@ -129,9 +144,11 @@ public class GestionMaterielController {
     	    			
     	    			System.out.println("pour afficher la liste de tous les matériels saisir 1 ");        	    		
         	    		System.out.println("pour  Chercher un matériel saisir 2 ");
-        	    		System.out.println("pour afficher la liste des matériels alloués saisir 3");
-        	    		System.out.println("pour allouer un matériel saisir 4 ");
-        	    		System.out.println("pour  rendre un matériel saisir 5 ");
+        	    		System.out.println("pour allouer un matériel saisir 3 ");
+        	    		System.out.println("pour  rendre un matériel saisir 4 ");
+        	    		System.out.println("pour afficher la liste des matériels alloués saisir 5");
+        	    		System.out.println("pour  se déconnecter de l'application saisir 0 ");
+        	    	
         	    		
         	    		System.out.println("---------------------------------------------------------------");
         	    		
@@ -144,13 +161,39 @@ public class GestionMaterielController {
         	        		choix = scanner.next();
         	    			gestionMaterielService.findMateriel(Long.parseLong(choix));
         	    		}
+        	    		else if (choix.equals("3")) {
+        	    			System.out.println("saisir le nom du materile à allouer : ");
+        	    		   String m1 = scanner.next();
+        	    			System.out.println("saisir la duree d'allocation (par jour): ");
+        	    			String m2 = scanner.next();
+        	    			gestionPersonneService.allouerMateriel(m1,m2);
+        	    		}
+        	    		else if (choix.equals("4")) 
+        	    		{
+        	    			System.out.println("saisir le nom du materile à rendre : ");
+         	    		   String m = scanner.next();
+         	    		  gestionPersonneService.rendreMateriel(m);
+         	    		   
+        	    		}
+        	    		else if (choix.equals("5")) 
+        	    		{
+        	    			  Materiel M= new Materiel() { // because it is abstract
+        	    		        };
+          	    			gestionMaterielService.listerMaterielAlloue();
+        	    			
+        	    		}
+        	    		else if (choix.equals("0")) {
+        	    			sortirDeLApplication();
+        	    		}
+        	    		else {
+        	    			System.out.println("Le choix est invalide !");
+        	    		}
     	    			
     	    		}
     	    	 	    		
     	    	}
     	    	     	    	 
     	      }else {
-    	    	  System.out.println("données errounées!!");
     	    	  System.out.println(" saisir 0 pour sortir de l'application");
     	    	  System.out.println(" saisir 1 pour réesayer à nouveau");
     	    	  String choix = scanner.next();
