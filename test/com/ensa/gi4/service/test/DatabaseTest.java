@@ -1,4 +1,4 @@
-package com.ensa.gi4;
+package com.ensa.gi4.service.test;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,15 +11,15 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 @Configuration
-public class DatabaseConfig {
-    @Value("${jdbc.url}")
-    private String url;
+@Profile("test")
+public class DatabaseTest {
+
+    @Value("${jdbc.test.url}")
+    private String urlTest;
 
     @Value("${jdbc.username}")
     private String username;
@@ -34,33 +34,19 @@ public class DatabaseConfig {
     @Value("${jbdc.populate.schema}")
     private String populateSchema;
 
-
     @Bean
-    public DataSource dataSource() {
+    @Primary
+    public DataSource dataSourceTest() {
+        System.out.println("********** TEST DATABASE **********");
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driverClassName);
-        dataSource.setUrl(url);
+        dataSource.setUrl(urlTest);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         executeScript(initSchema, dataSource);
         executeScript(populateSchema, dataSource);
         //  lancerH2Console(); // si vous voulez lancer la console H2 après la création du datasource
         return dataSource;
-    }
-
-
-
-    @Bean
-    public BCryptPasswordEncoder PasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    private void lancerH2Console() {
-        try {
-            org.h2.tools.Console.main();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
     }
 
     public static void executeScript(String scriptPath, DataSource dataSource) {
@@ -72,4 +58,5 @@ public class DatabaseConfig {
             System.out.println("ERROR : script not found in '" + scriptPath + "'");
         }
     }
+
 }

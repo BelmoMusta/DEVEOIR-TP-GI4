@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface ChaiseDao {
     List<Chaise> findAll();
-    Chaise findOne(Long id);
+    Chaise findOne(Integer id);
     Chaise save(Chaise chaise);
+
+    Integer findMaxId();
 }

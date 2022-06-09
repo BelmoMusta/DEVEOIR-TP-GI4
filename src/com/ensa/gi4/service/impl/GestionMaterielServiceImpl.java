@@ -4,6 +4,9 @@ import com.ensa.gi4.datatabase.api.AllocationDetailsDao;
 import com.ensa.gi4.datatabase.api.ChaiseDao;
 import com.ensa.gi4.datatabase.api.LivreDao;
 import com.ensa.gi4.datatabase.api.MaterielDao;
+import com.ensa.gi4.listeners.ApplicationPublisher;
+import com.ensa.gi4.listeners.EventType;
+import com.ensa.gi4.listeners.MyEvent;
 import com.ensa.gi4.modele.*;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import com.ensa.gi4.service.api.I18nService;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -31,7 +35,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         put(1, AllocationDetails::getMateriel);
         put(2, AllocationDetails::getUser);
     }};
-    final Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
 
     @Value("${materiel.row.format}")
     private String format;
@@ -45,10 +49,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     final EntityUtils entityUtils;
     final UserService userService;
     final AllocationDetailsDao allocationDetailsDao;
+    final ApplicationPublisher applicationPublisher;
 
 
     @Override
-    public void listerMateriel() {;
+    public void listerMateriel() {
         System.out.format(format, i18nService.getText("table.header").split(","));
         materielDao.findAll().forEach(materiel -> {
             System.out.format(format, entityUtils.extractFromEntity(materiel, null));
@@ -62,14 +67,13 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             Livre livre = new Livre();
             entityUtils.populateInputFields(livre, materielFields);
             livre = livreDao.save(livre);
-            System.out.println(i18nService.getFormattedText("message.success.add", livre.getType(), livre.getId()));
+            applicationPublisher.publish(new MyEvent<>(livre, EventType.ADD));
         }else{
             Chaise chaise = new Chaise();
             entityUtils.populateInputFields(chaise, materielFields);
             chaise = chaiseDao.save(chaise);
-            System.out.println(i18nService.getFormattedText("message.success.add", chaise.getType(), chaise.getId()));
+            applicationPublisher.publish(new MyEvent<>(chaise, EventType.ADD));
         }
-
     }
 
     @Override
@@ -115,6 +119,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void modifierMateriel(int id) {
+        scanner = new Scanner(System.in); //for JUnit to be able to test with custom inputs
         Materiel materiel = this.materielDao.findOne(id);
         if (materiel == null){
             System.out.println(i18nService.getText("message.materiel.notfound"));
@@ -131,6 +136,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             values[i] = value.isBlank()?values[i]:value;
         }
         this.materielDao.update(id, fields, values);
+        this.applicationPublisher.publish(new MyEvent<>(this.materielDao.findOne(id), EventType.UPDATE));
     }
 
     @Override
@@ -141,7 +147,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             return;
         }
         this.materielDao.delete(id);
-        System.out.println(i18nService.getFormattedText("message.materiel.deleted", id));
+        this.applicationPublisher.publish(new MyEvent<>(materiel, EventType.REMOVE));
     }
 
     @Override
@@ -227,4 +233,5 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
         }
     }
+
 }

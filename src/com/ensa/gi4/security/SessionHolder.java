@@ -21,6 +21,8 @@ public class SessionHolder {
     private User loggedUser;
     private LocalDateTime validity;
 
+
+
     public User getLoggedUser() {
         return loggedUser;
     }
@@ -44,5 +46,9 @@ public class SessionHolder {
 
     public void refreshValidity(){
         this.validity = LocalDateTime.now();
+    }
+
+    public void setExpiration(String expiration) {
+        this.expiration = expiration;
     }
 }

@@ -25,8 +25,7 @@ public class EntityUtils {
 
     public final <T extends Materiel> void populateInputFields(T entity, String[] fields){
         int index = 0;
-        String[] tmp = entity.getClass().getName().split("\\.");
-        String className = tmp[tmp.length-1].toLowerCase();
+        String className = entity.getClass().getSimpleName().toLowerCase();;
         List<String> elements = Arrays.asList(environment.getProperty("materiel." + className +".input.fields").split(","));
         Field[] entityFields = Materiel.class.getDeclaredFields();
         for( Field field : entityFields){
@@ -48,8 +47,7 @@ public class EntityUtils {
 
     public final <T extends Materiel> String[] extractInputFields(T entity){
         List<String> args = new ArrayList<>();
-        String[] tmp = entity.getClass().getName().split("\\.");
-        String className = tmp[tmp.length-1].toLowerCase();
+        String className = entity.getClass().getSimpleName().toLowerCase();
         List<String> elements = Arrays.asList(environment.getProperty("materiel." + className +".input.fields").split(","));
         Field[] entityFields = Materiel.class.getDeclaredFields();
         for( Field field : entityFields){

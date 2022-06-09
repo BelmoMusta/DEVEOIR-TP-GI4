@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface LivreDao {
     List<Livre> findAll();
-    Livre findOne(Long id);
+    Livre findOne(Integer id);
     Livre save(Livre livre);
+
+    Integer findMaxId();
 }

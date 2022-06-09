@@ -6,17 +6,11 @@ import com.ensa.gi4.utils.EntityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -33,7 +27,7 @@ public class ChaiseDaoImpl extends GenericDAO<Chaise> implements ChaiseDao {
     }
 
     @Override
-    public Chaise findOne(Long id) {
+    public Chaise findOne(Integer id) {
         return super.jdbcTemplate.queryForObject("SELECT * FROM materiel WHERE type=? and id=?", getRowMapper(), "CHAISE", id);
     }
 
@@ -43,6 +37,11 @@ public class ChaiseDaoImpl extends GenericDAO<Chaise> implements ChaiseDao {
         this.jdbcTemplate.update(query, entityUtils.extractInputFields(chaise));
         chaise.setId(this.findMaxId("materiel"));
         return chaise;
+    }
+
+    @Override
+    public Integer findMaxId(){
+        return super.findMaxId("Materiel");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.ensa.gi4.service.api;
 
 import com.ensa.gi4.modele.User;
+import com.ensa.gi4.utils.hasAuthority;
 import enums.LoginResponse;
 
 public interface UserService {
@@ -13,6 +14,6 @@ public interface UserService {
     boolean isPasswordMatch(String password);
     void refreshValidity();
     boolean hasRole(String role);
-    void listUsers();
-    void lockUser(int nextInt, boolean value);
+    @hasAuthority("ADMIN") void listUsers();
+    @hasAuthority("ADMIN") void lockUser(int nextInt, boolean value);
 }

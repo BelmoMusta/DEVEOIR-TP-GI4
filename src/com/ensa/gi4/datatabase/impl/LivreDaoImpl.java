@@ -1,27 +1,16 @@
 package com.ensa.gi4.datatabase.impl;
 
 import com.ensa.gi4.datatabase.api.LivreDao;
-import com.ensa.gi4.modele.Chaise;
 import com.ensa.gi4.modele.Livre;
-import com.ensa.gi4.service.api.I18nService;
 import com.ensa.gi4.utils.EntityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class LivreDaoImpl extends GenericDAO<Livre> implements LivreDao {
@@ -39,7 +28,7 @@ public class LivreDaoImpl extends GenericDAO<Livre> implements LivreDao {
     }
 
     @Override
-    public Livre findOne(Long id) {
+    public Livre findOne(Integer id) {
         return super.jdbcTemplate.queryForObject("SELECT * FROM materiel WHERE type=? and id=?", getRowMapper(), "LIVRE", id);
     }
 
@@ -49,6 +38,11 @@ public class LivreDaoImpl extends GenericDAO<Livre> implements LivreDao {
         this.jdbcTemplate.update(query, entityUtils.extractInputFields(livre));
         livre.setId(this.findMaxId("materiel"));
         return livre;
+    }
+
+    @Override
+    public Integer findMaxId(){
+        return super.findMaxId("Materiel");
     }
 
 
