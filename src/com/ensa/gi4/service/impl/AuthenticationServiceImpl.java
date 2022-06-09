@@ -71,7 +71,7 @@ public class AuthenticationServiceImpl implements AuthenticationService, Initial
         if(userExists(username))
             return UserCreateStatus.USER_EXISTS;
 
-
+        System.out.println(getPasswordHash(password));
         UsersDAO.add(new User(username,getPasswordHash(password),role.ordinal()));
 
         return UserCreateStatus.CREATED_SUCCESSFULLY;
@@ -79,12 +79,13 @@ public class AuthenticationServiceImpl implements AuthenticationService, Initial
 
     @Override
     public boolean userExists(String username) {
+
         String sql = "SELECT * FROM users WHERE username = ?";
         List<User> users = jdbcTemplate.query(sql,rowMapper,username.toLowerCase());
 
         if(users.isEmpty())
             return false;
 
-        return true;
+     return true;
     }
 }
