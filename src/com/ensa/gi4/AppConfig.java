@@ -1,23 +1,24 @@
 package com.ensa.gi4;
 
-import com.ensa.gi4.controller.GestionMaterielController;
-import com.ensa.gi4.service.api.GestionMaterielService;
-import com.ensa.gi4.service.impl.GestionLivreServiceImpl;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
+import com.ensa.gi4.controller.GestionMaterialController;
+import com.ensa.gi4.modele.User;
+import org.springframework.context.annotation.*;
 
 @Configuration
+@EnableAspectJAutoProxy
 public class AppConfig {
 
     @Bean
-    public GestionMaterielService livreServiceBean() {
-        return new GestionLivreServiceImpl();
+    @Scope("singleton")
+    public User authenticatedUser() {
+        return new User();
     }
 
     @Bean
     @Lazy
-    public GestionMaterielController materielControllerBean() {
-        return new GestionMaterielController();
+    public GestionMaterialController materialControllerBean() {
+        return new GestionMaterialController();
     }
 }
+
+
