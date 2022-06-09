@@ -57,7 +57,7 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 
 	@Override
 	public Personne findPersonne(String nom, String pw) {
-		String sql = "Select * from users where name ='"+nom+"' and pw = '"+pw+"'";
+		String sql = "Select * from users where name ='"+nom+"'";
 		List<Personne> listPersonne = super.findAll(sql);
 		for (int i = 0; i < listPersonne.size(); i++) {
 			if (verifierPW(pw, listPersonne.get(i).getPw())) {
@@ -118,6 +118,14 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 		return personneConnecte;
 	}
 	
+
+	@Override
+	public String determinerRole() {
+		if (personneConnecte != null) {
+			return personneConnecte.getRole();
+		}
+		return "";
+	}
 	
 	
 	

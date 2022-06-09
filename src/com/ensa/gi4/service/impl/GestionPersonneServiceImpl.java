@@ -9,8 +9,9 @@ import com.ensa.gi4.modele.Personne;
 import com.ensa.gi4.service.api.GestionPersonneService;
 @Component
 public class GestionPersonneServiceImpl implements GestionPersonneService {
-
 	
+	private Personne personneConnecte;
+
 	 PersonneDAO personneDao;
 	 @Autowired
 	 public GestionPersonneServiceImpl(PersonneDAO personneDao) {
@@ -18,7 +19,7 @@ public class GestionPersonneServiceImpl implements GestionPersonneService {
 	 }
      public Personne connecter(String nom, String pw) {
 	    if(personneDao.findPersonne(nom, pw) != null) {
-		System.out.println("vous etes connecte : "+ nom );
+		System.out.println("vous etes connecte : "+ personneDao.findPersonne(nom, pw).getName());
 		return personneDao.findPersonne(nom, pw);
 	    }else {
 		System.out.println("données eronnées");
@@ -68,5 +69,10 @@ public class GestionPersonneServiceImpl implements GestionPersonneService {
 		} else {
 			System.out.println("Vous n'avez pas alloué ce matériel");
 		}
+	}
+	@Override
+	public String determinerRole() {
+
+		return personneDao.determinerRole();
 	}
 }

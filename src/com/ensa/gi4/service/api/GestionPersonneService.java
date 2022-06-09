@@ -8,5 +8,6 @@ public interface GestionPersonneService {
 	 Boolean isAdmin(String name, String password);
 	 void allouerMateriel(String nom, String duree);	
 	 void rendreMateriel(String nom);
+	 String determinerRole();
 
 }

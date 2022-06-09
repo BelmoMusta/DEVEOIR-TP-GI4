@@ -12,6 +12,7 @@ public interface PersonneDAO {
 	 boolean allouerMateriel(String name,String duree);
 	 boolean rendreMateriel(String name);
 	 Personne getPersonneConnecte();
+	 String determinerRole();
 		
 	 	
 }

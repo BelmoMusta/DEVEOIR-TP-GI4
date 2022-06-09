@@ -28,21 +28,23 @@ public class GestionMaterielController {
 
 	 public void afficherMenu() {
 		 
-	    	System.out.println("----------------bonjour----------------");
-	    	System.out.println("pour se connecter saisir 1 ");
-    		System.out.println("pour créer un nouveau compte saisir 2 ");
+	    	//System.out.println("----------------bonjour----------------");
+	    	//System.out.println("pour se connecter saisir 1 ");
+    		//System.out.println("pour créer un nouveau compte saisir 2 ");
     		Scanner scanner  = new Scanner(System.in);
-    		String Log = scanner.next();
-    		if(Log.equals("1")) {
-    			System.out.println(" saisir votre nom ");
-    	        String name = scanner.next();
-    	        System.out.println(" saisir votre mot de passe ");
-    	        String pw = scanner.next();
-    	       if( gestionPersonneService.connecter(name, pw)!= null) {
+    		//String Log = scanner.next();
+    		//if(Log.equals("1")) {
+    			//System.out.println(" saisir votre nom ");
+    	       // String name = scanner.next();
+    	       // System.out.println(" saisir votre mot de passe ");
+    	       // String pw = scanner.next();
+    	       //if( gestionPersonneService.connecter(name, pw)!= null) {
     	    	  
-    	    	while(true) {
-    	    		if(gestionPersonneService.isAdmin(name, pw))
+    	    	//while(true) {
+    	    		if(gestionPersonneService.determinerRole().equals("admin"))
     	    		{
+    	    			
+
     	    			System.out.println("---------------------------------------------------------------");
     	    			System.out.println("pour Afficher la liste de tous les matériels saisir 1 ");
         	    		System.out.println("pour chercher un materiel saisir 2 ");
@@ -126,23 +128,18 @@ public class GestionMaterielController {
       	    		        };
         	    			gestionMaterielService.afficherMaterielAllouerParUtilisateur();
         	    		}
-        	    		else if (choix.equals("0")) {
-        	    			  name=null;
-            	    		  pw=null;
-            	    	     System.out.print("Vous êtes déconnecté");
-            	    		 afficherMenu();
-        	    		}
+        	    		
         	    		else {
         	    			System.out.println("Le choix est invalide !");
         	    		}
-        	    		
-        	    		
-        	    		
-        	    		
-        	    		
-        	    		
-        	    		
-    	    		}else {
+	
+    	    			
+    	    			
+    	    			
+    	    			
+    	    		} 
+    	    		else {
+    	    			
     	    			System.out.println("---------------------------------------------------------------");
     	    			
     	    			System.out.println("pour afficher la liste de tous les matériels saisir 1 ");        	    		
@@ -185,22 +182,15 @@ public class GestionMaterielController {
           	    			gestionMaterielService.listerMaterielAlloue();
         	    			
         	    		}
-        	    		else if (choix.equals("0")) {
-        	    			
-        	    			  name=null;
-            	    		  pw=null;
-            	    	     System.out.print("Vous êtes déconnecté");
-            	    		 afficherMenu();
-        	    		}
         	    		else {
         	    			System.out.println("Le choix est invalide !");
         	    		}
     	    			
     	    		}
     	    	 	    		
-    	    	}
+    	    	
     	    	     	    	 
-    	      }else {
+    	     /* }else {
     	    	  System.out.println(" saisir 0 pour sortir de l'application");
     	    	  System.out.println(" saisir 1 pour réesayer à nouveau");
     	    	  String choix = scanner.next();
@@ -227,12 +217,10 @@ public class GestionMaterielController {
     		}
     		else {
     			System.out.println("Votre Choix invalide !!");
-    		}
+    		} */
 	       // publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));
 	    }
 
-    private void sortirDeLApplication() {
-        System.exit(0);
-    }
+
 
 }
