@@ -1,5 +1,6 @@
 # Projet de fin de Semestre Spring
-Java version : 17
+- Java version : 17
+- VM Options : --add-opens java.base/java.lang=ALL-UNNAMED
 ## Fonctionnalités
 ### Adaptation du Matareiel
 La chouche DAO, Service et Controller s'adapte automatiquement graçe à "Java Reflection API". Il ne faut qu'a changer le fichier de configuration **application.properties** et les fichiers de messages. Suivant ces étapes
