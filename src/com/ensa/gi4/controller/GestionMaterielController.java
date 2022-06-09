@@ -22,14 +22,7 @@ public class GestionMaterielController {
     @Autowired
 
     ApplicationPublisher publisher;
-
-//    public void afficherMenu() {
-//        Scanner scanner  = new Scanner(System.in);
-//        publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));
-//    }
-
-
-	
+    
 	@Autowired
 	GestionUserService gestionUserService ;
 	@Autowired
