@@ -13,6 +13,10 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	private Personne personneConnecte;
 	@Autowired
 	MaterielDao materielDao;
+	@Override
+	public void afterPropertiesSet() {
+		hasherPw();
+	}
 	
 	private String getHashPw(String pw) {
 		return BCrypt.hashpw(pw, BCrypt.gensalt(10));
@@ -48,7 +52,7 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	@Override
 	public Personne findPersonne(String nom, String pw) {
 		
-		hasherPw();
+		//hasherPw();
 
 		String sql = "select * from users where name ='" + nom + "'";
 	

@@ -248,8 +248,21 @@ public class GestionMaterielController {
 
 			}
 		}
+		if(gestionMaterielService.supprimerMateriel(num1).equals("Livre")) {
+			Materiel materiel =  new Livre();
+			materiel.setCode(donnee2);
+			materiel.setId(num1);
+			materiel.setName("Livre");
+			publisher.publish(new MyEvent<>(materiel, EventType.REMOVE));
+		}else {
+			Materiel materiel =  new Chaise();
+			materiel.setCode(donnee2);
+			materiel.setId(num1);
+			materiel.setName("Chaise");
+			publisher.publish(new MyEvent<>(materiel, EventType.REMOVE));
+		}
 
-		gestionMaterielService.supprimerMateriel(num1);
+		
 	}
 
 	private void modifierMateriel() {
@@ -269,15 +282,24 @@ public class GestionMaterielController {
 			}
 		}
 
-		System.out.println("Veuillez saisir le nouveau nom du matériel soit Livre ou Chaise ");
-		donnee1 = scanner.next();
-		while (!donnee1.equals("Livre") && !donnee1.equals("Chaise")) {
-			System.out.println("Veuillez saisir soit Livre soit Chaise");
-			donnee1 = scanner.next();
-		}
+	
 		System.out.println("Veuillez saisir le nouveau code du matériel ");
 		donnee2 = scanner.next();
-		gestionMaterielService.modifierMateriel(num1, donnee1, donnee2);
+		if(gestionMaterielService.modifierMateriel(num1, donnee2).equals("Livre")) {
+			Materiel materiel =  new Livre();
+			materiel.setCode(donnee2);
+			materiel.setId(num1);
+			materiel.setName("Livre");
+			publisher.publish(new MyEvent<>(materiel, EventType.UPDATE));
+		}else {
+			Materiel materiel =  new Chaise();
+			materiel.setCode(donnee2);
+			materiel.setId(num1);
+			materiel.setName("Chaise");
+			publisher.publish(new MyEvent<>(materiel, EventType.UPDATE));
+		}
+		
+
 	}
 
 	private void chercherMateriel() {

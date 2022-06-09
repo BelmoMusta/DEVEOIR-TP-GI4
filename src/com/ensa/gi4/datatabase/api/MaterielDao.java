@@ -13,16 +13,16 @@ public interface MaterielDao {
 
 	boolean estDisponible(int id);
 	boolean idMaterielExiste(int id);
-
+     
 	Materiel nomMatereielExiste(String nom);
 
 	List<Materiel> listerMaterielsAlloue();
 
-	boolean ajouterMateriel(Materiel materiel);
+	void ajouterMateriel(Materiel materiel);
 
-	boolean supprimmerMateriel(int id);
+	void supprimmerMateriel(int id);
 
-	boolean modifierMateriel(int id, String nom, String code);
+	void modifierMateriel(int id, String code);
 
 	void marquerMaterielIndisponible(int id);
 

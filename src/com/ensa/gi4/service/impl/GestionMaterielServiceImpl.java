@@ -2,6 +2,8 @@ package com.ensa.gi4.service.impl;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.datatabase.api.PersonneDAO;
+import com.ensa.gi4.listeners.EventType;
+import com.ensa.gi4.listeners.MyEvent;
 import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +33,8 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
 	@Override
 	public void ajouterNouveauMateriel(Materiel materiel) {
-		if (materielDao.ajouterMateriel(materiel)) {
-			System.out.println("L'ajout du matériel " + materiel.getName() + " effectuée avec succès !");
-		} else {
-			System.out.println("une erreur a été survenu lors du l'ajout du " + materiel.getName()
-					+ "veuillez réessayer à nouveau!");
-		}
+		materielDao.ajouterMateriel(materiel);
+
 	}
 
 	@Override
@@ -50,22 +48,25 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 	}
 
 	@Override
-	public void supprimerMateriel(int id) {
-		if (materielDao.supprimmerMateriel(id)) {
-			System.out.println("La suppression a bien été effectuée");
+	public String supprimerMateriel(int id) {
+
+		if (materielDao.findOne((long) id).getName().equals("Livre")) {
+			materielDao.supprimmerMateriel(id);
+			return "Livre";
 		} else {
-			System.out.println("Cet id n'existe pas !");
+			return "Chaise";
 		}
 
 	}
 
 	@Override
-	public void modifierMateriel(int id, String nom, String code) {
+	public String modifierMateriel(int id, String code) {
+		materielDao.modifierMateriel(id, code);
+		if (materielDao.findOne((long) id).getName().equals("Livre")) {
 
-		if (materielDao.modifierMateriel(id, nom, code)) {
-			System.out.println("La modification a bien été effectuée");
+			return "Livre";
 		} else {
-			System.out.println("Cet id n'existe pas !");
+			return "Chaise";
 		}
 
 	}
@@ -77,7 +78,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 				System.out.println("ce materiel est déjà disponible !");
 			} else {
 				materielDao.marquerMaterielIndisponible(id);
-				System.out.println("l'opération a été bien effectuée, le matéreil est indisponible");
+				System.out.println("l'opération a été bien effectuée, le matéreil est maintenant indisponible");
 
 			}
 		} else {

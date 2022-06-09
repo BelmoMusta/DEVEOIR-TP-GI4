@@ -11,9 +11,9 @@ public interface GestionMaterielService {
 
 	void findMateriel(Long id);
 
-	void supprimerMateriel(int id);
+	String supprimerMateriel(int id);
 
-	void modifierMateriel(int id, String nom, String code);
+	String modifierMateriel(int id,  String code);
 
 	void marquerMaterielIndisponible(int id);
 
