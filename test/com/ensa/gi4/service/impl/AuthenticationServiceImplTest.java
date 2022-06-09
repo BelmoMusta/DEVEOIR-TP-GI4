@@ -15,22 +15,20 @@ public class AuthenticationServiceImplTest {
     @Before
     public void setUp() {
         service = new AuthenticationServiceImpl();
-        user = new User();
     }
 
     @After
     public void tearDown()  {
-        //service = null;
-        user = null;
+        service = null;
     }
 
 
     @Test
     public void getUser() {
-        //Test giving NullPointerException
+        //Test giving NullPointerException, dependency injection problem ?
         String hash = "$argon2id$v=19$m=15360,t=2,p=1$vA4YjosJ3tIsiE3JyYpRVBb7u4MxUznme2vJHTJ4MSM$Shf4uZ2afWzbHllM0edENIG787QvG3aOPtDwNR06tsMm/jAbgG932XOv2HIj459H9Fanu4bsrMAABfwgpmG7DA";
-//        assertEquals("username",service.getUser("password","username").getUsername());
-//        assertEquals(hash,service.getUser("password","username").getHashed_password());
+        assertEquals("username",service.getUser("password","username").getUsername());
+        assertEquals(hash,service.getUser("password","username").getHashed_password());
     }
 
     @Test
@@ -43,8 +41,8 @@ public class AuthenticationServiceImplTest {
 
     @Test
     public void userExists() {
-        //Test giving NullPointerExceptions IDK why
-        //assertTrue(service.userExists("username"));
-        //assertEquals(false,service.userExists("nonExistentUser"));
+        //Test giving NullPointerExceptions, dependency injection problem ?
+        assertTrue(service.userExists("username"));
+        assertEquals(false,service.userExists("nonExistentUser"));
     }
 }
