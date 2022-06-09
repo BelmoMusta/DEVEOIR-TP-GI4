@@ -116,7 +116,7 @@ public class GestionMaterielController {
         }
     }
 
-    public void afficherMenu(User user) {
+    public void showMenu(User user) {
         System.out.println("***********Menu***********");
         if(user.getRole_id() == Role.ADMIN.ordinal()) {
             while(true)

@@ -1,7 +1,6 @@
 package com.ensa.gi4.service.impl;
 
 import com.ensa.gi4.datatabase.api.DAO;
-import com.ensa.gi4.datatabase.impl.UserRowMapper;
 import com.ensa.gi4.enums.Role;
 import com.ensa.gi4.enums.UserCreateStatus;
 import com.ensa.gi4.modele.User;
@@ -20,8 +19,14 @@ import java.util.Locale;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService, InitializingBean {
 
-    @Autowired
-    UserRowMapper rowMapper;
+    RowMapper<User> rowMapper = (rs, rowNum) -> {
+        User user = new User();
+        user.setUser_id(rs.getInt("user_id"));
+        user.setHashed_password(rs.getString("hashed_password"));
+        user.setUsername(rs.getString("username"));
+        user.setRole_id(rs.getInt("role_id"));
+        return user;
+    };
 
     @Autowired
     DAO<User> UsersDAO;

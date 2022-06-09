@@ -91,6 +91,7 @@ public class MaterialsManagingServiceImpl implements MaterialsManagingService {
         {
             if(material.getQuantity() > 0)
             {
+                //decreasing quantity of material and adding it to borrowed materials
                 material.setQuantity(material.getQuantity() - 1);
                 allocationsDAO.add(new Allocation(userId,id,0));
                 materialsDAO.update(id,material);
@@ -116,13 +117,18 @@ public class MaterialsManagingServiceImpl implements MaterialsManagingService {
 
     @Override
     public void showMaterialsBorrowedByMe(int userId) {
-        allocationsDAO.getAllByUserId(userId).forEach(System.out::println);
+        showUsersAllocations(userId);
     }
 
     @Override
     public void showMaterialsBorrowedByAUser() {
         System.out.println("Enter id of user of whom you want to see allocations.");
         int id = sc.nextInt();
-        allocationsDAO.getAllByUserId(id).forEach(System.out::println);
+        showUsersAllocations(id);
+    }
+
+    public void showUsersAllocations(int userId)
+    {
+        allocationsDAO.getAllByUserId(userId).forEach(System.out::println);
     }
 }

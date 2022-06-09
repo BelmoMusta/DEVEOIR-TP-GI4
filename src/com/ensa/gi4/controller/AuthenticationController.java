@@ -48,8 +48,8 @@ public class AuthenticationController {
 
                 showLoginMenu();
             }
-
-            gestionMaterielController.afficherMenu(user);
+            //Showing controls menu for the specified user
+            gestionMaterielController.showMenu(user);
         }
         else if(code == 2 )
         {
