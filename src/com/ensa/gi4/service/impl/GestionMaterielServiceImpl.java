@@ -92,8 +92,14 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
 	@Override
 	public void listeMaterielAlloue(int ID) {
-		System.out.println(allocationDao.listeMaterielAlloue(ID));		
-	}
+		List<Allocation> list = allocationDao.listeMaterielAlloueAll();
+		for(Allocation a : list) {
+			System.out.println("nom materiel : " + a.getMaterielName());
+			System.out.println("type : " + a.getType());
+			System.out.println("date de debut : " + a.getDateDebut());
+			System.out.println("date de fin : " + a.getDateFin());					
+			System.out.println("---------------------");					
+		}	}
 
 
 	@Override
