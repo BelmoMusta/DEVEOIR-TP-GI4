@@ -127,7 +127,10 @@ public class GestionMaterielController {
         	    			gestionMaterielService.afficherMaterielAllouerParUtilisateur();
         	    		}
         	    		else if (choix.equals("0")) {
-        	    			sortirDeLApplication();
+        	    			  name=null;
+            	    		  pw=null;
+            	    	     System.out.print("Vous êtes déconnecté");
+            	    		 afficherMenu();
         	    		}
         	    		else {
         	    			System.out.println("Le choix est invalide !");
@@ -183,7 +186,11 @@ public class GestionMaterielController {
         	    			
         	    		}
         	    		else if (choix.equals("0")) {
-        	    			sortirDeLApplication();
+        	    			
+        	    			  name=null;
+            	    		  pw=null;
+            	    	     System.out.print("Vous êtes déconnecté");
+            	    		 afficherMenu();
         	    		}
         	    		else {
         	    			System.out.println("Le choix est invalide !");
@@ -199,6 +206,9 @@ public class GestionMaterielController {
     	    	  String choix = scanner.next();
     	    	  if(choix.equals("0")) {
     	    		  sortirDeLApplication();
+    	    		  name=null;
+    	    		  pw=null;
+    	    		 afficherMenu();
     	    	  }else {
     	    		  name=null;
     	    		  pw=null;

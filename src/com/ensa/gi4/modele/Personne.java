@@ -34,6 +34,6 @@ public class Personne {
 
 	  @Override
 	    public String toString() {
-	        return "id : "+id + "name = " + name + ", role = " + role;
+	        return "id : "+id + " ***** name : " + name + "***** role : " + role;
 	    }
 }

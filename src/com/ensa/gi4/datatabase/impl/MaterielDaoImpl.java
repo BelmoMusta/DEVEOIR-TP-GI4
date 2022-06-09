@@ -41,7 +41,8 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	}
 	@Override
 	public void supprimerMateriel(Long id) {
-		String sql = "delete from materiel where id = '" + id + "' limit 1";
+		String sql = "delete from materiel where id = '" + id + "' and allouer = "
+				+ "'null' limit 1";
 		super.inseretUpdateDelete(sql);
 		
 	}

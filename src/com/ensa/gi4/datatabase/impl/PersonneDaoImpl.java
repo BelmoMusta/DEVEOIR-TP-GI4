@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import com.ensa.gi4.datatabase.api.PersonneDAO;
 import com.ensa.gi4.modele.Materiel;
@@ -14,6 +15,40 @@ import com.ensa.gi4.modele.Personne;
 public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO{
 
 	private Personne personneConnecte;
+	
+	
+	// hasher les mots de passe 
+	 @Override
+	    public void afterPropertiesSet() {
+		 super.afterPropertiesSet();
+		 hasherPw();
+	 }
+	private String getHashPw(String pw) {
+		return BCrypt.hashpw(pw, BCrypt.gensalt(10));
+
+	}
+
+	private boolean verifierPW(String pw, String hashPw) {
+		if (BCrypt.checkpw(pw, hashPw)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private void hasherPw() {
+		String sql = "select count (*)  from users";
+		int size = super.count(sql);
+		for (int j = 1; j <= size; j++) {
+			sql = "select pw from users where id = " + j + "";
+			sql = "update users set pw ='" + getHashPw(super.extraireString(sql)) + "' where id = " + j + "";
+			super.inseretUpdateDelete(sql);
+
+		}
+	}
+	
+	
+	
 	@Override
 	protected RowMapper<Personne> getRowMapper() {
 		// TODO Auto-generated method stub
@@ -72,7 +107,9 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	public Personne getPersonneConnecte() {
 		return personneConnecte;
 	}
-
+	
+	
+	
 	
 
 }
