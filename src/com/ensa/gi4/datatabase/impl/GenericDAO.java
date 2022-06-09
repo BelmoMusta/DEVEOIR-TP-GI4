@@ -27,4 +27,47 @@ public abstract class GenericDAO<T> implements InitializingBean {
     }
 
     protected abstract RowMapper<T> getRowMapper();
+
+
+
+    protected int ajouterNouveauMateriel(String query, String nom, String code) {
+        return jdbcTemplate.update(query,nom,code);
+    }
+
+    protected int supprimerMateriel(String query, Long id) {
+
+        return jdbcTemplate.update(query,id);
+    }
+
+    protected int modifierMateriel(String query, String code, String newCode) {
+        return jdbcTemplate.update(query,code,newCode);
+    }
+
+    protected int marquerIndisponible(String query,Long dispo, Long id) {
+
+        return jdbcTemplate.update(query,dispo,id);
+    }
+
+    protected int allouerMateriel(String query, Long i, Long ii, Long id) {
+
+        return jdbcTemplate.update(query,i,ii,id);
+    }
+
+    protected List<T> login(String query,String name,String password) {
+        return jdbcTemplate.query(query, getRowMapper(),name,password);
+    }
+
+    protected List<T> allouerMaterielIdUser(String query, String username) {
+        return jdbcTemplate.query(query,getRowMapper(),username);
+    }
+
+    protected int rendreMateriel(String query, Long i, String ii, Long id) {
+
+        return jdbcTemplate.update(query,i,ii,id);
+    }
+    protected List<T> afficherMaterielLuiMeme(String query, Long id) {
+        return jdbcTemplate.query(query, getRowMapper(),id);
+    }
+
+
 }
