@@ -50,6 +50,11 @@ public class AllocationDetailsDaoImpl extends GenericDAO<AllocationDetails> impl
     }
 
     @Override
+    public void deleteAllByMaterialId(Integer id) {
+        super.delete("DELETE FROM allocation_details WHERE materiel_id=?", id);
+    }
+
+    @Override
     protected RowMapper<AllocationDetails> getRowMapper() {
         return new AllocationDetailsRowMapper(userDao, materielDao);
     }

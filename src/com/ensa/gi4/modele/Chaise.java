@@ -19,7 +19,7 @@ public class Chaise extends Materiel {
                 ", name='" + this.getName() + '\'' +
                 ", type='" + this.getType() + '\'' +
                 ", wood='" + this.wood + '\'' +
-                ", available=" + this.getAvailable() +
+                ", stock=" + this.getStock() +
                 '}';
     }
 

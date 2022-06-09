@@ -13,7 +13,7 @@ public abstract class Materiel implements Entity {
     protected String author;
     protected String edition;
     protected Integer stock;
-    protected Integer available;
+    protected Integer allocated;
 
 
 
@@ -43,12 +43,12 @@ public abstract class Materiel implements Entity {
         this.type = type;
     }
 
-    public Integer getAvailable() {
-        return available;
+    public Integer getAllocated() {
+        return allocated;
     }
 
-    public void setAvailable(Integer available) {
-        this.available = available;
+    public void setAllocated(Integer allocated) {
+        this.allocated = allocated;
     }
 
     public Integer getStock() {
@@ -59,9 +59,10 @@ public abstract class Materiel implements Entity {
         this.stock = stock;
     }
 
-    public int getAllocatedCount(){
-        return this.stock-this.available;
+    public Integer getAvailable(){
+        return stock-allocated;
     }
+
 
     @Override
     public String toString() {
@@ -69,7 +70,7 @@ public abstract class Materiel implements Entity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
-                ", available=" + available +
+                ", stock=" + stock +
                 '}';
     }
 

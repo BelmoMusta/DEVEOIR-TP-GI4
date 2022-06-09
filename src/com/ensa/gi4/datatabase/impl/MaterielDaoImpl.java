@@ -38,26 +38,27 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     public boolean isAvailable(Integer id) {
         Materiel materiel = this.findOne(id);
         if(materiel != null)
-            return materiel.getAvailable()>0;
+            return materiel.getStock()>materiel.getAllocated();
         else
             return false;
     }
 
     @Override
     public void allocate(Integer id) {
-        int newAvailable = this.findOne(id).getAvailable()-1;
-        this.jdbcTemplate.update("UPDATE materiel SET available=? WHERE id=?", newAvailable, id);
+        int newAvailable = this.findOne(id).getAllocated()+1;
+        this.jdbcTemplate.update("UPDATE materiel SET allocated=? WHERE id=?", newAvailable, id);
     }
 
     @Override
     public void deallocate(Integer id) {
-        int newAvailable = this.findOne(id).getAvailable()+1;
-        this.jdbcTemplate.update("UPDATE materiel SET available=? WHERE id=?",newAvailable, id);
+        int newAvailable = this.findOne(id).getAllocated()-1;
+        this.jdbcTemplate.update("UPDATE materiel SET allocated=? WHERE id=?",newAvailable, id);
     }
 
     @Override
     public void delete(Integer id) {
         super.delete("DELETE FROM materiel WHERE id=?", id.toString());
+
     }
 
     @Override

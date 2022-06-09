@@ -10,4 +10,5 @@ public interface AllocationDetailsDao {
     List<AllocationDetails> findAllByUser(Long userId);
     List<AllocationDetails> findAllByMateriel(Long materielId);
     void save(AllocationDetails allocationDetails);
+    void deleteAllByMaterialId(Integer id);
 }

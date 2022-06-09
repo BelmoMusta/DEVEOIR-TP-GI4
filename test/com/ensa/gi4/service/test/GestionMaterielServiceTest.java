@@ -1,15 +1,16 @@
 package com.ensa.gi4.service.test;
 
 import com.ensa.gi4.AppGestionMateriel;
+import com.ensa.gi4.datatabase.api.ChaiseDao;
 import com.ensa.gi4.datatabase.api.LivreDao;
 import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.datatabase.api.UserDao;
+import com.ensa.gi4.modele.Chaise;
 import com.ensa.gi4.modele.Livre;
 import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.modele.User;
 import com.ensa.gi4.security.SessionHolder;
 import com.ensa.gi4.service.api.GestionMaterielService;
-import com.ensa.gi4.service.api.UserService;
 import com.ensa.gi4.utils.EntityUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,11 +52,18 @@ public class GestionMaterielServiceTest {
     @Test
     public void testAjouterMateriel() {
         LivreDao livreDao = context.getBean(LivreDao.class);
-        String[] values = new String[]{"Antigone","LIVRE","Jean","Folio","5","5"};
-        this.gestionMaterielService.ajouterNouveauMateriel(values);
+        ChaiseDao chaiseDao = context.getBean(ChaiseDao.class);
+        String[] values_livre = new String[]{"Antigone","LIVRE","Jean","Folio","5"};
+        this.gestionMaterielService.ajouterNouveauMateriel(values_livre);
         Livre livre = livreDao.findOne(livreDao.findMaxId());
-        String[] fields = entityUtils.extractInputFields(livre);
-        assertEquals(0,Arrays.compare(values,fields));
+        String[] fields_livre = entityUtils.extractInputFields(livre);
+        assertEquals(0,Arrays.compare(values_livre,fields_livre));
+
+        String[] values_chaise = new String[]{"Chaise A44","CHAISE","Hetre","10"};
+        this.gestionMaterielService.ajouterNouveauMateriel(values_chaise);
+        Chaise chaise = chaiseDao.findOne(chaiseDao.findMaxId());
+        String[] fields_chaise = entityUtils.extractInputFields(chaise);
+        assertEquals(0,Arrays.compare(values_chaise,fields_chaise));
     }
 
     @Test

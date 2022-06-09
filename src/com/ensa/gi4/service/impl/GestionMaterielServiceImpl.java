@@ -16,8 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -146,6 +144,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             System.out.println(i18nService.getText("message.materiel.notfound"));
             return;
         }
+        this.allocationDetailsDao.deleteAllByMaterialId(id);
         this.materielDao.delete(id);
         this.applicationPublisher.publish(new MyEvent<>(materiel, EventType.REMOVE));
     }
@@ -195,7 +194,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         Map<Materiel,List<AllocationDetails>> grouped = this.allocationDetailsDao.findAll().stream().collect(groupingBy(AllocationDetails::getMateriel));
         System.out.format(rowFormat, tableHeader);
         for(Materiel materiel : grouped.keySet()){
-            if (materiel.getAllocatedCount()==0) continue;
+            if (materiel.getAllocated()==0) continue;
             List<AllocationDetails> productAllocations = grouped.get(materiel);
             productAllocations.sort(Comparator.comparing(AllocationDetails::getDate));
             AllocationDetails lastAllocation = productAllocations.get(0);
@@ -203,8 +202,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
                     lastAllocation.getMateriel().getName(),
                     lastAllocation.getUser().getUsername(),
                     simpleDateFormat.format(new Date(lastAllocation.getDate().getTime())),
-                    lastAllocation.getMateriel().getAllocatedCount());
-
+                    lastAllocation.getMateriel().getAllocated());
         }
     }
 
@@ -226,12 +224,9 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
                             other.getClass().getMethod("getName").invoke(other),
                             simpleDateFormat.format(new Date(detail.getDate().getTime())));
                 }
-
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
-
         }
     }
-
 }

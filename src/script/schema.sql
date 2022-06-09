@@ -14,7 +14,7 @@ CREATE TABLE materiel
     author VARCHAR(250) NULL,
     edition VARCHAR(250) NULL,
     stock INT NOT NULL,
-    available INT NOT NULL,
+    allocated INT NOT NULL DEFAULT 0,
 );
 
 CREATE TABLE user(

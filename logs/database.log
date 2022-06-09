@@ -510,3 +510,64 @@ ELMESS-ROG/192.168.56.1 - [09-06-2022 11:45:15][INFO] Accessing to database : ur
 ELMESS-ROG/192.168.56.1 - [09-06-2022 11:45:15][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
 09-06-2022 11:45:20 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', available=5}
 ELMESS-ROG/192.168.56.1 - [09-06-2022 11:45:20][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', available=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 12:06:14][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 12:06:14][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+09-06-2022 12:06:19 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', available=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 12:06:19][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', available=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:33:56][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:33:57][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+09-06-2022 18:34:02 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', available=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:34:07][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:37:23][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:37:40][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:38:09][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:38:24][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:38:59][INFO] SAVED : AllocationDetails{id=null, user=root, materiel=Boite A Merveilles, date=09/06/2022 18:38}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:39:13][INFO] SAVED : AllocationDetails{id=null, user=root, materiel=Boite A Merveilles, date=09/06/2022 18:39}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:39:31][INFO] SAVED : AllocationDetails{id=null, user=root, materiel=Chaise A32, date=09/06/2022 18:39}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:39:37][INFO] SAVED : AllocationDetails{id=null, user=root, materiel=Chaise A32, date=09/06/2022 18:39}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:39:45][INFO] SAVED : AllocationDetails{id=null, user=root, materiel=Chaise A32, date=09/06/2022 18:39}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:40:49][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:40:49][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+09-06-2022 18:40:54 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', available=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:40:54][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:41:31][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:41:31][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+09-06-2022 18:41:36 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', available=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:41:36][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:45:30][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:45:30][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+09-06-2022 18:45:35 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', available=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:45:35][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:46:14][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:46:15][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+09-06-2022 18:46:20 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:46:20][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:46:42][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:46:42][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+09-06-2022 18:46:47 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:46:47][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:46:47][INFO] SAVED : Chaise {id=4, name='Chaise A44', type='CHAISE', wood='Hetre', available=10}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:47:41][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:47:41][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+09-06-2022 18:47:46 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:47:46][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:47:46][INFO] SAVED : Chaise {id=4, name='Chaise A44', type='CHAISE', wood='Hetre', stock=10}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:48:05][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:48:05][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+09-06-2022 18:48:10 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:48:10][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:48:10][INFO] SAVED : Chaise {id=4, name='Chaise A44', type='CHAISE', wood='Hetre', stock=10}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:55:08][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:55:08][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+09-06-2022 18:55:13 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=2, name='Chaise A32', type='CHAISE', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:55:13][INFO] SAVED : Chaise {id=3, name='Antigone', type='LIVRE', author='Jean', stock=5}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:55:13][INFO] SAVED : Chaise {id=4, name='Chaise A44', type='CHAISE', wood='Hetre', stock=10}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:55:19][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:55:36][INFO] SAVED : AllocationDetails{id=null, user=root, materiel=Boite A Merveilles, date=09/06/2022 18:55}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:55:38][INFO] SAVED : AllocationDetails{id=null, user=root, materiel=Boite A Merveilles, date=09/06/2022 18:55}
+09-06-2022 18:56:01 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=1, name='Boite A Merveilles', type='LIVRE', stock=2}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:56:46][INFO] Accessing to database : url:jdbc:h2:~/h2/material_db	username:sa
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:56:58][INFO] SAVED : AllocationDetails{id=null, user=root, materiel=Boite A Merveilles, date=09/06/2022 18:56}
+ELMESS-ROG/192.168.56.1 - [09-06-2022 18:56:59][INFO] SAVED : AllocationDetails{id=null, user=root, materiel=Boite A Merveilles, date=09/06/2022 18:56}
+09-06-2022 18:57:07 - [ELMESS-ROG/192.168.56.1][INFO] DELETED : Materiel{id=1, name='Boite A Merveilles', type='LIVRE', stock=2}

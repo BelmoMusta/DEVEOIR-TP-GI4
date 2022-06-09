@@ -27,7 +27,7 @@ public class Livre extends Materiel {
                 ", name='" + this.getName() + '\'' +
                 ", type='" + this.getType() + '\'' +
                 ", author='" + this.getAuthor() + '\'' +
-                ", available=" + this.getAvailable() +
+                ", stock=" + this.getStock() +
                 '}';
     }
 }

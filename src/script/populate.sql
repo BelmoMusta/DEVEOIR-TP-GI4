@@ -1,6 +1,6 @@
 
-INSERT INTO  materiel(name, type, author, edition, stock, available) values ( 'Boite A Merveilles' ,'LIVRE', 'Ahmed Sefroui', 'MoroccoPrint', 2, 2);
-INSERT INTO  materiel(name, type, wood, stock, available) values ( 'Chaise A32', 'CHAISE', 'Hetre', 5, 5);
+INSERT INTO  materiel(name, type, author, edition, stock, allocated) values ( 'Boite A Merveilles' ,'LIVRE', 'Ahmed Sefroui', 'MoroccoPrint', 2, 0);
+INSERT INTO  materiel(name, type, wood, stock, allocated) values ( 'Chaise A32', 'CHAISE', 'Hetre', 5, 0);
 
 INSERT INTO Roles(id, name) values (1, 'ADMIN'), (2, 'USER');
 
