@@ -2,6 +2,7 @@ package com.ensa.gi4.datatabase.impl;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -22,9 +23,21 @@ public abstract class GenericDAO<T> implements InitializingBean {
         return jdbcTemplate.query(query, getRowMapper());
     }
 
-    protected T findOne(String query, Long id) {
+    protected T findOne(String query, int id) {
         return jdbcTemplate.queryForObject(query, getRowMapper(), id);
     }
 
     protected abstract RowMapper<T> getRowMapper();
+
+	protected T Auth(String query) {
+		try {
+			return jdbcTemplate.queryForObject(query, getRowMapper());
+		}catch(DataAccessException e) {
+			return null;
+		}
+	}
+	
+    protected void execute(String query) {
+        jdbcTemplate.execute(query);
+   }
 }
