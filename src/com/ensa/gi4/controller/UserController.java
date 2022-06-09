@@ -81,18 +81,15 @@ public class UserController {
         }
     }
 
-    @hasAuthority("ADMIN")
     private void listUsers() {
         this.userService.listUsers();
     }
 
-    @hasAuthority("ADMIN")
     private void unlockUser() {
         System.out.print(i18nService.getText("prompt.input.user.id"));
         this.userService.lockUser(scanner.nextInt(), false);
     }
 
-    @hasAuthority("ADMIN")
     private void lockUser() {
         System.out.print(i18nService.getText("prompt.input.user.id"));
         this.userService.lockUser(scanner.nextInt(), true);

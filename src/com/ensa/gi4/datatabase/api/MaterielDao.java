@@ -13,4 +13,5 @@ public interface MaterielDao {
     void deallocate(Integer id);
     void delete(Integer id);
     void update(int id, String[] fields, String[] values);
+    Integer findMaxId();
 }

@@ -4,6 +4,7 @@ import com.ensa.gi4.datatabase.api.UserDao;
 import com.ensa.gi4.modele.User;
 import com.ensa.gi4.security.SessionHolder;
 import com.ensa.gi4.service.api.I18nService;
+import com.ensa.gi4.utils.hasAuthority;
 import enums.LoginResponse;
 import com.ensa.gi4.service.api.UserService;
 import lombok.RequiredArgsConstructor;
@@ -82,7 +83,9 @@ public class UserServiceImpl implements UserService {
         return getLoggedUser().getRoles().stream().anyMatch(r -> r.getName().equals(role));
     }
 
+
     @Override
+    @hasAuthority("ADMIN")
     public void listUsers() {
         String[] cols = new String[]{"ID", "USERNAME", "EMAIL", "ROLES", "DATE", "LOCK"};
         String format = "%-5s %-20s %-50s %-50s %-20s %-10s\n";
@@ -95,6 +98,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @hasAuthority("ADMIN")
     public void lockUser(int nextInt, boolean value) {
         if (this.getLoggedUser().getId().equals((long) nextInt)){
             System.out.println(i18nService.getText("message.wrong.lock.current"));

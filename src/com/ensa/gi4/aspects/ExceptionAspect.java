@@ -37,7 +37,7 @@ public class ExceptionAspect {
         String LogFile = getLogFilePath(2);
         BufferedWriter writer = new BufferedWriter(new FileWriter(LogFile, true));
         LogLine logLine = new LogLine("ERROR", jp.getSignature().toString(), e.getClass().getSimpleName(), e.getMessage());
-        writer.write(String.format(ERROR_LOG_FORMAT, IP_ADDRESS, logLine.getElements()));
+        writer.write(String.format(ERROR_LOG_FORMAT, logLine.getElements()));
         writer.close();
     }
 
@@ -59,6 +59,6 @@ class LogLine{
     }
 
     public String[] getElements(){
-        return new String[]{time, type, thrower, exceptionClass, message};
+        return new String[]{IP_ADDRESS, time, type, thrower, exceptionClass, message};
     }
 }

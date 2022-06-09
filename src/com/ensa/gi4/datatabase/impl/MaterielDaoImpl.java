@@ -67,6 +67,11 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
         this.jdbcTemplate.update(sql, values);
     }
 
+    @Override
+    public Integer findMaxId(){
+        return super.findMaxId("Materiel");
+    }
+
 
     @Override
     protected MaterielRowMapper getRowMapper() { // template method design pattern
