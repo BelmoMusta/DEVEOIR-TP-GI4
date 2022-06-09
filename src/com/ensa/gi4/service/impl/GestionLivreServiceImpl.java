@@ -39,6 +39,11 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 
     }
 
+    @Override
+    public void marquerMaterielIndispo(Long id) {
+
+    }
+
 
     @Override
     public void afterSingletonsInstantiated() {

@@ -1,6 +1,7 @@
 
 INSERT INTO  materiel(name, code, type, stock, dispo) values ( 'Livre JavaScript' ,'LI', 'LIVRE' , 7, true );
 INSERT INTO  materiel(name, code, type, stock, dispo) values ( 'Livre JAVA' ,'LI', 'LIVRE' , 44, true );
+INSERT INTO  materiel(name, code, type, stock, dispo) values ( 'Livre HTML' ,'LI', 'LIVRE' , 0, false );
 
 
 

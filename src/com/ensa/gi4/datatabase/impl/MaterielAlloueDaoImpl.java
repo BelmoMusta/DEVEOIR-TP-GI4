@@ -23,16 +23,27 @@ public class MaterielAlloueDaoImpl extends GenericDAO<MaterielAlloue> implements
 
     @Override public String allocateMateriel(User user, Long idMateriel) {
 
-        // remplir la tables allocation
-        String query1 = "INSERT INTO ALLOCATION(IDUSER, IDMAT, ALLOCATIONDURATION) VALUES(?,?,CURRENT_TIMESTAMP)";
-        super.allocateOne(query1, user.getUserId(), idMateriel);
-
         // modifier la table materiel
-        String query2 = "UPDATE MATERIEL SET STOCK = STOCK - 1 WHERE ID = ?";
-        super.resetTheStock(query2, idMateriel);
+        String query2 = "UPDATE MATERIEL SET STOCK = STOCK - 1 WHERE (ID = ? AND STOCK > 0)";
+        int changedRows = super.resetTheStock(query2, idMateriel);
+
+        if (changedRows > 0) {
+
+            // remplir la tables allocation
+            String query1 = "INSERT INTO ALLOCATION(IDUSER, IDMAT, ALLOCATIONDURATION) VALUES(?,?,CURRENT_TIMESTAMP)";
+            super.allocateOne(query1, user.getUserId(), idMateriel);
+
+            return "L'allocation du materiel a passé veuillez verifier.";
+
+        }
+
+        /* remplir la tables allocation
+        String query1 = "INSERT INTO ALLOCATION(IDUSER, IDMAT, ALLOCATIONDURATION) VALUES(?,?,CURRENT_TIMESTAMP)";
+        super.allocateOne(query1, user.getUserId(), idMateriel);*/
 
 
-        return "L'allocation du materiel a passé veuillez verifier.";
+
+        return "Le materiel est indisponible pour le moment";
 
 
     }

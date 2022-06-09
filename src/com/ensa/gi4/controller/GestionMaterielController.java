@@ -88,9 +88,11 @@ public class GestionMaterielController {
                 System.out.println("- pour ajouter un nouveau materiel, entrer 6");
                 System.out.println("- pour supprimer un materiel, entrer 7");
 
-                
+
                 System.out.println("- pour marquer un materiel comme indisponible, entrez 8");
-                //System.out.println("4- pour modifier un materiel, entrer 8");
+
+
+                System.out.println("- pour modifier un materiel, entrer 9");
 
 
                 String next = scanner.next();
@@ -168,6 +170,13 @@ public class GestionMaterielController {
                     System.out.print("Veuillez saisir l'id du materiel à supprimer : ");
                     id = scanner.nextLong();
                     gestionMaterielService.supprimerMateriel(id);
+
+                } else if ("8".equals(next)) {
+
+                    Long id;
+                    System.out.print("Veuillez saisir l'id du materiel que vous voulez marquer indisponible : ");
+                    id = scanner.nextLong();
+                    gestionMaterielService.marquerMaterielIndispo(id);
 
                 }
 

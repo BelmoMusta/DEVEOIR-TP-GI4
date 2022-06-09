@@ -15,6 +15,8 @@ public interface MaterielDao {
 
     String addMateriel(Materiel materiel);
 
+    String nonDispoMateriel(Long id);
+
 
 
 }

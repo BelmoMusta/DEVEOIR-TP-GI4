@@ -15,6 +15,8 @@ public interface GestionMaterielService {
 
     void supprimerMateriel(Long id);
 
+    void marquerMaterielIndispo(Long id);
+
 
     //void modifierMateriel(Materiel materiel);
 }

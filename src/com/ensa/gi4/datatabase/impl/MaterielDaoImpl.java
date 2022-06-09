@@ -46,6 +46,15 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     }
 
     @Override
+    public String nonDispoMateriel(Long id) {
+
+        String query = "UPDATE MATERIEL SET STOCK = 0, DISPO = false WHERE ID = ?";
+        super.noDipoMateriel(query, id);
+        return "Le materiel n'est pas diponible dans votre stock maintenant veuillez vérifier";
+
+    }
+
+    @Override
     protected MaterielRowMapper getRowMapper() { // template method design pattern
 
         return new MaterielRowMapper();

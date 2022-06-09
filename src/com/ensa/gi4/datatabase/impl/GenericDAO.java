@@ -90,5 +90,11 @@ public abstract class GenericDAO<T> implements InitializingBean {
 
     }
 
+    protected int noDipoMateriel(String query, Long idMateriel) {
+
+        return jdbcTemplate.update(query, idMateriel);
+
+    }
+
 
 }
