@@ -32,7 +32,7 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	@Override
 	public int quantiteMateriel(String nom) {
 		if (nomMatereielExiste(nom) != null) {
-			String sql = "select count (*)  from materiel where name = '" + nom + "'";
+			String sql = "select count (*)  from materiel where name = '" + nom + "' and allouer is not null";
 
 			return super.count(sql);
 		}
@@ -40,7 +40,7 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	}
 
 	@Override
-	public boolean estDisponible(int id) {
+	public boolean estDisponible(Long id) {
 		String sql = "select * from materiel where id = " + id + "";
 		if (super.executeQuery(sql) != null) {
 			return super.executeQuery(sql).isDisponible();
@@ -70,20 +70,20 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	}
 
 	@Override
-	public void supprimmerMateriel(int id) {
+	public void supprimmerMateriel(Long id) {
 		String sql = "delete from materiel where id=" + id + "";
 		super.insererOrUpdateOrDelete(sql);
 	}
 
 	@Override
-	public void modifierMateriel(int id, String code) {
+	public void modifierMateriel(Long id, String code) {
 		String sql = "update materiel set code='" + code + "' where id=" + id + "";
 		super.insererOrUpdateOrDelete(sql);
 
 	}
 
 	@Override
-	public void marquerMaterielIndisponible(int id) {
+	public void marquerMaterielIndisponible(Long id) {
 		String sql = "update materiel set disponible = false where id =" + id + "";
 		super.insererOrUpdateOrDelete(sql);
 
@@ -107,24 +107,26 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	}
 
 	@Override
-	public boolean allouerMateriel(String nom, String duree) {
+	public String allouerMateriel(String nom, String duree) {
 		if (personneDao.getPersonneConnecte() != null) {
 			String sql = "update materiel set allouer= " + personneDao.getPersonneConnecte().getId() + ", duree = '"
 					+ duree + "' where allouer IS NULL and disponible = true and name='" + nom + "' limit 1";
 
-			if (super.insererOrUpdateOrDelete(sql) != 0) {
-				return true;
-			} else {
-				return false;
-			}
+			if (super.insererOrUpdateOrDelete(sql) == 0) {
+				if (quantiteMateriel(nom) == 0) {
+					return "quantite";
+				} else {
+					return "disponible";
+				}
 
+			}return "succes";
 		}
-		return false;
+		return null;
 
 	}
 
 	@Override
-	public boolean rendreMateriel(int id) {
+	public boolean rendreMateriel(Long id) {
 		String sql = "update materiel set allouer= null, duree = null where allouer="
 				+ personneDao.getPersonneConnecte().getId() + " and id=" + id + "";
 		if (super.insererOrUpdateOrDelete(sql) != 0) {
@@ -136,7 +138,7 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	}
 
 	@Override
-	public boolean idMaterielExiste(int id) {
+	public boolean idMaterielExiste(Long id) {
 		String sql = "select * from materiel where id = " + id + "";
 		if (super.executeQuery(sql) != null) {
 			return true;

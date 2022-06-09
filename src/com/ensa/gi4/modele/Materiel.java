@@ -1,7 +1,7 @@
 package com.ensa.gi4.modele;
 
 public abstract class Materiel {
-	private int id;
+	private Long id;
 	private String code;
     private String name;   
     private boolean disponible;
@@ -24,11 +24,11 @@ public abstract class Materiel {
 		this.duree = duree;
 	}
 
-	public int getId() {
+	public Long getId() {
   		return id;
   	}
 
-  	public void setId(int id) {
+  	public void setId(Long id) {
   		this.id = id;
   	}
 

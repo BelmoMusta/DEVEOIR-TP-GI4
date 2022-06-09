@@ -48,34 +48,40 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 	}
 
 	@Override
-	public String supprimerMateriel(int id) {
+	public String supprimerMateriel(Long id) {
+		if(materielDao.findOne(id)==null) {
+			return "null";
+		}else {
 
-		if (materielDao.findOne((long) id).getName().equals("Livre")) {
+		if (materielDao.findOne(id).getName().equals("Livre")) {
 			materielDao.supprimmerMateriel(id);
 			return "Livre";
 		} else {
 			return "Chaise";
-		}
+		}}
 
 	}
 
 	@Override
-	public String modifierMateriel(int id, String code) {
+	public String modifierMateriel(Long id, String code) {
+		if(materielDao.findOne(id)==null) {
+			return "null";
+		}else {
 		materielDao.modifierMateriel(id, code);
 		if (materielDao.findOne((long) id).getName().equals("Livre")) {
 
 			return "Livre";
 		} else {
 			return "Chaise";
-		}
+		}}
 
 	}
 
 	@Override
-	public void marquerMaterielIndisponible(int id) {
+	public void marquerMaterielIndisponible(Long id) {
 		if (materielDao.idMaterielExiste(id)) {
 			if (!materielDao.estDisponible(id)) {
-				System.out.println("ce materiel est déjà disponible !");
+				System.out.println("ce materiel est déjà indisponible !");
 			} else {
 				materielDao.marquerMaterielIndisponible(id);
 				System.out.println("l'opération a été bien effectuée, le matéreil est maintenant indisponible");
@@ -93,7 +99,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 	}
 
 	@Override
-	public void rendreMateriel(int id) {
+	public void rendreMateriel(Long id) {
 
 		if (materielDao.rendreMateriel(id)) {
 			System.out.println("Vous avez bien rendu le matériel");
@@ -105,10 +111,15 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
 	@Override
 	public void allouerMateriel(String nom, String duree) {
-		if (materielDao.allouerMateriel(nom, duree)) {
-			System.out.println("Votre allocation a bien été effectuée");
-		} else {
-			System.out.println("Ce materiel n'est pas disponible ou epuisé");
+		if (materielDao.allouerMateriel(nom, duree).equals("succes")) {
+			System.out.println("Votre allocation a été bien effectuée");
+		} else if(materielDao.allouerMateriel(nom, duree).equals("quantite")) {
+			System.out.println("Ce materiel est epuisé");
+		}else if(materielDao.allouerMateriel(nom, duree).equals("disponible")) {
+			System.out.println("Ce materiel n'est pas disponible");
+
+		}else {
+			System.out.println("vous êtes pas connecté");
 		}
 
 	}

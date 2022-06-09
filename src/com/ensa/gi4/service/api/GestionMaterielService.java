@@ -11,17 +11,17 @@ public interface GestionMaterielService {
 
 	void findMateriel(Long id);
 
-	String supprimerMateriel(int id);
+	String supprimerMateriel(Long id);
 
-	String modifierMateriel(int id,  String code);
+	String modifierMateriel(Long id,  String code);
 
-	void marquerMaterielIndisponible(int id);
+	void marquerMaterielIndisponible(Long id);
 
 	void afficherMaterielAllouerParUtilisateur();
 	
 	void allouerMateriel(String nom, String duree);
 
-	void rendreMateriel(int id);
+	void rendreMateriel(Long id);
 
 	boolean listerMaterielAlloue();
 

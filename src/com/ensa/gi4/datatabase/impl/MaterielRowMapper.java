@@ -13,7 +13,7 @@ public class MaterielRowMapper implements RowMapper<Materiel> {
 		};
 
 		String name = resultSet.getString("name");
-		int id = resultSet.getInt("id");
+		Long id=  resultSet.getLong("id");
 		String code = resultSet.getString("code");
 		int allouer = resultSet.getInt("allouer");
 		boolean disponible = resultSet.getBoolean("disponible");

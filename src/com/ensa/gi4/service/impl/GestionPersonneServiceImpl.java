@@ -18,6 +18,7 @@ public class GestionPersonneServiceImpl implements GestionPersonneService {
 	
 
 	public Personne connecter(String nom, String pw) {
+		System.out.println(nom + " " + pw);
 		if (personneDao.findPersonne(nom, pw) != null) {
 			System.out.println("vous êtes connecté(e) : soyez le bienvenu  " + nom);
 			return personneDao.findPersonne(nom, pw);

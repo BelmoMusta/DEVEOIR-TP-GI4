@@ -11,8 +11,9 @@ public interface MaterielDao {
 
 	int quantiteMateriel(String code);
 
-	boolean estDisponible(int id);
-	boolean idMaterielExiste(int id);
+	boolean estDisponible(Long id);
+	
+	boolean idMaterielExiste(Long id);
      
 	Materiel nomMatereielExiste(String nom);
 
@@ -20,16 +21,16 @@ public interface MaterielDao {
 
 	void ajouterMateriel(Materiel materiel);
 
-	void supprimmerMateriel(int id);
+	void supprimmerMateriel(Long id);
 
-	void modifierMateriel(int id, String code);
+	void modifierMateriel(Long id, String code);
 
-	void marquerMaterielIndisponible(int id);
+	void marquerMaterielIndisponible(Long id);
 
 	void afficherMaterielAlloueParUtilisateur();
 
-	boolean allouerMateriel(String code, String duree);
+	String allouerMateriel(String nom, String duree);
 
-	boolean rendreMateriel(int id);
+	boolean rendreMateriel(Long id);
 
 }

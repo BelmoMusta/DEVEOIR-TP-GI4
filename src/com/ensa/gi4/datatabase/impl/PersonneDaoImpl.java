@@ -13,11 +13,12 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	private Personne personneConnecte;
 	@Autowired
 	MaterielDao materielDao;
-	@Override
-	public void afterPropertiesSet() {
-		hasherPw();
-	}
 	
+	 @Override
+	    public void afterPropertiesSet() {
+		 super.afterPropertiesSet();
+		 hasherPw();
+	 }
 	private String getHashPw(String pw) {
 		return BCrypt.hashpw(pw, BCrypt.gensalt(10));
 
@@ -33,11 +34,9 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 
 	private void hasherPw() {
 		String sql = "select count (*)  from users";
-
 		int size = super.count(sql);
 		for (int j = 1; j <= size; j++) {
 			sql = "select pw from users where id = " + j + "";
-
 			sql = "update users set pw ='" + getHashPw(super.extraireString(sql)) + "' where id = " + j + "";
 			super.insererOrUpdateOrDelete(sql);
 
@@ -52,7 +51,7 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	@Override
 	public Personne findPersonne(String nom, String pw) {
 		
-		//hasherPw();
+	//	hasherPw();
 
 		String sql = "select * from users where name ='" + nom + "'";
 	

@@ -20,7 +20,7 @@ import java.util.Scanner;
 @Component("controllerPricipal")
 public class GestionMaterielController {
 	String donnee1, donnee2, donnee3;
-	int num1, num2, num3;
+	Long num1, num2, num3;
 	Scanner scanner = new Scanner(System.in);
 
 	@Autowired
@@ -34,12 +34,8 @@ public class GestionMaterielController {
 
 	private void afficherMenuAdmin() {
 
-		System.out.println("------------------admin-----------------");
-		System.out.println("pour --  lister  ---- le materiele saisir        ----------------------> 1 ");
-		System.out.println("pour --  chercher  -- un materiele saisir        ----------------------> 2 ");
-		System.out.println("pour --  allouer  --- un materiel saisir         ----------------------> 3 ");
-		System.out.println("pour --  rendre  ---- un matereil saisir         ----------------------> 4 ");
-		System.out.println("pour --  afficher  -- le matériel alloués saisir ----------------------> 5 ");
+		afficherMenuEmploye();
+	
 		System.out.println("pour --  ajouter   -- un matériel  saisir        ----------------------> 6 ");
 		System.out.println("pour --  supprimer -- un matériel  saisir        ----------------------> 7 ");
 		System.out.println("pour --  modifier  -- un matériel  saisir        ----------------------> 8 ");
@@ -47,18 +43,17 @@ public class GestionMaterielController {
 		System.out.println("pour --  afficher  -- les matériels alloués par les utilisateurs saisir> 10 ");
 		System.out.println("pour --  créer     -- un compte utilisateur saisir --------------------> 11 ");
 
-
-		System.out.println("-----------------------------------");
+		System.out.println("-----------------------------------------------------------------------------");
 	}
 
 	private void afficherMenuEmploye() {
-		System.out.println("---------------------employé-------------");
-		System.out.println("pour --  lister  ---- le materiele saisir        -------->  1 ");
-		System.out.println("pour --  chercher  -- un materiele saisir        -------->  2 ");
-		System.out.println("pour --  allouer  --- un materiel saisir         -------->  3 ");
-		System.out.println("pour --  rendre  ---- un matereil saisir         -------->  4 ");
-		System.out.println("pour --  afficher  -- le matériel alloués saisir -------->  5 ");
-		System.out.println("----------------------------------------");
+		System.out.println("-------------------------------------------------------------");
+		System.out.println("pour --  lister  ---- le materiele saisir        ----------------------> 1 ");
+		System.out.println("pour --  chercher  -- un materiele saisir        ----------------------> 2 ");
+		System.out.println("pour --  allouer  --- un materiel saisir         ----------------------> 3 ");
+		System.out.println("pour --  rendre  ---- un matereil saisir         ----------------------> 4 ");
+		System.out.println("pour --  afficher  -- le matériel alloués saisir ----------------------> 5 ");
+		
 
 	}
 
@@ -70,8 +65,9 @@ public class GestionMaterielController {
 				// ************************ADMIN***************************
 
 				while (true) {
+					
 					afficherMenuAdmin();
-
+					
 					String choix = scanner.next();
 
 					if (choix.equals("1")) {
@@ -150,13 +146,26 @@ public class GestionMaterielController {
 				creerCompteEmploye();
 				afficherMenu();
 			} else {
-
 				afficherMenu();
 			}
 		}
 
 	}
+	private Long verificationEntre() {
+		boolean verification = false;
+		while (!verification) {
+			donnee1 = scanner.next();
 
+			try {
+				num1 = Long.parseLong(donnee1);
+				verification = true;
+			} catch (Exception e) {
+				System.out.println("Veuillez  saisir un numéro id convenable  : ");
+
+			}
+		}
+		return num1;
+	}
 	private void listerMateriel() {
 		gestionMaterielService.listerMateriel();
 	}
@@ -236,19 +245,10 @@ public class GestionMaterielController {
 	private void supprimerMateriel() {
 		System.out.println("Veuillez saisir l'id du matériel à supprimer ");
 		listerMateriel();
-		boolean verification = false;
-		while (!verification) {
-			donnee1 = scanner.next();
-
-			try {
-				num1 = Integer.parseInt(donnee1);
-				verification = true;
-			} catch (Exception e) {
-				System.out.println("Veuillez  saisir un numéro id convenable  : ");
-
-			}
-		}
-		if(gestionMaterielService.supprimerMateriel(num1).equals("Livre")) {
+		num1=  verificationEntre();	
+		if(gestionMaterielService.supprimerMateriel(num1).equals("null")) {
+			System.out.println("cet id n'existe pas");
+		}else if(gestionMaterielService.supprimerMateriel(num1).equals("Livre")) {
 			Materiel materiel =  new Livre();
 			materiel.setCode(donnee2);
 			materiel.setId(num1);
@@ -265,26 +265,16 @@ public class GestionMaterielController {
 		
 	}
 
+
 	private void modifierMateriel() {
 		System.out.println("Veuillez saisir l'id du matériel à modifier ");
 		listerMateriel();
-
-		boolean verification = false;
-		while (!verification) {
-			donnee1 = scanner.next();
-
-			try {
-				num1 = Integer.parseInt(donnee1);
-				verification = true;
-			} catch (Exception e) {
-				System.out.println("Veuillez  saisir un numéro id convenable  : ");
-
-			}
-		}
-
-	
+		num1 =  verificationEntre();	
 		System.out.println("Veuillez saisir le nouveau code du matériel ");
 		donnee2 = scanner.next();
+		if(gestionMaterielService.modifierMateriel(num1, donnee2).equals("null")) {
+			System.out.println("cet id n'existe pas");
+		}else 
 		if(gestionMaterielService.modifierMateriel(num1, donnee2).equals("Livre")) {
 			Materiel materiel =  new Livre();
 			materiel.setCode(donnee2);
@@ -303,27 +293,16 @@ public class GestionMaterielController {
 	}
 
 	private void chercherMateriel() {
-		boolean verification = false;
 		System.out.println(" saisir id : ");
-		donnee1 = scanner.next();
-		while (!verification) {
+		num1 = verificationEntre();	
+		gestionMaterielService.findMateriel(num1);
 
-			try {
-				Long.parseLong(donnee1);
-				verification = true;
-			} catch (Exception e) {
-				System.out.println("Veuillez  saisir un numéro id convenable  : ");
-				donnee1 = scanner.next();
-			}
-		}
-
-		gestionMaterielService.findMateriel(Long.parseLong(donnee1));
 	}
 
 	private void allouerMateriel() {
 		do {
 			System.out.println("Pour allouer un livre saisir 1 ");
-			System.out.println("Pour allouer un livre saisir 2 ");
+			System.out.println("Pour allouer une chaise saisir 2 ");
 			donnee1 = scanner.next();
 		} while (!donnee1.equals("1") && !donnee1.equals("2"));
 		System.out.println("saisir la duree d'allocation ");
@@ -338,21 +317,10 @@ public class GestionMaterielController {
 
 	private void rendreMateriel() {
 		if(!gestionMaterielService.listerMaterielAlloue()) {
-			
-		}else {
-		boolean verification = false;
+		
+		}else {		
 		System.out.println("Saisir l'id du matériel à rendre");
-		while (!verification) {
-			donnee1 = scanner.next();
-			try {
-				num1 = Integer.parseInt(donnee1);
-				verification = true;
-			} catch (Exception e) {
-				System.out.println("Veuillez  saisir un numéro id convenable  : ");
-
-			}
-		}
-
+		num1 =verificationEntre();
 		gestionMaterielService.rendreMateriel(num1);
 	}}
 
@@ -361,18 +329,8 @@ public class GestionMaterielController {
 	}
 
 	private void marquerMaterielIndisponible() {
-		boolean verification = false;
 		System.out.println("Veuillez saisir l'id du matériel à marquer indisponible");
-		while (!verification) {
-			donnee1 = scanner.next();
-			try {
-				num1 = Integer.parseInt(donnee1);
-				verification = true;
-			} catch (Exception e) {
-				System.out.println("Veuillez  saisir un numéro id convenable  : ");
-
-			}}
-		
+		num1=verificationEntre();		
 		gestionMaterielService.marquerMaterielIndisponible(num1);
 	}
 
