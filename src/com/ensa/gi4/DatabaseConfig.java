@@ -3,12 +3,15 @@ package com.ensa.gi4;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -17,6 +20,7 @@ import java.sql.SQLException;
 public class DatabaseConfig {
     @Value("${jdbc.url}")
     private String url;
+
     @Value("${jdbc.username}")
     private String username;
     @Value("${jdbc.password}")
@@ -44,6 +48,13 @@ public class DatabaseConfig {
         return dataSource;
     }
 
+
+
+    @Bean
+    public BCryptPasswordEncoder PasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     private void lancerH2Console() {
         try {
             org.h2.tools.Console.main();
@@ -52,7 +63,7 @@ public class DatabaseConfig {
         }
     }
 
-    private void executeScript(String scriptPath, DataSource dataSource) {
+    public static void executeScript(String scriptPath, DataSource dataSource) {
         final Resource pathResource = new ClassPathResource(scriptPath);
         if (pathResource.exists()) {
             DatabasePopulator databasePopulator = new ResourceDatabasePopulator(pathResource);
