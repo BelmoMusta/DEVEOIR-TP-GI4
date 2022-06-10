@@ -27,7 +27,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     String oldCode;
     @Override
     public void init() {
-        System.out.println("inititialisation du service");
+        System.out.println("initialization of service");
     }
 
     @Override
@@ -39,7 +39,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             for(Materiel materiel:materielList)
             {
                 System.out.println("Materiel "+materiel.getCode());
-                System.out.println("\tNom : "+materiel.getName()+  " \n\tType : " + materiel.getTypeMateriel()+ " \n\tDisponibilite : "+ materiel.isDisponible()+" \n\tAllocation : "+materiel.isAllouer());
+                System.out.println("\tNom : "+materiel.getName()+  " \n\tType : " + materiel.getTypeMateriel()+ " \n\tDisponibilité : "+ materiel.isDisponible()+" \n\tAllocation : "+materiel.isAllouer());
             }
         }
         else
@@ -70,7 +70,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             Materiel materielChercher = materielDao.chercherMateriel(materiel);
             System.out.println("Le materiel rechercher : ");
             System.out.println("Materiel "+materielChercher.getCode());
-            System.out.println("\tNom : "+materielChercher.getName()+  " \n\tType : " + materielChercher.getTypeMateriel()+ " \n\tDisponibilite : "+ materielChercher.isDisponible()+" \n\tAllocation : "+materielChercher.isAllouer());
+            System.out.println("\tNom : "+materielChercher.getName()+  " \n\tType : " + materielChercher.getTypeMateriel()+ " \n\tDisponibilité : "+ materielChercher.isDisponible()+" \n\tAllocation : "+materielChercher.isAllouer());
         }
         catch (Exception e)
         {
@@ -81,13 +81,13 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     @Override
     public void supprimerMateriel() {
         saisir("supprimer");
-        System.out.println(materielDao.supprimerMateriel(materiel)==0?"Ce materiel n'exsite pas pour le supprimer":"Supprimer Done");
+        System.out.println(materielDao.supprimerMateriel(materiel)==0?"Ce materiel n'existe pas pour le supprimer":"Supprimer Done");
     }
 
     @Override
     public void modifierMateriel() {
         saisir("modifier");
-        System.out.println(materielDao.modifierMateriel(materiel,oldCode)==0?"Ce materiel n'exsite pas pour le modifier":"Update Done");
+        System.out.println(materielDao.modifierMateriel(materiel,oldCode)==0?"Ce materiel n'existe pas pour le modifier":"Update Done");
         publisher.publish(new MyEvent<>(materiel, EventType.UPDATE));
     }
 
@@ -100,7 +100,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             if(materielChercher.isDisponible())
             {
                 materielDao.allouerMateriel(materiel,user);
-                System.out.println("Ce materiel est allouer avec succes!");
+                System.out.println("Ce materiel est allouer avec success!");
             }
             else
             {
@@ -135,7 +135,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             for(Materiel materiel:materielListAllouer)
             {
                 System.out.println("Materiel "+materiel.getCode());
-                System.out.println("\tNom : "+materiel.getName()+  " \n\tType : " + materiel.getTypeMateriel()+ " \n\tDisponibilite : "+ materiel.isDisponible()+" \n\tAllocation : "+materiel.isAllouer());
+                System.out.println("\tNom : "+materiel.getName()+  " \n\tType : " + materiel.getTypeMateriel()+ " \n\tDisponibilité : "+ materiel.isDisponible()+" \n\tAllocation : "+materiel.isAllouer());
             }
         }
         else
@@ -154,7 +154,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             for(Materiel materiel:materielListAllouer)
             {
                 System.out.println("Materiel "+materiel.getCode());
-                System.out.println("\tNom : "+materiel.getName()+  " \n\tType : " + materiel.getTypeMateriel()+ " \n\tDisponibilite : "+ materiel.isDisponible()+" \n\tAllocation : "+materiel.isAllouer());
+                System.out.println("\tNom : "+materiel.getName()+  " \n\tType : " + materiel.getTypeMateriel()+ " \n\tDisponibilité : "+ materiel.isDisponible()+" \n\tAllocation : "+materiel.isAllouer());
             }
         }
         else
@@ -174,7 +174,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             for(Materiel materiel:materielListAllouer)
             {
                 System.out.println("Materiel "+materiel.getCode());
-                System.out.println("\tNom : "+materiel.getName()+  " \n\tType : " + materiel.getTypeMateriel()+ " \n\tDisponibilite : "+ materiel.isDisponible()+" \n\tAllocation : "+materiel.isAllouer());
+                System.out.println("\tNom : "+materiel.getName()+  " \n\tType : " + materiel.getTypeMateriel()+ " \n\tDisponibilité : "+ materiel.isDisponible()+" \n\tAllocation : "+materiel.isAllouer());
             }
         }
         else
@@ -195,40 +195,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         {
             materiel = new Livre();
 
-            System.out.println("name : ");
-            String name = scanner.next();
-            name += scanner.nextLine();
-            materiel.setName(name);
-
-
-            if(action.equals("modifier"))
-            {
-                System.out.println("Le code de materiel a modifier : ");
-                oldCode = scanner.next();
-                System.out.println("Disponible : ");
-                System.out.println("1- pour qu'il soit disponible, entrer 1");
-                System.out.println("2- pour qu'il soit non disponible, entrer 2");
-                String next = scanner.next();
-                if ("1".equals(next)) {
-                    materiel.setDisponible(true);
-                } else if ("2".equals(next)) {
-                    materiel.setDisponible(false);
-                }
-            }
-            if(action.equals("allouer"))
-            {
-                materiel.setDisponible(false);
-                materiel.setAllouer(true);
-            }
-            if(!action.equals("modifier")) {
-                System.out.println("code : ");
-                String code = scanner.next();
-                materiel.setCode(code);
-                if(!action.equals("allouer"))
-                {
-                    materiel.setDisponible(true);
-                }
-            }
+            afficher(action, scanner);
             if(!action.equals("allouer"))
             {
                 materiel.setTypeMateriel("Livre");
@@ -239,44 +206,48 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         {
             materiel = new Chaise();
 
-            System.out.println("name : ");
-            String name = scanner.next();
-            name += scanner.nextLine();
-            materiel.setName(name);
-
-
-            if(action.equals("modifier"))
-            {
-                System.out.println("Le code de materiel a modifier : ");
-                oldCode = scanner.next();
-                System.out.println("Disponible : ");
-                System.out.println("1- pour qu'il soit disponible, entrer 1");
-                System.out.println("2- pour qu'il soit non disponible, entrer 2");
-                String next = scanner.next();
-                if ("1".equals(next)) {
-                    materiel.setDisponible(true);
-                } else if ("2".equals(next)) {
-                    materiel.setDisponible(false);
-                }
-            }
-            if(action.equals("allouer"))
-            {
-                materiel.setDisponible(false);
-                materiel.setAllouer(true);
-            }
-            if(!action.equals("modifier")) {
-                System.out.println("code : ");
-                String code = scanner.next();
-                materiel.setCode(code);
-                if(!action.equals("allouer"))
-                {
-                    materiel.setDisponible(true);
-                }
-            }
+            afficher(action, scanner);
             if(!action.equals("allouer"))
             {
                 materiel.setTypeMateriel("Chaise");
                 materiel.setAllouer(false);
+            }
+        }
+    }
+
+    private void afficher(String action, Scanner scanner) {
+        System.out.println("name : ");
+        String name = scanner.next();
+        name += scanner.nextLine();
+        materiel.setName(name);
+
+
+        if(action.equals("modifier"))
+        {
+            System.out.println("Le code de materiel a modifier : ");
+            oldCode = scanner.next();
+            System.out.println("Disponible : ");
+            System.out.println("1- pour qu'il soit disponible, entrer 1");
+            System.out.println("2- pour qu'il soit non disponible, entrer 2");
+            String next = scanner.next();
+            if ("1".equals(next)) {
+                materiel.setDisponible(true);
+            } else if ("2".equals(next)) {
+                materiel.setDisponible(false);
+            }
+        }
+        if(action.equals("allouer"))
+        {
+            materiel.setDisponible(false);
+            materiel.setAllouer(true);
+        }
+        if(!action.equals("modifier")) {
+            System.out.println("code : ");
+            String code = scanner.next();
+            materiel.setCode(code);
+            if(!action.equals("allouer"))
+            {
+                materiel.setDisponible(true);
             }
         }
     }

@@ -17,15 +17,12 @@ public class SignIn extends GenericDAO<User> implements ISignIn {
 
     String username;
     String password;
-    boolean tmp ;
 
-    //    @Before("execution(* com.ensa.gi4.controller.GestionMaterielController.afficherMenu())")
     public User signInPerson()
     {
 
         while(true)
         {
-            tmp = false;
             Scanner scanner = new Scanner(System.in);
             System.out.println("username : ");
             username = scanner.next();
@@ -34,30 +31,18 @@ public class SignIn extends GenericDAO<User> implements ISignIn {
             password = hashMDP(password);
 
             try{
-                User person = super.findRealPassword("SELECT * FROM USER WHERE username=?;", username);
-                String realPassword = person.getPassword();
-                if(tmp==false){
+                User user = super.findRealPassword("SELECT * FROM USER WHERE username=?;", username);
+                String realPassword = user.getPassword();
                     realPassword = hashMDP(realPassword);
                     if(realPassword.equals(password))
                     {
-                        tmp=true;
-                        return person;
+                        return user;
                     }
                     else
                     {
                         System.out.println("password incorrect");
                     }
-                }
-                else{
-                    if(realPassword.equals(password))
-                    {
-                        return person;
-                    }
-                    else
-                    {
-                        System.out.println("password incorrect");
-                    }
-                }
+
 
             }
             catch(Exception e){
@@ -67,36 +52,14 @@ public class SignIn extends GenericDAO<User> implements ISignIn {
                 String next = scanner.next();
                 if ("0".equals(next)) {
                     System.exit(0);
-                } else if ("1".equals(next)) {
-                    continue;
                 }
             }
         }
 
     }
 
-    public User signUpPerson()
-    {
 
-        while(true)
-        {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("username : ");
-            username = scanner.next();
-            System.out.println("password : ");
-            password = scanner.next();
-            System.out.println(password);
-            if(tmp==false)
-            {
-                password = hashMDP(password);
-                tmp = true;
-            }
-            super.ajouterUser("INSERT INTO USER(username,password,role) VALUES (?,?,'user')", username,password);
-            return signInPerson();
-
-        }
-    }
-    //Methode pour hasher le mot de passe
+    //Methode pour hashes le mot de passe
     public String hashMDP(String password)
     {
         try{

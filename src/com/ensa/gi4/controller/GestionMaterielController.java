@@ -1,9 +1,6 @@
 package com.ensa.gi4.controller;
 
 import com.ensa.gi4.listeners.ApplicationPublisher;
-import com.ensa.gi4.listeners.EventType;
-import com.ensa.gi4.listeners.MyEvent;
-import com.ensa.gi4.modele.Livre;
 import com.ensa.gi4.modele.User;
 import com.ensa.gi4.service.impl.GestionMaterielServiceImpl;
 import com.ensa.gi4.service.impl.SignIn;
@@ -27,7 +24,6 @@ public class GestionMaterielController {
 
     public void afficherMenu() {
         System.out.println("1- SignIn, entrer 1");
-        System.out.println("2- SignUp, entrer 2");
         System.out.println("0- pour sortir de l'application, entrer 0");
 
         Scanner scanner = new Scanner(System.in);
@@ -50,10 +46,6 @@ public class GestionMaterielController {
             else {
                 sortirDeLApplication();
             }
-        }
-        else if ("2".equals(next)) {
-            role = signIn.signUpPerson();
-            afficherMenuUser();
         }
     }
     public void afficherMenuAdmin(){

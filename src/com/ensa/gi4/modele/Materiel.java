@@ -7,9 +7,7 @@ public abstract class Materiel {
     private String typeMateriel;
     private boolean isDisponible;
     private boolean isAllouer;
-    public int getIdMateriel() {
-        return idMateriel;
-    }
+
     public void setIdMateriel(int idMateriel) {
         this.idMateriel = idMateriel;
     }

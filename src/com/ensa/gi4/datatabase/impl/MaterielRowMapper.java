@@ -9,12 +9,10 @@ import java.sql.SQLException;
 public class MaterielRowMapper implements RowMapper<Materiel> {
     @Override
     public Materiel mapRow(ResultSet resultSet, int i) throws SQLException {
-        Materiel materiel = new Materiel() { // because it is abstract
+        Materiel materiel = new Materiel() {
         };
 
         String name = resultSet.getString(2);
-        //String name_ = resultSet.getString("NAME");
-        //String code_ = resultSet.getString("CODE");
         String code = resultSet.getString(3);
         materiel.setCode(code);
         materiel.setName(name);

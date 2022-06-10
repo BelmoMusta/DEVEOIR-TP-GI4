@@ -11,7 +11,6 @@ import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 @Configuration
 public class DatabaseConfig {
@@ -44,13 +43,6 @@ public class DatabaseConfig {
         return dataSource;
     }
 
-    private void lancerH2Console() {
-        try {
-            org.h2.tools.Console.main();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-    }
 
     private void executeScript(String scriptPath, DataSource dataSource) {
         final Resource pathResource = new ClassPathResource(scriptPath);
