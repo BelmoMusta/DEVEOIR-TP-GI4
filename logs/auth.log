@@ -329,24 +329,3 @@ ELMESS-ROG/192.168.56.1 - [09-06-2022 18:55:09][INFO] User{id=1, username='root'
 ELMESS-ROG/192.168.56.1 - [09-06-2022 18:55:09][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
 ELMESS-ROG/192.168.56.1 - [09-06-2022 18:55:22][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
 ELMESS-ROG/192.168.56.1 - [09-06-2022 18:56:48][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [09-06-2022 18:57:53][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [09-06-2022 18:57:53][INFO] 'root' tried to login with a wrong password
-ELMESS-ROG/192.168.56.1 - [09-06-2022 18:57:53][INFO] 'wrong' tried to login
-ELMESS-ROG/192.168.56.1 - [09-06-2022 18:57:54][INFO] 'mehdi0203' tried to login with a locked account
-ELMESS-ROG/192.168.56.1 - [09-06-2022 18:57:54][INFO] User{id=2, username='mehdi0203', email='elmessmehdi@gmail.com', roles=[USER], registrationDate=2022-06-08} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [09-06-2022 18:57:54][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [09-06-2022 18:57:54][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [09-06-2022 19:03:12][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [09-06-2022 19:03:12][INFO] 'root' tried to login with a wrong password
-ELMESS-ROG/192.168.56.1 - [09-06-2022 19:03:12][INFO] 'wrong' tried to login
-ELMESS-ROG/192.168.56.1 - [09-06-2022 19:03:12][INFO] 'mehdi0203' tried to login with a locked account
-ELMESS-ROG/192.168.56.1 - [09-06-2022 19:03:12][INFO] User{id=2, username='mehdi0203', email='elmessmehdi@gmail.com', roles=[USER], registrationDate=2022-06-08} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [09-06-2022 19:03:13][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [09-06-2022 19:03:13][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [10-06-2022 01:18:11][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [10-06-2022 01:18:11][INFO] 'root' tried to login with a wrong password
-ELMESS-ROG/192.168.56.1 - [10-06-2022 01:18:11][INFO] 'wrong' tried to login
-ELMESS-ROG/192.168.56.1 - [10-06-2022 01:18:12][INFO] 'mehdi0203' tried to login with a locked account
-ELMESS-ROG/192.168.56.1 - [10-06-2022 01:18:12][INFO] User{id=2, username='mehdi0203', email='elmessmehdi@gmail.com', roles=[USER], registrationDate=2022-06-08} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [10-06-2022 01:18:12][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
-ELMESS-ROG/192.168.56.1 - [10-06-2022 01:18:12][INFO] User{id=1, username='root', email='elmess0203@gmail.com', roles=[ADMIN, USER], registrationDate=2022-06-02} has logged in successfully
