@@ -3,11 +3,13 @@ package com.ensa.gi4.datatabase.impl;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -37,28 +39,55 @@ public abstract class GenericDAO<T> implements InitializingBean {
 		return jdbcTemplate.update(query, code, stock, ancienCode); 
 	}
     
-    protected Map<String, Object> findMaterielId(String query, String code) {
-    	return jdbcTemplate.queryForMap(query, code); 
+    protected Optional<Map<String, Object>> findIdMateriel(String query, String code) {
+    	 try {
+ 			return Optional.of(jdbcTemplate.queryForMap(query, code)); 
+ 	    } catch (EmptyResultDataAccessException e) {
+ 	    	return Optional.empty();
+ 	    }
+    	
     }
     
-    protected Map<String, Object>  nombreMaterielAlloue(String query, Integer idMateriel) {
-		return jdbcTemplate.queryForMap(query, idMateriel); 
+    protected Optional<Map<String, Object>>  nombreMaterielAlloue(String query, Integer idMateriel) {
+				
+		try {
+ 			return Optional.of(jdbcTemplate.queryForMap(query, idMateriel)); 
+ 	    } catch (EmptyResultDataAccessException e) {
+ 	    	return Optional.empty();
+ 	    }
 	}
     
-    protected List<Map<String, Object>>  materielAllouable(String query, Integer idMateriel) {
-		return jdbcTemplate.queryForList(query, idMateriel); 
+    protected Optional<List<Map<String, Object>>>  materielAllouable(String query, Integer idMateriel) {
+    	
+    	try {
+ 			return Optional.of(jdbcTemplate.queryForList(query, idMateriel)); 
+ 	    } catch (EmptyResultDataAccessException e) {
+ 	    	return Optional.empty();
+ 	    }
+
 	}
     
     protected int materielIndisponible(String query, Boolean isAvailable ,Integer id) {
     	return jdbcTemplate.update(query, isAvailable, id); 
+    	
+    	
     }
 
-    protected List<T> findAll(String query) {
-        return jdbcTemplate.query(query, getRowMapper());
+    protected Optional<List<T>> findAll(String query) { 
+        try {
+			return Optional.of(jdbcTemplate.query(query, getRowMapper())); 
+	    } catch (EmptyResultDataAccessException e) {
+	    	return Optional.empty();
+	    }
     }
 
-    protected T findOne(String query, String code, String name) {
-        return jdbcTemplate.queryForObject(query, getRowMapper(), code, name);
+    protected Optional<T> findOne(String query, String code, String name) {
+    	try {
+ 			return Optional.of(jdbcTemplate.queryForObject(query, getRowMapper(), code, name)); 
+ 	    } catch (EmptyResultDataAccessException e) {
+ 	    	return Optional.empty();
+ 	    }
+      
     }
     
     protected int  allouerMateriel(String query, Integer idMateriel, Integer idUser, Timestamp timestamp) {
@@ -69,28 +98,59 @@ public abstract class GenericDAO<T> implements InitializingBean {
     	return jdbcTemplate.update(query, idMateriel, idUser); 
 	}
     
-    protected List<Materiel> listeMaterielAlloue(String query, Integer idUser, MaterielAllouerRowMapper materielAllouerRowMapper) {
-		return jdbcTemplate.query(query, materielAllouerRowMapper, idUser); 
+    protected Optional<List<Materiel>> listeMaterielAlloue(String query, Integer idUser, MaterielAllouerRowMapper materielAllouerRowMapper) {
+		try {
+			return Optional.of(jdbcTemplate.query(query, materielAllouerRowMapper, idUser)); 
+	    } catch (EmptyResultDataAccessException e) {
+	    	return Optional.empty();
+	    }
 	}
 
     
-    protected List<T> listeMatereilAlloueParListUser(String query) {
-    	return jdbcTemplate.query(query, getRowMapper()); 
+    protected Optional<List<T>> listeMatereilAlloueParListUser(String query) {
+	    try {
+				return Optional.of(jdbcTemplate.query(query, getRowMapper())); 
+		    } catch (EmptyResultDataAccessException e) {
+		    	return Optional.empty();
+	    }
 	}
 
     protected abstract RowMapper<T> getRowMapper();
     
     // user operation 
     
-    protected  T findUser(String query, List<String> userData) {
-    	return jdbcTemplate.queryForObject(query, getRowMapper(), userData.get(0), userData.get(1)); 
+    protected  Optional<T> findUser(String query, List<String> userData) {
+    	try {
+    			return Optional.of(jdbcTemplate.queryForObject(query, getRowMapper(), userData.get(0), userData.get(1))); 
+    	    } catch (EmptyResultDataAccessException e) {
+    	    	return Optional.empty();
+    	    }
     }
     
-    protected List<T>  findAllUser(String query) {
-		return jdbcTemplate.query(query, getRowMapper()); 
+    protected Optional<List<T>>  findAllUser(String query) {
+    	
+    	try {
+			return Optional.of(jdbcTemplate.query(query, getRowMapper())); 
+	    } catch (EmptyResultDataAccessException e) {
+	    	return Optional.empty();
+	    }
+  
 	}
     
-    protected Map<String, Object> findUserId(String query, String name, String role) {
-		return jdbcTemplate.queryForMap(query, name, role);
+    protected Optional<List<Map<String, Object>>> findAllUserAndPassword(String query) {
+    	try {
+			return Optional.of(jdbcTemplate.queryForList(query)); 
+	    } catch (EmptyResultDataAccessException e) {
+	    	return Optional.empty();
+	    }
+	}
+    
+    protected Optional<Map<String, Object>> findUserId(String query, String name, String role) {	
+		try {
+			return Optional.of(jdbcTemplate.queryForMap(query, name, role)); 
+	    } catch (EmptyResultDataAccessException e) {
+	    	return Optional.empty();
+	    }
+	
 	}
 }

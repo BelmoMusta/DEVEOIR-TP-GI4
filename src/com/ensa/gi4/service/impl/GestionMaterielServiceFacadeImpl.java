@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.ensa.gi4.modele.Chaise;
@@ -28,7 +29,35 @@ public class GestionMaterielServiceFacadeImpl implements GestionMaterielServiceF
 	@Qualifier("chaiseService")
 	GestionMaterielService chaiseService; 
 	@Autowired
+	@Qualifier("allocationMaterielServiceImpl")
 	AllocationMaterielService allocationMaterielService; 
+	
+	@Value("${string.gestionMaterielServiceFacadeImpl.typeMateriel}")
+	private String typeMateriel; 
+	
+	@Value("${string.gestionMaterielServiceFacadeImpl.reconnu}")
+	private String reconnu; 
+	
+	@Value("${string.gestionMaterielServiceFacadeImpl.listeMaterielAlloue}")
+	private String listeMaterielAlloue; 
+	
+	@Value("${string.gestionMaterielServiceFacadeImpl.listeMaterielAlloueFailed}")
+	private String listeMaterielAlloueFailed; 
+	
+	@Value("${string.gestionMaterielServiceFacadeImpl.chercherMateriel}")
+	private String chercherMateriel;
+	
+	@Value("${string.gestionMaterielServiceFacadeImpl.chercherMaterielFailed}")
+	private String chercherMaterielFailed; 
+	
+	@Value("${string.gestionMaterielServiceFacadeImpl.listeMateriel}")
+	private String listeMateriel; 
+	
+	@Value("${string.gestionMaterielServiceFacadeImpl.listeMaterielFailed}")
+	private String listeMaterielFailed; 
+	
+	@Value("${string.gestionMaterielServiceFacadeImpl.listeMaterielAlloueParUserFailed}")
+	private String listeMaterielAlloueParUserFailed; 
 	
 	@Override
 	public void ajouterNouveauMateriel(TypeMateriel type, String code, Integer stock) {
@@ -46,7 +75,7 @@ public class GestionMaterielServiceFacadeImpl implements GestionMaterielServiceF
 			serviceActuel = chaiseService;
 			break;
 		default:
-			System.out.println("Le type " + type + " n'est pas reconnu");
+			System.out.println(typeMateriel + " " + type + " " + reconnu);
 			return;
 		}
 		
@@ -71,7 +100,7 @@ public class GestionMaterielServiceFacadeImpl implements GestionMaterielServiceF
 				serviceActuel = chaiseService;
 				break;
 			default:
-				System.out.println("Le type " + type + " n'est pas reconnu");
+				System.out.println(typeMateriel + " " + type + " " + reconnu);
 				return;
 			}
 		 
@@ -90,7 +119,7 @@ public class GestionMaterielServiceFacadeImpl implements GestionMaterielServiceF
 				serviceActuel = chaiseService;
 				break;
 			default:
-				System.out.println("Le type " + type + " n'est pas reconnu");
+				System.out.println(typeMateriel + " " + type + " " + reconnu);
 				return;
 			}
 		 
@@ -100,14 +129,14 @@ public class GestionMaterielServiceFacadeImpl implements GestionMaterielServiceF
 
 	@Override
 	public void listeMaterielAlloue(User user) {
-		List<Materiel> materielList = allocationMaterielService.listeMaterielAlloue(user); 
-		System.out.println("------------\tMateriels Alloués\t------------");
-		if(!materielList.isEmpty() && Optional.of(materielList).isPresent()) {
-			for (Materiel materiel : materielList) 
+		Optional<List<Materiel>> checkMaterielOptional = allocationMaterielService.listeMaterielAlloue(user); 
+		System.out.println("------------\t" + listeMaterielAlloue + "\t------------");
+		if(checkMaterielOptional.isPresent()) {
+			for (Materiel materiel :checkMaterielOptional.get()) 
 				System.out.println(materiel);
 		}
 		else {
-			System.out.println("\tAucun élèment trouvé !");
+			System.out.println("\t" + listeMaterielAlloueFailed);
 		}
 		
 		System.out.println("----------------------------------------------------");
@@ -126,7 +155,7 @@ public class GestionMaterielServiceFacadeImpl implements GestionMaterielServiceF
 				serviceActuel = chaiseService;
 				break;
 			default:
-				System.out.println("Le type " + type + " n'est pas reconnu");
+				System.out.println(typeMateriel + " " + type + " " + reconnu);
 				return;
 			}
 		 
@@ -137,9 +166,13 @@ public class GestionMaterielServiceFacadeImpl implements GestionMaterielServiceF
 	@Override
 	public void chercherMateriel(TypeMateriel typeMateriel, String code) {
 	
-		Materiel materiel =  allocationMaterielService.chercherMateriel(typeMateriel, code);
-		System.out.println("------------\tMateriel chercher\t------------");
-		System.out.println(materiel);
+		Optional<Materiel> checkMateriel =  allocationMaterielService.chercherMateriel(typeMateriel, code);
+		System.out.println("------------\t" + chercherMateriel + "\t------------");
+		if (checkMateriel.isPresent()) {
+			System.out.println(checkMateriel.get());
+		}else {
+			System.out.println("\t"+chercherMaterielFailed);
+		}
 		System.out.println("----------------------------------------------------");
 	}
 
@@ -163,17 +196,16 @@ public class GestionMaterielServiceFacadeImpl implements GestionMaterielServiceF
 
 	@Override
 	public void listeMateriel() {
-		List<Materiel> materielList =  allocationMaterielService.listeMateriel();
+		Optional<List<Materiel>> checkMaterielList =  allocationMaterielService.listeMateriel();
 		
-		System.out.println("------------\tListe des materiels\t------------");
-		if(!Optional.of(materielList).get().isEmpty() && Optional.of(materielList).isPresent()) {
-			for (Materiel materiel : materielList) 
+		System.out.println("------------\t"+ listeMateriel + "\t------------");
+		if(checkMaterielList.isPresent()) {
+			for (Materiel materiel : checkMaterielList.get()) 
 				System.out.println(materiel);
 		}
 		else {
-			System.out.println("\tAucun élèment trouvé !");
+			System.out.println("\t" + listeMaterielFailed);
 		}
-		
 		System.out.println("----------------------------------------------------");
 
 	}
@@ -183,14 +215,13 @@ public class GestionMaterielServiceFacadeImpl implements GestionMaterielServiceF
 	@Override
 	public void listeMaterielAlloueParUser(User user) {
 		
-		// affichage adequat
 		switch (user.getRole()) {
 		case ADMIN:
 			allocationMaterielService.listeMaterielAlloueParUser();
-			
+	
 			break;
 		default:
-			System.out.println("Opération non autorisé !");
+			System.out.println(listeMaterielAlloueParUserFailed);
 			return;
 		}
 		

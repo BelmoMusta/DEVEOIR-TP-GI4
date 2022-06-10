@@ -1,10 +1,11 @@
 package com.ensa.gi4.datatabase.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.ensa.gi4.modele.User;
 
 public interface UserDao {
-	User login(List<String> userData);
-	List<User> findAll(); 
+	Optional<User> login(List<String> userData);
+	Optional<List<User>> findAll(); 
 }

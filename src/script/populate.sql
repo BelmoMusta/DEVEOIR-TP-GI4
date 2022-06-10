@@ -1,5 +1,6 @@
-INSERT INTO  user (name, password, role) values ( 'admin1' ,'1234', 'ADMIN');
-INSERT INTO  user (name, password, role) values ( 'user1' ,'5678', 'USER');
+
+INSERT INTO  user (name, password, role) values ( 'admin1' ,'$2a$10$NHNurgnIT0ILR09nOXX1r./m6GKjGddUODd/oz3VPmDpY1k/Qj7XW', 'ADMIN');
+INSERT INTO  user (name, password, role) values ( 'user1' ,'$2a$10$bUY2IsjDBOS3o3sp8csvQOrU4T8dcxO2APFQEb.OfqTa8i06WB.ny', 'USER');
 
 
 INSERT INTO  materiel (name, code, stock, disponibilite) values ( 'LIVRE' ,'LI', 5, true);

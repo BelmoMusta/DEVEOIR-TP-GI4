@@ -1,0 +1,26 @@
+juin 09, 2022 4:02:19 PM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection etablit avec l'utilisateur =>  Name : admin1, Role : ADMIN
+juin 10, 2022 12:38:40 AM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : admin1, Role : ADMIN
+juin 10, 2022 12:39:26 AM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : admin1, Role : ADMIN
+juin 10, 2022 3:01:13 PM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : admin1, Role : ADMIN
+juin 10, 2022 3:01:28 PM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : user1, Role : USER
+juin 10, 2022 3:21:08 PM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : admin1, Role : ADMIN
+juin 10, 2022 4:15:00 PM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : admin1, Role : ADMIN
+juin 10, 2022 4:15:14 PM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : user1, Role : USER
+juin 10, 2022 6:21:51 PM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : admin1, Role : ADMIN
+juin 10, 2022 6:22:19 PM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : user1, Role : USER
+juin 10, 2022 6:25:50 PM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : admin1, Role : ADMIN
+juin 10, 2022 6:36:42 PM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : admin1, Role : ADMIN
+juin 10, 2022 6:41:44 PM com.ensa.gi4.aspects.LogAspect logAjoutMateriel
+INFOS: Opération d'ajout materiel effectué !  
