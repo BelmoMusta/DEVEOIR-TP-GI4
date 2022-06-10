@@ -9,9 +9,9 @@ public interface MaterielDao {
 
     Materiel findOne(Long id);
     int ajouterMateriel(Materiel materiel);
-  int supprimerMateriel(int id);
-int modifierNomMateriel(String nom,int id);
-int modifierCodeMateriel(String code,int id);
+  int supprimerMateriel(Long id);
+int modifierNomMateriel(String nom,Long id);
+int modifierCodeMateriel(String code,Long id);
 Materiel chercherMateriel(Long id);
 int rendreMaterielIndisponible(Long id);
 int allouerMateriel(String name,boolean b1,boolean b2,Long id);

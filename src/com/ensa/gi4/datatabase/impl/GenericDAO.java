@@ -34,15 +34,15 @@ public abstract class GenericDAO<T> implements InitializingBean {
     protected int addMateriel(String query, String name, String code ){
        return  jdbcTemplate.update(query,name,code );
     }
-    protected int deleteMateriel(String deleteQuery,int id){
+    protected int deleteMateriel(String deleteQuery,Long id){
         return jdbcTemplate.update(deleteQuery,id);
     }
-    protected int updateNameMateriel(String query,String nom,int id){
+    protected int updateNameMateriel(String query,String nom,Long id){
         return jdbcTemplate.update(query,nom,id);
 
 
     }
-    protected int updateCodeMateriel( String query,String code,int id){
+    protected int updateCodeMateriel( String query,String code,Long id){
         return jdbcTemplate.update(query,code,id);
 
     }

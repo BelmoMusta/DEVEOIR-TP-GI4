@@ -8,9 +8,9 @@ public interface GestionMaterielService {
     void init();
     List<Materiel> listerMateriel();
     void ajouterNouveauMateriel(Materiel materiel);
-    void supprimerMateriel(int id);
-    void modifierNomMateriel(String name,int id) ;
-    void modifierCodeMateriel(String code,int id) ;
+    void supprimerMateriel(Long id);
+    void modifierNomMateriel(String name,Long id) ;
+    void modifierCodeMateriel(String code,Long id) ;
    Materiel chercherMateriel(Long id);
    void rendreMaterielIndisponible(Long id);
 

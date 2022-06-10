@@ -25,17 +25,17 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     }
 
     @Override
-    public int supprimerMateriel(int id) {
+    public int supprimerMateriel(Long id) {
 return  super.deleteMateriel("delete from materiel where id = ?",id);
     }
 
     @Override
-    public int modifierNomMateriel(String nom, int id) {
+    public int modifierNomMateriel(String nom, Long id) {
         return super.updateNameMateriel("update materiel set name = ? where id = ?",nom,id);
     }
 
     @Override
-    public int modifierCodeMateriel(String code, int id) {
+    public int modifierCodeMateriel(String code, Long id) {
         return super.updateCodeMateriel("update materiel set code = ? where id = ?",code,id);
     }
 

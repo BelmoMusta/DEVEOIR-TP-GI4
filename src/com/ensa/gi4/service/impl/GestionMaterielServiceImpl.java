@@ -31,17 +31,17 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     }
 
     @Override
-    public void supprimerMateriel(int id) {
+    public void supprimerMateriel(Long id) {
         materielDao.supprimerMateriel(id);
     }
 
     @Override
-    public void modifierNomMateriel(String name, int id) {
+    public void modifierNomMateriel(String name, Long id) {
         materielDao.modifierNomMateriel(name,id);
     }
 
     @Override
-    public void modifierCodeMateriel(String code, int id) {
+    public void modifierCodeMateriel(String code, Long id) {
         materielDao.modifierCodeMateriel(code,id);
     }
 

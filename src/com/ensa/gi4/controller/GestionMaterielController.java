@@ -10,9 +10,11 @@ import com.ensa.gi4.modele.User;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import com.ensa.gi4.service.api.GestionUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,14 +25,7 @@ public class GestionMaterielController {
 @Autowired
     GestionMaterielService gestionMaterielService;
 
-//    @Autowired
-//
-//    ApplicationPublisher publisher;
 
-
-//    public void afficherUser(){
-//        System.out.println("la liste des users diponible est "+gestionUserService.listerUser());
-//    }
 
     public void loginUser(){
         try{
@@ -138,18 +133,31 @@ public class GestionMaterielController {
 
                 gestionMaterielService.ajouterNouveauMateriel(m);
             } else if ("3".equals(next)) {
-                System.out.println("entrer l id  du materiel que vous souhaitez supprimer  ");
+                System.out.println("entrer l 'id  du materiel que vous souhaitez supprimer  ");
+                try{
                 Scanner s3 = new Scanner(System.in);
-                int id = scanner.nextInt();
+                Long id = scanner.nextLong();
+                if( gestionMaterielService.chercherMateriel(id).getName()!=null){
+                    gestionMaterielService.supprimerMateriel(id);
+                    System.out.println("le meteriel dont l'id est "+id+ " a ete supprime avec succes");}
+                else{
+                    System.out.println("Materiel introuvable");
+
+                    }
+                }catch(EmptyResultDataAccessException e){
+                    System.out.println("Materiel introuvable!!!");
+
+                }
 
 
-                gestionMaterielService.supprimerMateriel(id);
 
             } else if ("4".equals(next)) {
                 //id
+                try{
                 System.out.println("entrer l'id du materiel que vous souhaitez modifier");
                 Scanner s = new Scanner(System.in);
-                int id = s.nextInt();
+                Long id = s.nextLong();
+                if(gestionMaterielService.chercherMateriel(id).getName()!=null){
 
                 System.out.println("entrer le nouveau nom");
                 Scanner s5 = new Scanner(System.in);
@@ -164,24 +172,41 @@ public class GestionMaterielController {
                 gestionMaterielService.modifierCodeMateriel(n6, id);
 
                 System.out.println("La modification du materiel dont l 'id est " + id + " a ete effectue avec succes");
+            }
+                }
+                catch (EmptyResultDataAccessException e){
+                    System.out.println("Ce materiel est introuvable!!!");}
 
 
             } else if ("5".equals(next)) {
+                try{
                 System.out.println("Entrez l 'id du materiel cherche ");
                 Scanner s = new Scanner(System.in);
                 Long id = s.nextLong();
-
-
                 System.out.println("votre materiel cherche est " + " " + "[Nom,Code]=[" + gestionMaterielService.chercherMateriel(id).getName() + "," + gestionMaterielService.chercherMateriel(id).getCode() + "]");
-            } else if ("6".equals(next)) {
+                } catch (EmptyResultDataAccessException e){
+                    System.out.println("Ce materiel est introuvable!!! ");
+
+                }
+
+            }
+
+                else if ("6".equals(next)) {
+                    try{
                 System.out.println("Rendre un materiel  indisponible ,veuillez entrer son id");
                 Scanner s = new Scanner(System.in);
                 Long id = s.nextLong();
                 gestionMaterielService.rendreMaterielIndisponible(id);
                 System.out.println("La materiel dont le nom " + " " + gestionMaterielService.chercherMateriel(id) + " et son id=[" + id + "] " + "est maintenant indiponible");
-
+                 }
+                    catch (EmptyResultDataAccessException e){
+                        System.out.println("Ce materiel est introuvable!!! ");
+                    }
 
             } else if ("7".equals(next)) {
+                try {
+
+
                 System.out.println("Si vous souhaitez allouer un materiel veuillez re-saisir votre nom ");
                 Scanner s = new Scanner(System.in);
                 String name = s.next();
@@ -206,9 +231,14 @@ public class GestionMaterielController {
 
                     System.out.println("Ce materiel dont l'id est " + id + " n'est pas disponible");
                 }
+            }
+                catch (EmptyResultDataAccessException e){
+                    System.out.println("Ce materiel est introuvable !!! ");
+                }
 
-
-            } else if ("8".equals(next)) {
+            }
+                else if ("8".equals(next)) {
+                    try{
                 System.out.println("Entrez l'id du materiel à rendre");
                 Scanner s1 = new Scanner(System.in);
                 Long id = s1.nextLong();
@@ -218,9 +248,13 @@ public class GestionMaterielController {
                     gestionMaterielService.rendreMateriel(false, true, id);
                     System.out.println("vous avez rendu le livre [" + gestionMaterielService.chercherMateriel(id).getName() + "," + gestionMaterielService.chercherMateriel(id).getCode() + "] avec succes!");
                 }
+                    }catch (EmptyResultDataAccessException e){
+                        System.out.println("Ce materiel est introuvable!!! ");
+                    }
 
 
-            } else if ("9".equals(next)) {
+            }
+                else if ("9".equals(next)) {
                 List<Materiel> materiels = gestionMaterielService.listerMateriel();
                 int i = 0;
                 for (Materiel materiel : materiels
@@ -237,7 +271,7 @@ public class GestionMaterielController {
 
                 }
                 if (i != 0) {
-                    System.out.println("aucun materiel n'est alloue");
+                    System.out.println("Aucun materiel n'est alloue");
                 }
 
             } else if ("10".equals(next)) {
@@ -301,7 +335,7 @@ public class GestionMaterielController {
             sortirDeLApplication();
         }
         else if("1".equals(next)){
-
+    try{
 
             System.out.println("Entrez l 'id du materiel cherche ");
             Scanner s = new Scanner(System.in);
@@ -310,9 +344,13 @@ public class GestionMaterielController {
 
             System.out.println("votre materiel cherche est "+" "+"[Nom,Code]=["+gestionMaterielService.chercherMateriel(id).getName()+","+gestionMaterielService.chercherMateriel(id).getCode()+"]");
 
-
+        }
+     catch(EmptyResultDataAccessException e){
+     System.out.println("Ce materiel est introuvable!!! veuillez entrer de nouveau votre id");
+     }
         }
         else if("2".equals(next)){
+            try{
             System.out.println("Si vous souhaitez allouer un materiel veuillez re-saisir votre nom ");
             Scanner s = new Scanner(System.in);
             String name = s.next();
@@ -337,7 +375,10 @@ public class GestionMaterielController {
 
                 System.out.println("Ce materiel dont l'id est "+ id + " n'est pas disponible");
             }
-
+        }
+            catch(EmptyResultDataAccessException e){
+                System.out.println("Ce materiel est introuvable!!! ");
+            }
         }
         else if("3".equals(next)){
 
