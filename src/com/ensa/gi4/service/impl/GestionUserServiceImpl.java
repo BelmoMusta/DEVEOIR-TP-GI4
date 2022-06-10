@@ -44,7 +44,7 @@ public class GestionUserServiceImpl implements GestionUserService{
 		
 		
 		else {
-			System.out.print("Votre nom ou mot de passe est erroné");
+			System.out.print("Votre nom ou mot de passe est erroné 🚩");
 			return null;
 		}
 	
@@ -104,17 +104,10 @@ public Boolean  isAdmin(String name, String password) {
 	@Override
 	public void listeMaterielAlloue(String name) {
 
-		if(!materielDao.listeAllocation(name).isEmpty()) {
-			for(int i =0; i< materielDao.listeAllocation(name).size();i++)
-		     System.out.println(materielDao.listeAllocation(name).get(i));
 		
-		}
-	
-	
-		else {
-			System.out.println("Vous n'avez pas alloué(e) aucun matériel");
-		}
-		
+		materielDao.listeAllocation(name);
+		     
+
 	}
 	 
 

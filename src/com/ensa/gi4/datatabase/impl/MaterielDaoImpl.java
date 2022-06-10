@@ -51,10 +51,18 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	}
 
 	@Override
-	public List<Materiel> listeAllocation(String name) {
+	public void listeAllocation(String name) {
+		List<Materiel> listMateriel = super.findAll("select * from materiel where allouer is not null");
+		if (!listMateriel.isEmpty()) {
+			for (int i = 0; i < listMateriel.size(); i++) {
+				System.out.println("Name = " + listMateriel.get(i).getName() + " ;code =  "
+						+ listMateriel.get(i).getCode() + " ;nom utilisateur : " + super.executeForString2(
+								"select name from User where id =" + listMateriel.get(i).getAllouer() + ""));
+			}
+		} else {
+			System.out.println("pas de matériel alloués");
+		}
 		
-		String query = "SELECT * FROM materiel WHERE allouer=" +userDao.getUser(name).getId()+ "";
-	 return super.findAll(query);
 	}
 
 	@Override

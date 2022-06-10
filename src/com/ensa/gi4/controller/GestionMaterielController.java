@@ -126,7 +126,7 @@ public class GestionMaterielController {
     	    			
     	    			}
     	    			else {
-    	    				System.out.println("le materiel que vous vulez supprimer n'existe pas");
+    	    				System.out.println("le materiel que vous voulez supprimer n'existe pas");
     	    			}
     				}
            			
@@ -164,7 +164,7 @@ public class GestionMaterielController {
            			//rendre
     				else if(num.equals("7")) {
     					
-    					System.out.println("Saisir le code du matériel à rendre");
+    					System.out.println("Saisir l'id du matériel à rendre");
     	    			int id=scanner.nextInt();
     	    			gestionUser.rendreMateriel(id);
             		}
@@ -176,6 +176,9 @@ public class GestionMaterielController {
             			System.out.println("");
             			System.out.println("******************************");
 
+            		}
+            		else {
+            			System.out.println("Choix invalide !");
             		}
        		 }
        	 }
@@ -223,7 +226,7 @@ public class GestionMaterielController {
         		}
         		
         		else if(num.equals("4")) {
-        			System.out.println("Saisir le code du matériel à rendre");
+        			System.out.println("Saisir l'id du matériel à rendre");
 	    			int id=scanner.nextInt();
 	    			gestionUser.rendreMateriel(id);
         		}

@@ -45,5 +45,11 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 		
 	}
 
+	@Override
+	public int findOneMaterielINT(long id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

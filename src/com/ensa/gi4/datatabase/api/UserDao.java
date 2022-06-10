@@ -8,7 +8,7 @@ public interface UserDao {
   User findOneUser(String name, String password);
   List<User> finAllUsers();
   String getRole(String name);
-  public void allouerMateriel(String code, String duree);
-  public Boolean rendreMateriel(int id);
+  void allouerMateriel(String code, String duree);
+  Boolean rendreMateriel(int id);
 
 }

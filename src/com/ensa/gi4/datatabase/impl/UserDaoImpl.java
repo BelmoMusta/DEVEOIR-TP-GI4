@@ -74,6 +74,7 @@ public class UserDaoImpl extends GenericDAO<User> implements UserDao{
 	}
 	
 	
+	
 	@Override
 	public void  afterPropertiesSet(){
 		super.afterPropertiesSet();

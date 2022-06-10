@@ -31,13 +31,18 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     }
     @Override
    	public int findOneMaterielINT(long id) {
-   		 if(materielDao.findOneMateriel(id)!=null ) {
+   		try{ if(materielDao.findOneMateriel(id)!=null ) {
    			return 1;
    		 }
    		 else {
    			 System.out.println("Ce materiel n'existe pas");
    			 return 0;
-   		 }
+   		 }}
+   		catch(Exception e) {
+   			System.out.println("Un problème lors du supression du materiel !");
+  			 return 0;
+
+   		}
    	}
     
     @Override
