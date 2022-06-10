@@ -3,8 +3,19 @@ package com.ensa.gi4.modele;
 public abstract class Materiel {
     private String code;
     private String name;
+    private Boolean dispo=true;
+    
+ 
 
-    public String getName() {
+	public Boolean getDispo() {
+		return dispo;
+	}
+
+	public void setDispo(Boolean dispo) {
+		this.dispo = dispo;
+	}
+
+	public String getName() {
         return name;
     }
 
