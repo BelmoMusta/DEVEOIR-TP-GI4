@@ -38,9 +38,4 @@ public abstract class Materiel {
 	public void setEtat(String etat) {
 		this.etat = etat;
 	}
-
-	@Override
-    public String toString() {
-        return "Id = " + id + ", name = " + name + ", type = " + code + ", etat = " + etat;
-    }
 }
