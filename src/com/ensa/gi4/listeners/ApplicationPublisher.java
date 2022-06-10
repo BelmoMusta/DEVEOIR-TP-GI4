@@ -1,11 +1,11 @@
 package com.ensa.gi4.listeners;
 
-import com.ensa.gi4.modele.Materiel;
+import com.ensa.gi4.modele.Material;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class ApplicationPublisher implements ApplicationEventPublisherAware {
     private ApplicationEventPublisher applicationEventPublisher;
 
@@ -15,7 +15,7 @@ public class ApplicationPublisher implements ApplicationEventPublisherAware {
 
     }
 
-    public <T extends Materiel> void  publish(MyEvent<T> event) {
+    public <T> void  publish(MyEvent<T> event) {
         applicationEventPublisher.publishEvent(event);
 
     }

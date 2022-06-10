@@ -1,8 +1,12 @@
 package com.ensa.gi4;
 
+import com.ensa.gi4.controller.AuthenticationController;
 import com.ensa.gi4.controller.GestionMaterielController;
-import com.ensa.gi4.service.api.GestionMaterielService;
-import com.ensa.gi4.service.impl.GestionLivreServiceImpl;
+import com.ensa.gi4.listeners.ApplicationPublisher;
+import com.ensa.gi4.service.api.AuthenticationService;
+import com.ensa.gi4.service.api.MaterialsManagingService;
+import com.ensa.gi4.service.impl.AuthenticationServiceImpl;
+import com.ensa.gi4.service.impl.MaterialsManagingServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -11,9 +15,20 @@ import org.springframework.context.annotation.Lazy;
 public class AppConfig {
 
     @Bean
-    public GestionMaterielService livreServiceBean() {
-        return new GestionLivreServiceImpl();
+    public MaterialsManagingService materialsManagingService() {
+        return new MaterialsManagingServiceImpl();
     }
+    @Bean
+    public AuthenticationService authenticationService() {
+        return new AuthenticationServiceImpl();
+    }
+    @Bean
+    public AuthenticationController authenticationController() {
+        return new AuthenticationController();
+    }
+
+    @Bean
+    public ApplicationPublisher applicationPublisherBean() { return new ApplicationPublisher();}
 
     @Bean
     @Lazy
