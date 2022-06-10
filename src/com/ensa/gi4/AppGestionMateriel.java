@@ -26,6 +26,13 @@ public class AppGestionMateriel {
 
     public static void main(String[] args) {
 
+
+
+        // (admin) : username = aymane, password = aymane0101
+        // (user) : username = nisrine, password = nisrine0101
+
+
+
         final GestionMaterielController gestionMaterielController = (GestionMaterielController) APPLICATION_CONTEXT.getBean("controllerPricipal");
 
         User user = null;
