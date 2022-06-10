@@ -18,6 +18,8 @@ public interface GestionMaterielService {
 
     void renderMateriel(int id);
 
+    Boolean isDispo(int id);
+
  void AllMaterielAlloue(int user_id);
 
  void allAllloue();

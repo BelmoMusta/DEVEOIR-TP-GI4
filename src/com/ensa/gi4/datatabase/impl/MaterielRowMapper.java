@@ -13,11 +13,15 @@ public class MaterielRowMapper implements RowMapper<Materiel> {
         };
 
         materiel.setId(resultSet.getInt("ID"));
+        materiel.setUser_id(resultSet.getString("USER_ID"));
         materiel.setCode( resultSet.getString("CODE"));
         materiel.setName( resultSet.getString("NAME"));
         materiel.setAlloue( resultSet.getBoolean("ALLOUE"));
         materiel.setType(resultSet.getString("TYPE"));
         materiel.setDuree(resultSet.getString("DUREE"));
+        materiel.setUsername(resultSet.getString("USERNAME"));
+        materiel.setDispo(resultSet.getBoolean("DISPO"));
+
 
         return materiel;
     }

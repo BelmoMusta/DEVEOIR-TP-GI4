@@ -48,10 +48,11 @@ public class GestionMaterielController {
 
            if(user.getRole().equals("admin")){
                 while (true)
-               afficherMenuAdmin();
+               afficherMenuOfAdmin();
            }
            else if (user.getRole().equals("user")){
-               System.out.println("nta ri user");
+               while (true)
+                   afficherMenuOfUser();
            }
            else {
                sortirDeLApplication();
@@ -64,7 +65,58 @@ public class GestionMaterielController {
 
     }
 
-    public void afficherMenuAdmin(){
+    private void afficherMenuOfUser() {
+        System.out.println("Bienvenu Simo ");
+        System.out.println("1- pour lister le matériel, entrer 1");
+        System.out.println("2- Chercher un matériel, entrer 2");
+        System.out.println("3-  Allouer un matériel, entrer 3");
+        System.out.println("4-  Render un matériel, entrer 4");
+        System.out.println("5- Afficher la liste des matériels alloués par vous, entrer 5");
+        System.out.println("6- se Déconnecter, entre 6");
+        System.out.println("0- pour sortir de l'application, entrer 0");
+
+        Scanner scanner = new Scanner(System.in);
+        String next = scanner.next();
+        if ("0".equals(next)) {
+            sortirDeLApplication();
+        } else if ("1".equals(next)) {
+            listerMateriel();
+
+        }else if("2".equals(next)){
+            System.out.println("Saiasir ID du materiel");
+            int ID = scanner.nextInt();
+            gestionMaterielServiceImpl.chercherMateriel(ID);
+        }else if("3".equals(next)){
+            gestionMaterielServiceImpl.listerMateriel();
+            System.out.println("Saiasir ID du materiel");
+            int ID = scanner.nextInt();
+            if(gestionMaterielServiceImpl.isDispo(ID)){
+                System.out.println("Saiasir la duree d'allocation");
+                String duree = scanner.next();
+                gestionMaterielServiceImpl.materialAlloue(ID,duree,user.getId(),user.getUsername());
+                gestionMaterielServiceImpl.materielIndisponible(ID);
+            }else System.out.println("indisponible ");
+
+
+        }else if("4".equals(next)){
+            gestionMaterielServiceImpl.listerMateriel();
+            System.out.println("Saiasir ID du materiel");
+            int ID = scanner.nextInt();
+            gestionMaterielServiceImpl.renderMateriel(ID);
+        }else if("5".equals(next)){
+            gestionMaterielServiceImpl.AllMaterielAlloue(user.getId());
+        }else if("6".equals(next)){
+            afficherMenu();
+        }
+        else {
+            sortirDeLApplication();
+        }
+
+
+
+    }
+
+    public void afficherMenuOfAdmin(){
         System.out.println("Bienvenu Hamza ");
         System.out.println("1- pour lister le matériel, entrer 1");
         System.out.println("2- pour ajouter un nouveau matériel, entrer 2");
@@ -76,6 +128,7 @@ public class GestionMaterielController {
         System.out.println("8-  Render un matériel, entrer 8");
         System.out.println("9- Afficher la liste des matériels alloués par vous, entrer 9");
         System.out.println("10- Afficher la liste des matériels alloués par les Utilisateurs, entrer 10");
+        System.out.println("11- se Déconnecter, entre 11");
         System.out.println("0- pour sortir de l'application, entrer 0");
 
         Scanner scanner = new Scanner(System.in);
@@ -100,6 +153,9 @@ public class GestionMaterielController {
                 materiel.setType("LIVRE");
 
                 gestionMaterielServiceImpl.ajouterNouveauMateriel(materiel);
+
+                publisher.publish(new MyEvent<>(materiel, EventType.ADD));
+
             }else if("2".equals(choix)) {
                 System.out.println("Saisir le nom du materiel");
                 String nom=scanner1.next();
@@ -110,6 +166,7 @@ public class GestionMaterielController {
                 materiel.setCode(code);
                 materiel.setType("CHAISE");
                 gestionMaterielServiceImpl.ajouterNouveauMateriel(materiel);
+                publisher.publish(new MyEvent<>(materiel, EventType.ADD));
             }else {
                 System.out.println("Ce choix n'existe pas");
             }
@@ -119,6 +176,7 @@ public class GestionMaterielController {
             int idMateriel = scanner.nextInt();
             if(gestionMaterielServiceImpl.checkAvantSupprimer( idMateriel)){
                 gestionMaterielServiceImpl.supprimerUnMaterial(idMateriel);
+
             }
             else {
                 System.out.println("Ce materiel n'existe pas");
@@ -149,10 +207,14 @@ public class GestionMaterielController {
             gestionMaterielServiceImpl.listerMateriel();
             System.out.println("Saiasir ID du materiel");
             int ID = scanner.nextInt();
-            System.out.println("Saiasir la duree d'allocation");
-            String duree = scanner.next();
-            gestionMaterielServiceImpl.materialAlloue(ID,duree,user.getId(),user.getUsername());
-            gestionMaterielServiceImpl.materielIndisponible(ID);
+            if(gestionMaterielServiceImpl.isDispo(ID)){
+                System.out.println("Saiasir la duree d'allocation");
+                String duree = scanner.next();
+                gestionMaterielServiceImpl.materialAlloue(ID,duree,user.getId(),user.getUsername());
+                gestionMaterielServiceImpl.materielIndisponible(ID);
+            }else System.out.println("indisponible ");
+
+
         }else if("8".equals(next)){
             gestionMaterielServiceImpl.listerMateriel();
             System.out.println("Saiasir ID du materiel");
@@ -162,6 +224,8 @@ public class GestionMaterielController {
             gestionMaterielServiceImpl.AllMaterielAlloue(user.getId());
         }else if("10".equals(next)) {
             gestionMaterielServiceImpl.allAllloue();
+        }else if("11".equals(next)){
+            afficherMenu();
         }
 
         else {

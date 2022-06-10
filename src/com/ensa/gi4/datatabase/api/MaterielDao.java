@@ -16,6 +16,8 @@ public interface MaterielDao {
     void indisponible(int id);
 
     void allouer(int id, String duree,int id_user, String username);
+
+
     void render(int id);
     List<Materiel> listeMaterielAlloue(int user_id);
 

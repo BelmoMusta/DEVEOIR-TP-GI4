@@ -59,6 +59,11 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
     }
 
     @Override
+    public Boolean isDispo(int id) {
+        return null;
+    }
+
+    @Override
     public void AllMaterielAlloue(int user_id) {
 
     }

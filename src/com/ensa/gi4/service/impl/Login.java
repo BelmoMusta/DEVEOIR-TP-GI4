@@ -9,11 +9,13 @@ import org.springframework.stereotype.Component;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 import java.util.Scanner;
 
 
 @Component
 public class Login extends GenericDAO<User> implements ILogin {
+
     String username;
     String password;
     boolean check ;
@@ -30,25 +32,11 @@ public class Login extends GenericDAO<User> implements ILogin {
             username = scanner.next();
             System.out.println("password : ");
             password = scanner.next();
-            password = HashCode(password);
 
             try{
                 User user = super.findRealPassword("SELECT * FROM USER WHERE username=?;", username);
                 String realPassword = user.getPassword();
-                if(check==false){
-                    realPassword = HashCode(realPassword);
-                    if(realPassword.equals(password))
-                    {
-                        check=true;
-                        return user;
-                    }
-                    else
-                    {
-                        System.out.println("password incorrect");
-                    }
-                }
-                else{
-                    if(realPassword.equals(password))
+                 if(realPassword.equals(password))
                     {
                         return user;
                     }
@@ -56,7 +44,6 @@ public class Login extends GenericDAO<User> implements ILogin {
                     {
                         System.out.println("password incorrect");
                     }
-                }
 
             }
             catch(Exception e){
@@ -72,30 +59,6 @@ public class Login extends GenericDAO<User> implements ILogin {
             }
         }
     }
-
-
-    public String HashCode(String password)
-    {
-        try{
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA");
-            messageDigest.update(password.getBytes());
-            byte[] resultByteArray = messageDigest.digest();
-            StringBuilder sb = new StringBuilder();
-            for(byte b : resultByteArray)
-            {
-                sb.append(String.format("%02x",b));
-            }
-            return sb.toString();
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-
-
 
     @Override
     protected RowMapper<User> getRowMapper() {
