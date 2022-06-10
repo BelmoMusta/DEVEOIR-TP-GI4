@@ -27,23 +27,14 @@ public class GestionMaterielController {
 	 GestionMaterielService gestionMaterielService;
 
 	 public void afficherMenu() {
+		  Materiel M= new Materiel() { // because it is abstract
+	        };
 		 
-	    	//System.out.println("----------------bonjour----------------");
-	    	//System.out.println("pour se connecter saisir 1 ");
-    		//System.out.println("pour créer un nouveau compte saisir 2 ");
     		Scanner scanner  = new Scanner(System.in);
-    		//String Log = scanner.next();
-    		//if(Log.equals("1")) {
-    			//System.out.println(" saisir votre nom ");
-    	       // String name = scanner.next();
-    	       // System.out.println(" saisir votre mot de passe ");
-    	       // String pw = scanner.next();
-    	       //if( gestionPersonneService.connecter(name, pw)!= null) {
-    	    	  
-    	    	//while(true) {
+
     	    		if(gestionPersonneService.determinerRole().equals("admin"))
     	    		{
-    	    			
+    	    			while(true) {
 
     	    			System.out.println("---------------------------------------------------------------");
     	    			System.out.println("pour Afficher la liste de tous les matériels saisir 1 ");
@@ -56,7 +47,7 @@ public class GestionMaterielController {
         	    		System.out.println("pour rendre un materiele saisir 8 ");
         	    		System.out.println("pour Afficher la liste des matériels alloués  saisir 9 ");
         	    		System.out.println("pour Afficher la liste des matériels alloués par chaque utilisateur saisir 10 ");
-        	    		System.out.println("pour se déconnecter de l'application saisir 0");
+        	    		
         	    		
         	    		System.out.println("---------------------------------------------------------------");
   
@@ -70,8 +61,7 @@ public class GestionMaterielController {
         	    			gestionMaterielService.findMateriel(Long.parseLong(choix));
         	    		}   
         	    		else if (choix.equals("3")) {
-        	    		  Materiel M= new Materiel() { // because it is abstract
-        	    		        };
+        	    		
         	    			System.out.println(" saisir le nom du materiel  : ");
         	    			String m1 = scanner.next();
         	    			System.out.println(" saisir le code de materiel : ");
@@ -79,25 +69,34 @@ public class GestionMaterielController {
         	    			M.setName(m1);
         	    			M.setCode(m2);
         	    			gestionMaterielService.ajouterNouveauMateriel(M);
+        	    			publisher.publish(new MyEvent<>(M, EventType.ADD));
         	    		}
         	    		else if  (choix.equals("4")) {
+        	    		
         	    			System.out.println(" saisir L'id du materiel  : ");
         	    			Long id = Long.parseLong(scanner.next());
-        	    			gestionMaterielService.supprimerMateriel(id);
+        	    			M.setId(id);
+        	    			gestionMaterielService.supprimerMateriel(M );
+        	    			publisher.publish(new MyEvent<>(M, EventType.REMOVE));
         	    		}
         	    		else if (choix.equals("5")) {
-        	    			System.out.println(" saisir L'id du materiel que vous souhaitez modifier : ");
-        	        		Long id =  Long.parseLong( scanner.next());
+        	    		
+        	    		System.out.println(" saisir L'id du materiel que vous souhaitez modifier : ");
+        	        	Long id =  Long.parseLong( scanner.next());
       	    			System.out.println(" saisir le nouveau nom du materiel  : ");
       	    			String nvName = scanner.next();
       	    			System.out.println(" saisir le nouveau code de materiel : ");
       	    			String nvCode = scanner.next();
-      	    			gestionMaterielService.modifierInfosMateriel(id, nvName, nvCode);
+      	    			M.setId(id);
+      	    			M.setName(nvName);
+      	    			M.setCode(nvCode);
+      	    			gestionMaterielService.modifierInfosMateriel(M);
+      	    			publisher.publish(new MyEvent<>(M, EventType.UPDATE));
         	    		}
     	    			
         	    		else if (choix.equals("6")) 
         	    		{
-        	    			System.out.println(" saisir L'id du materiel que vous souhaitez modifier : ");
+        	    			System.out.println(" saisir L'id du materiel que vous souhaitez rendre indisponible : ");
         	        		Long id =  Long.parseLong( scanner.next());
         	        		gestionMaterielService.indisponibleMateriel(id);
         	    			
@@ -118,14 +117,12 @@ public class GestionMaterielController {
         	    		}
         	    		else if (choix.equals("9")) 
         	    		{
-        	    			  Materiel M= new Materiel() { // because it is abstract
-        	    		        };
+        	    			
           	    			gestionMaterielService.listerMaterielAlloue();
         	    			
         	    		}
         	    		else if(choix.equals("10")){
-        	    			  Materiel M= new Materiel() { // because it is abstract
-      	    		        };
+        	    		
         	    			gestionMaterielService.afficherMaterielAllouerParUtilisateur();
         	    		}
         	    		
@@ -133,12 +130,14 @@ public class GestionMaterielController {
         	    			System.out.println("Le choix est invalide !");
         	    		}
 	
+    	    		}
     	    			
     	    			
     	    			
     	    			
     	    		} 
     	    		else {
+    	    			while(true) {
     	    			
     	    			System.out.println("---------------------------------------------------------------");
     	    			
@@ -147,8 +146,6 @@ public class GestionMaterielController {
         	    		System.out.println("pour allouer un matériel saisir 3 ");
         	    		System.out.println("pour  rendre un matériel saisir 4 ");
         	    		System.out.println("pour afficher la liste des matériels alloués saisir 5");
-        	    		System.out.println("pour  se déconnecter de l'application saisir 0 ");
-        	    	
         	    		
         	    		System.out.println("---------------------------------------------------------------");
         	    		
@@ -177,48 +174,20 @@ public class GestionMaterielController {
         	    		}
         	    		else if (choix.equals("5")) 
         	    		{
-        	    			  Materiel M= new Materiel() { // because it is abstract
-        	    		        };
+        	    		
           	    			gestionMaterielService.listerMaterielAlloue();
         	    			
         	    		}
         	    		else {
         	    			System.out.println("Le choix est invalide !");
         	    		}
+    	    		}
     	    			
     	    		}
+    	    		
+    	    		
+    	    		
     	    	 	    		
-    	    	
-    	    	     	    	 
-    	     /* }else {
-    	    	  System.out.println(" saisir 0 pour sortir de l'application");
-    	    	  System.out.println(" saisir 1 pour réesayer à nouveau");
-    	    	  String choix = scanner.next();
-    	    	  if(choix.equals("0")) {
-    	    		  sortirDeLApplication();
-    	    		  name=null;
-    	    		  pw=null;
-    	    		 afficherMenu();
-    	    	  }else {
-    	    		  name=null;
-    	    		  pw=null;
-    	    		 afficherMenu();
-    	    	  }
-    	      }
-    		}
-    		else if(Log.equals("2")) {
-    			System.out.println("veuillez entrer votre nom");
-    			String nvName = scanner.next();
-    	        System.out.println(" saisir votre mot de passe ");
-    	        String nvPw = scanner.next();
-    	        gestionPersonneService.creerCompte(nvName, nvPw);
-    	        
-    			
-    		}
-    		else {
-    			System.out.println("Votre Choix invalide !!");
-    		} */
-	       // publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));
 	    }
 
 

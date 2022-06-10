@@ -27,17 +27,14 @@ public class GestionPersonneServiceImpl implements GestionPersonneService {
 	    }
         }
     public void creerCompte(String nom, String pw) {
-	   if((nom != null )&&(pw != null)) {
 		 if(personneDao.findPersonne(nom, pw) == null) {
 			 personneDao.ajouterPersonne(nom,pw);
 			 
 		 }else {
 			 System.out.println("ce compte déjà existe , ressayer de se conncter");
 		 }
-	 }
-	 else {
-		 System.out.println("essayer d'entrer des valeurs raisonables !");
-	 }
+	 
+	
  }
     
     @Override

@@ -7,8 +7,8 @@ public interface GestionMaterielService {
     void listerMateriel();
     void findMateriel(Long id);
     void ajouterNouveauMateriel(Materiel materiel);
-    void supprimerMateriel(Long id);
-    void modifierInfosMateriel(Long id, String nom, String code);
+    void supprimerMateriel(Materiel M);
+    void modifierInfosMateriel(Materiel M);
     void indisponibleMateriel(Long id);
 	public void afficherMaterielAllouerParUtilisateur();
 	boolean listerMaterielAlloue();

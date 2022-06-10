@@ -35,13 +35,13 @@ public class GestionChaiseServiceImpl implements GestionMaterielService, SmartIn
    	}
 
 	@Override
-	public void supprimerMateriel(Long id) {
+	public void supprimerMateriel(Materiel M) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void modifierInfosMateriel(Long id, String nom, String code) {
+	public void modifierInfosMateriel(Materiel M) {
 		// TODO Auto-generated method stub
 		
 	}

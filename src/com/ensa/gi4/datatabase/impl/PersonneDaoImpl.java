@@ -74,7 +74,7 @@ public class PersonneDaoImpl extends GenericDAO<Personne> implements PersonneDAO
 	
 	@Override
 	public void ajouterPersonne(String nom, String pw) {
-		String sql = "INSERT INTO users (name,pw) VALUES('"+nom+"','"+pw+"')";
+		String sql = "INSERT INTO users (name,pw) VALUES('"+nom+"','"+ getHashPw(pw) +"')";
 		super.inseretUpdateDelete(sql);
 	}
 

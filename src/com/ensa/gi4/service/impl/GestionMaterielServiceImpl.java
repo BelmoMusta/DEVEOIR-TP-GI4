@@ -42,7 +42,8 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
        
     }
     @Override
-	public void supprimerMateriel(Long id) {
+	public void supprimerMateriel(Materiel M) {
+    	Long id = M.getId();
     	if((id != null) && (materielDao.findOne(id)!=null )) {
     		materielDao.supprimerMateriel(id);
     		 System.out.println("La suppression du matriel  effectué avec succées !");    		
@@ -69,11 +70,16 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 	}
 
 	@Override
-	public void modifierInfosMateriel(Long id, String nom, String code) {
-		if(materielDao.modifierInfosMateriel(id, nom, code)) {
-			System.out.println("La modification a été bien effectuée");
-		}else {
-			System.out.println("une erreur a été survenu veuillez réessayer à nouveau!");
+	public void modifierInfosMateriel(Materiel M) {
+		if(materielDao.findOne(M.getId())!=null){
+			if(materielDao.modifierInfosMateriel(M.getId(), M.getName(),M.getCode())) {
+				System.out.println("La modification a été bien effectuée");
+			}else {
+				System.out.println("une erreur a été survenu veuillez réessayer à nouveau!");
+			}
+		}
+		else {
+			System.out.println("l'id n'existe pas!");
 		}
 		
 	}
