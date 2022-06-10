@@ -37,7 +37,13 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
 	@Override
 	public void listerMateriel() {
-		System.out.println(materielDao.findAll());
+		for(Materiel a : materielDao.findAll()) {
+			System.out.println("Id : " + a.getId());					
+			System.out.println("nom materiel : " + a.getName());
+			System.out.println("type : " + a.getCode());
+			System.out.println("etat : " + a.getEtat());
+			System.out.println("---------------------");					
+		}
 	}
 
 
@@ -99,7 +105,8 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 			System.out.println("date de debut : " + a.getDateDebut());
 			System.out.println("date de fin : " + a.getDateFin());					
 			System.out.println("---------------------");					
-		}	}
+		}	
+	}
 
 
 	@Override
