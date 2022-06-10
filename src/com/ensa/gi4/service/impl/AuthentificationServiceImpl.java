@@ -24,31 +24,16 @@ public class AuthentificationServiceImpl implements AuthentificationService {
         }
         return s;
     }
-    //public List<User> users=userdao.findAllUsersDAO();
     @Override
     public User login(String name,String password) throws NoSuchAlgorithmException {
-        //boolean exist=false;
         User result=null;
         String pwd =userdao.hach(password);
-        System.out.println("hello "+pwd);
-        //System
         for(User user:userdao.findAllUsersDAO()){
-            //String pwdInDB=user.getPassword();
-            //String pwdInDB= userdao.hach(user.getPassword());
-            System.out.println("1 "+user.getPassword().equals(pwd));
             if(user.getName().equals(name) && user.getPassword().equals(pwd)){
-                System.out.println("2 "+user.getPassword().equals(pwd));
                 result=user;
             }
         }
         return result;
-        /*User result=null;
-        for(User user:userdao.findAllUsersDAO()){
-            if(user.getName().equals(name) && user.getPassword().equals(password)){
-                result=user;
-            }
-        }
-        return result;*/
     }
 
     @Override

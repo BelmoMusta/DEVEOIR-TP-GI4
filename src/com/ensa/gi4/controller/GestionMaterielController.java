@@ -30,7 +30,7 @@ public class GestionMaterielController {
     private User exist;
     private String role;
     private Long uid;
-    public void seConnecter() throws NoSuchAlgorithmException {
+    public int seConnecter() throws NoSuchAlgorithmException {
         System.out.println("#########################################################################################");
         System.out.println("##               + pour sortir de l'application, entrer (0)                            ##");
         System.out.println("##               + Si vous avez déja un compte, entrer (1)                             ##");
@@ -38,19 +38,22 @@ public class GestionMaterielController {
         System.out.println("#########################################################################################");
         Scanner scanner = new Scanner(System.in);
         String next = scanner.next();
+        int r=0;
         if ("0".equals(next)) {
             //System.exit(0);
             sortirDeLApplication();
         }else if ("1".equals(next)) {
             //System.exit(0);
-            getAccess();
+            //getAccess();
+            r=1;
         }else if ("2".equals(next)) {
             //System.exit(0);
             signUp();
         }else{
             System.out.println("choix non valide");
+            seConnecter();
         }
-
+        return  r;
     }
     public void authentification() throws NoSuchAlgorithmException {
         System.out.println("-------------------Log In-------------------------");
