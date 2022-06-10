@@ -8,4 +8,5 @@ import com.ensa.gi4.modele.User;
 public interface UserDao {
 	Optional<User> login(List<String> userData);
 	Optional<List<User>> findAll(); 
+	int signUp(List<String> userData);
 }

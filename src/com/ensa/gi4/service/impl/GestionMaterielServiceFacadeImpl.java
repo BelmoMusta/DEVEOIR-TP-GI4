@@ -131,7 +131,7 @@ public class GestionMaterielServiceFacadeImpl implements GestionMaterielServiceF
 	public void listeMaterielAlloue(User user) {
 		Optional<List<Materiel>> checkMaterielOptional = allocationMaterielService.listeMaterielAlloue(user); 
 		System.out.println("------------\t" + listeMaterielAlloue + "\t------------");
-		if(checkMaterielOptional.isPresent()) {
+		if(checkMaterielOptional.isPresent() && !checkMaterielOptional.get().isEmpty()) {
 			for (Materiel materiel :checkMaterielOptional.get()) 
 				System.out.println(materiel);
 		}

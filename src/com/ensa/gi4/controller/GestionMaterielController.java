@@ -96,6 +96,13 @@ public class GestionMaterielController {
 	
 	@Value("${string.gestionMaterielController.operation.choixMateriel}")
 	private String choixMateriel;
+	
+	@Value("${string.gestionMaterielController.menu.service.demande}")
+	private String demande;
+	@Value("${string.gestionMaterielController.menu.service.demande.choix1}")
+	private String choix1;
+	@Value("${string.gestionMaterielController.menu.service.demande.choix2}")
+	private String choix2;
   
     
     Scanner scanner  = new Scanner(System.in);
@@ -105,11 +112,27 @@ public class GestionMaterielController {
     	return authentificationService.login(userData); 
     }
     
+    public Optional<User> signUp(List<String> userData) {
+    	return authentificationService.signUp(userData);
+    }
+    
     public List<String> getUserData(){
     	String username; 
     	String password; 
+    	
+    	/*
+    	 * Le compte admin est créer au demarage de l'application avec 
+    	 * comme donnée username = admin1 et password=1234
+    	 * 
+    	 * Il existe aussi un compte utilisateur 
+    	 * avec comme donnée username= user1 et password = 5678
+    	 * 
+    	 * Possibilité de créer un compte utilisateur à chaud en saisissant 
+    	 * ces informations spécifiques (username et password)
+    	 * 
+    	 * */
+    	
     	List<String> userData = new ArrayList<String>();  
-    	// à gerer le signUp
     	
     	System.out.print(usernameString);
     	username = scanner.next(); 
@@ -250,11 +273,19 @@ public class GestionMaterielController {
 		}
        
     }
-    public void greeting() {
+    public Optional<String> greeting() {
     	System.out.println("******************************************************************************************");
     	System.out.println("\t" + welcome);
     	System.out.println("\t" + service);
     	System.out.println("******************************************************************************************");
+    	
+
+    	System.out.println(demande);
+    	System.out.println(choix1);
+    	System.out.println(choix2);
+    	String choix = scanner.next(); 
+    	
+    	return Optional.of(choix); 
 	}
 
     private void sortirDeLApplication() {

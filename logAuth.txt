@@ -1,2 +1,4 @@
 juin 10, 2022 6:41:36 PM com.ensa.gi4.aspects.AuthAspect auth
 INFOS: Connection établit avec l'utilisateur =>  Name : admin1, Role : ADMIN
+juin 10, 2022 9:07:11 PM com.ensa.gi4.aspects.AuthAspect auth
+INFOS: Connection établit avec l'utilisateur =>  Name : admin1, Role : ADMIN

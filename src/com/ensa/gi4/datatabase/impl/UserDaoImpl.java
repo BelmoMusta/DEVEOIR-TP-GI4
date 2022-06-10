@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ensa.gi4.datatabase.api.UserDao;
 import com.ensa.gi4.modele.Role;
-import com.ensa.gi4.modele.TypeMateriel;
 import com.ensa.gi4.modele.User;
 
 @Repository
@@ -20,6 +19,8 @@ public class UserDaoImpl extends GenericDAO<User>  implements UserDao {
 	private String loginQuery;
 	@Value("${sql.user.findAllUser.query}")
 	private String findAllUserQuery;
+	@Value("${sql.user.signUp.query}")
+	private String signUpQuery;
 	
 	@Override
 	protected UserRowMapper getRowMapper() {
@@ -55,6 +56,12 @@ public class UserDaoImpl extends GenericDAO<User>  implements UserDao {
 	@Override
 	public Optional<List<User>> findAll() {
 		return super.findAllUser(findAllUserQuery);
+	}
+
+	@Override
+	public int signUp(List<String> userData) {
+		String passwordHashed = BCrypt.hashpw(userData.get(1), BCrypt.gensalt()); 
+		return super.signUp(signUpQuery, userData.get(0), passwordHashed, Role.USER.toString()); 
 	}
 
 }

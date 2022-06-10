@@ -8,4 +8,5 @@ import com.ensa.gi4.modele.User;
 public interface AuthentificationService {
 
 	Optional<User> login (List<String> userData); 
+	Optional<User> signUp(List<String> userData);
 }

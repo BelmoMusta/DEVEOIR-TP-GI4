@@ -29,7 +29,7 @@ public class AuthentificationServiceTest {
 	@Qualifier("getAuthentificationService")
 	AuthentificationService authentificationService; 
 	
-	private List<String> adminData, userData; 
+	private List<String> adminData, userData, userDataTest; 
 	
 	@Before
 	public void setUp() {
@@ -40,6 +40,10 @@ public class AuthentificationServiceTest {
 		userData  =new ArrayList<String>(); 
 		userData.add(0, "user1");
 		userData.add(1, "5678");
+		
+		userDataTest = new ArrayList<String>();
+		userDataTest.add(0, "user2");
+		userDataTest.add(1, "9876"); 
 		
 	}
 	
@@ -56,6 +60,13 @@ public class AuthentificationServiceTest {
 		
 		assertEquals("user1", userOptional.get().getName());
 		assertEquals(Role.USER, userOptional.get().getRole());
+	}
+	
+	public void testSignUp() {
+		Optional<User> userOptional = authentificationService.signUp(userDataTest);
+		assertEquals("user2", userOptional.get().getName());
+		assertEquals(Role.USER, userOptional.get().getRole());
+		
 	}
 
 }

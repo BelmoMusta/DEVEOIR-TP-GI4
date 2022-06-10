@@ -119,6 +119,10 @@ public abstract class GenericDAO<T> implements InitializingBean {
     
     // user operation 
     
+    protected int signUp(String query,String name, String password, String role) {
+    	return jdbcTemplate.update(query, name, password, role); 
+	}
+    
     protected  Optional<T> findUser(String query, List<String> userData) {
     	try {
     			return Optional.of(jdbcTemplate.queryForObject(query, getRowMapper(), userData.get(0), userData.get(1))); 

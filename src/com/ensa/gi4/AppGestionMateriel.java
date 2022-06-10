@@ -20,12 +20,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class AppGestionMateriel {
     private static final ApplicationContext APPLICATION_CONTEXT;
     static Optional<User> checkUser; 
-
-    @Value("${string.gestionMaterielController.menu.welcome}")
-    private static  String welcome; 
-    
-    @Value("${string.gestionMaterielController.menu.service}")
-    private static String service; 
     
     static { // bloc static pour initilialisation
 
@@ -35,17 +29,33 @@ public class AppGestionMateriel {
     public static void main(String[] args) {
         final GestionMaterielController gestionMaterielController = (GestionMaterielController) APPLICATION_CONTEXT.getBean("controllerPricipal");
    	
-        gestionMaterielController.greeting();
+       Optional<String> checkChoice =  gestionMaterielController.greeting();
+       
+       if (checkChoice.isPresent()) {
+    	   
+    	   switch (checkChoice.get()) {
+				case "1":
+					do {
+						List<String> userData = gestionMaterielController.getUserData(); 
+			        	checkUser = gestionMaterielController.authentification(userData);
+					} while (!checkUser.isPresent());
+					break;
+				case "2":
+					List<String> userData = gestionMaterielController.getUserData();
+					checkUser =  gestionMaterielController.signUp(userData); 
+					break; 
+				default:
+					System.out.println("Choix invalide !");
+					System.exit(0);
+					break;
+		}
     	
-    	do {
-    		List<String> userData = gestionMaterielController.getUserData(); 
-        	checkUser = gestionMaterielController.authentification(userData);
-		} while (!checkUser.isPresent());
-        	
+    	   
+    	   while (true) { // pour que l'appliation tourne jusqu'à la demande de l'utilisateur de l'arrêter
+               gestionMaterielController.afficherMenu(checkUser.get());
+            }
+	}
     	
-        while (true) { // pour que l'appliation tourne jusqu'à la demande de l'utilisateur de l'arrêter
-           gestionMaterielController.afficherMenu(checkUser.get());
-        }
 
     }
 }
