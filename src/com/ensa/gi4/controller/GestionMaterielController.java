@@ -40,7 +40,6 @@ public class GestionMaterielController {
        String code;
        System.out.println("Veuillez entrer votre mot de passe");
        String password = scanner.next();
-       System.out.println(gestionUser.isAdmin(name, password));
        if(gestionUser.connexion(name, password)!=null){
     	   
        
@@ -225,8 +224,10 @@ public class GestionMaterielController {
        
        else {
     	   System.out.println("");
-     	  System.out.println(" pour sortir de l'application saisir 0: ");
-     	  System.out.println("pou réessayer à nouveau saisir 1: ");
+    	   System.out.println("**************************************");
+
+     	  System.out.println("Pour sortir de l'application saisir 0: ");
+     	  System.out.println("Pou réessayer à nouveau saisir 1: ");
      	  String num = scanner.next();
      	  if(num.equals("0")) {
      		  sortirDeLApplication();

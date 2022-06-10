@@ -33,5 +33,17 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 		
 	}
 
+	@Override
+	public void supprimerMateriel(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void modifierMateriel(int id, String nom, String code) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

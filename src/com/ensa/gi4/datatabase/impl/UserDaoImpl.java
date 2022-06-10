@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
@@ -18,9 +19,16 @@ public class UserDaoImpl extends GenericDAO<User> implements UserDao{
 	MaterielDao materielDao;
 	@Override
 	public User findOneUser(String name,String password) {
-	
-				user = super.findOne("SELECT * FROM User WHERE name=? AND password=?;", name,password);
-	
+				String query = "SELECT * FROM User WHERE name='"+name+"'";
+				List<User> listUser = super.findAll(query);
+				
+				for( int i =0; i<listUser.size();i++) {
+					if(BCrypt.checkpw(password, listUser.get(i).getPassword())) {
+					
+					user = listUser.get(i);
+					break;
+				}
+			}
 				 return user;
 	}
 
@@ -44,7 +52,7 @@ public class UserDaoImpl extends GenericDAO<User> implements UserDao{
 
 	@Override
 	public String getRole(String name) {
-		return super.getRole("SELECT ROLE FROM USER WHERE name=?", name);
+		return super.executeForString("SELECT ROLE FROM USER WHERE name=?", name);
 	}
 	//allocation
 	public void allouerMateriel(String code, String duree) {
@@ -64,4 +72,35 @@ public class UserDaoImpl extends GenericDAO<User> implements UserDao{
 	 
 		
 	}
+	
+	
+	@Override
+	public void  afterPropertiesSet(){
+		super.afterPropertiesSet();
+		setHasherPassword();
+	}
+	
+	//hacher un password 
+	
+	private String getHachPassword(String password) {
+		return BCrypt.hashpw(password, BCrypt.gensalt(10));
+
+	}
+	
+	
+	
+	// setter le password hacher dans BD
+	
+	private void setHasherPassword() {
+		String query = "SELECT count (*)  FROM User";
+		for (int i = 1; i <= super.executeForInt(query) ; i++) {
+			String sql = "SELECT password FROM User WHERE id = " + i + "";;
+			sql = "update user set password ='" + getHachPassword(super.executeForString2(sql)) + "' where id = " + i + "";
+		    super.UpdateQuery(sql);
+		    
+
+		}
+	}
+
+	
 }

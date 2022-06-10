@@ -15,6 +15,10 @@ public abstract class GenericDAO<T> implements InitializingBean {
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
+    
+    
+    
+    
     @Override
     public void afterPropertiesSet() { // from InitializingBean
         jdbcTemplate = new JdbcTemplate(dataSource);
@@ -27,6 +31,8 @@ public abstract class GenericDAO<T> implements InitializingBean {
     	   return null;
        }
     }
+
+    
        
     protected T executeQuery(String query) {
     	try {
@@ -50,8 +56,13 @@ public abstract class GenericDAO<T> implements InitializingBean {
     }
     
 
-     
-    protected String getRole(String query,String name) {
+ protected String executeForString2(String query) {
+    	
+    	
+     return this.jdbcTemplate.queryForObject(query, String.class);
+    	
+    }
+    protected String executeForString(String query,String name) {
     	
     	try {
     		return (String) jdbcTemplate.queryForObject(query,new Object[] {name}, String.class);
@@ -60,6 +71,11 @@ public abstract class GenericDAO<T> implements InitializingBean {
     	}
     }
  
+    
+    protected int executeForInt( String query){
+    	
+    	return this.jdbcTemplate.queryForObject(query,Integer.class);
+    }
    protected int executeWithVerif(String query) {
 	   return this.jdbcTemplate.update(query);
    }
