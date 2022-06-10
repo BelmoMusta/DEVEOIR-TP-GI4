@@ -3,6 +3,7 @@ package com.ensa.gi4.modele;
 public abstract class Materiel {
     private String code;
     private String name;
+    private Boolean disponible=true;
 
     public String getName() {
         return name;
@@ -18,6 +19,14 @@ public abstract class Materiel {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Boolean getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(Boolean dispo) {
+        this.disponible = dispo;
     }
 
     @Override
