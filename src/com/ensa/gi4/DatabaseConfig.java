@@ -24,23 +24,22 @@ public class DatabaseConfig {
     @Value("${jdbc.driver}")
     private String driverClassName;
 
-    @Value("${jbdc.init.schema}")
+    @Value("${jdbc.init.schema}")
     private String initSchema;
 
-    @Value("${jbdc.populate.schema}")
+    @Value("${jdbc.populate.schema}")
     private String populateSchema;
 
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(driverClassName);
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        executeScript(initSchema, dataSource);
-        executeScript(populateSchema, dataSource);
-        //  lancerH2Console(); // si vous voulez lancer la console H2 après la création du datasource
+        dataSource.setDriverClassName(this.driverClassName);
+        dataSource.setUrl(this.url);
+        dataSource.setUsername(this.username);
+        dataSource.setPassword(this.password);
+        executeScript(this.initSchema, dataSource);
+        executeScript(this.populateSchema, dataSource);
         return dataSource;
     }
 

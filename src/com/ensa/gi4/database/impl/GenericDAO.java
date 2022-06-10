@@ -1,4 +1,4 @@
-package com.ensa.gi4.datatabase.impl;
+package com.ensa.gi4.database.impl;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class GenericDAO<T> implements InitializingBean {
     @Autowired
     private DataSource dataSource;
-    private JdbcTemplate jdbcTemplate;
+    protected JdbcTemplate jdbcTemplate;
 
     @Override
     public void afterPropertiesSet() { // from InitializingBean
