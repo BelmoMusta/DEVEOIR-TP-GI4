@@ -22,6 +22,60 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
     }
 
     @Override
+    public void supprimerUnMaterial(int id) {
+
+    }
+
+    @Override
+    public boolean checkAvantSupprimer(int id) {
+        return false;
+    }
+
+    @Override
+    public void modifierUnMateriel(int id, String code, String name) {
+
+    }
+
+    @Override
+    public void chercherMateriel(int id) {
+
+    }
+
+    @Override
+    public void materielIndisponible(int id) {
+
+    }
+
+    @Override
+    public void materialAlloue(int id, String duree, int id_user, String username) {
+
+    }
+
+
+
+    @Override
+    public void renderMateriel(int id) {
+
+    }
+
+    @Override
+    public Boolean isDispo(int id) {
+        return null;
+    }
+
+    @Override
+    public void AllMaterielAlloue(int user_id) {
+
+    }
+
+
+
+    @Override
+    public void allAllloue() {
+
+    }
+
+    @Override
     public void afterSingletonsInstantiated() {
         System.out.println("toto");
 
