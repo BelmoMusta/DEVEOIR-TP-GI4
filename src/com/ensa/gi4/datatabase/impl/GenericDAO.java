@@ -1,5 +1,6 @@
 package com.ensa.gi4.datatabase.impl;
 
+import com.ensa.gi4.modele.Materiel;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,4 +28,12 @@ public abstract class GenericDAO<T> implements InitializingBean {
     }
 
     protected abstract RowMapper<T> getRowMapper();
+
+    protected T findRealPassword(String query, String username) {
+        return jdbcTemplate.queryForObject(query, getRowMapper(), username);
+    }
+
+    protected void upd(String query) {
+        jdbcTemplate.update(query);
+    }
 }
