@@ -29,6 +29,16 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     	   System.out.println(materiel.get(i));
        }
     }
+    @Override
+   	public int findOneMaterielINT(long id) {
+   		 if(materielDao.findOneMateriel(id)!=null ) {
+   			return 1;
+   		 }
+   		 else {
+   			 System.out.println("Ce materiel n'existe pas");
+   			 return 0;
+   		 }
+   	}
     
     @Override
 	public void findOneMateriel(long id) {

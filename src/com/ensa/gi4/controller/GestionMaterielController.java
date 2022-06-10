@@ -52,7 +52,7 @@ public class GestionMaterielController {
        			 
        			   System.out.println("Pour liseter les materiels, saisir 1: ");
         			System.out.println("Pour chercher un materiel,saisir 2: ");
-        			System.out.println("Pour creer un nouveau materiel,saisir 3: ");
+        			System.out.println("Pour ajouter un nouveau materiel,saisir 3: ");
         			System.out.println("Pour supprimer un matériel, saisir 4 ");
     	    		System.out.println("Pour modifier un matériel, saisir 5 ");
     	    		System.out.println("Pour allouer un materiel saisir 6: ");
@@ -89,6 +89,7 @@ public class GestionMaterielController {
             					materiel.setCode(codeMat);
             					materiel.setName("Livre");
             					gestionMateriel.ajouterNouveauMateriel(materiel);
+            					publisher.publish(new MyEvent<>(materiel, EventType.ADD));
             				}
             				
             				else if (input.equals("2")) {
@@ -97,8 +98,10 @@ public class GestionMaterielController {
             					String codeMat= scanner.next();
             					materiel.setCode(codeMat);
             					materiel.setName("Chaise");
+            					
 
             					gestionMateriel.ajouterNouveauMateriel(materiel);
+            					publisher.publish(new MyEvent<>(materiel, EventType.ADD));
 
             					
             					
@@ -116,18 +119,34 @@ public class GestionMaterielController {
     				else if(num.equals("4")) {
     					System.out.println("Veuillez saisir l'id du matériel à supprimer ");
     	    			int id = scanner.nextInt();
-    	    			gestionMateriel.supprimerMateriel(id);
+    	    			if(gestionMateriel.findOneMaterielINT(id) != 0)
+    	    			{
+    	    				gestionMateriel.supprimerMateriel(id);
+
+    	    			
+    	    			}
+    	    			else {
+    	    				System.out.println("le materiel que vous vulez supprimer n'existe pas");
+    	    			}
     				}
            			
            			//modifier 
     				else if(num.equals("5")) {
+    					
     					System.out.println("Veuillez saisir l'id du matériel à modifier ");
     	    			int id = scanner.nextInt();
-    	    			System.out.println("Veuillez saisir le nouveau nom du matériel ");
-    	    			name = scanner.next();
-    	    			System.out.println("Veuillez saisir le nouveau code du matériel ");
-    	    			code = scanner.next();
-    	    			gestionMateriel.modifierMateriel(id,name,code);
+    	    			
+    	    			if(gestionMateriel.findOneMaterielINT(id) != 0) {
+    	    				
+    	    				System.out.println("Veuillez saisir le nouveau nom du matériel ");
+    	    				name = scanner.next();
+    	    				System.out.println("Veuillez saisir le nouveau code du matériel ");
+    	    				code = scanner.next();
+    	    				gestionMateriel.modifierMateriel(id,name,code);
+    	    			}
+    	    			else {
+    	    				System.out.println("le materiel que vous vulez supprimer n'existe pas");
+    	    			}
     				}
            			
            			//allocation

@@ -9,4 +9,5 @@ public interface GestionMaterielService {
 	void findOneMateriel(long id);
 	 void supprimerMateriel(int id);
 	  void modifierMateriel(int id, String nom, String code);
+	  int findOneMaterielINT(long id);
 }
