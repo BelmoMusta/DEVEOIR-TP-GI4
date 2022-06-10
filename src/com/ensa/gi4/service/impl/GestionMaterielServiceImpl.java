@@ -7,6 +7,8 @@ import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.modele.Utilisateur;
 import com.ensa.gi4.service.api.GestionMaterielService;
 
+import resources.MessagesGestionMaterielServiceImpl;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,13 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 	
     @Autowired
     MaterielDao materielDao;
+    
+    @Autowired
+    MessagesGestionMaterielServiceImpl message;
 
     @Override
     public void init() {
-        System.out.println("Initialisation du service de Gestion du matériel");
+        System.out.println(message.initService);
     }
 
 	@Override
@@ -30,11 +35,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 		
 		if(materiel == null) {
 			
-			System.out.println("Le matériel que vous cherchez n'existe pas");
+			System.out.println(message.nonExistenceMateriel);
 	
 		}else {
 			
-			System.out.println("Le matériel que vous cherchez existe");
+			System.out.println(message.ExistenceMateriel);
 		
 		}
 		
@@ -49,11 +54,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 		
 		if(materiel.getEtat() == "Indisponible") {
 			
-			System.out.println("Le matériel que vous voulez allouer est actuellement indisponibe");
+			System.out.println(message.AllocationIndisponible);
 		
 		}else if(materiel.getEtat() == "Alloue") {
 			
-			System.out.println("Le matériel que vous voulez allouer est en allocation actuellement, veuillez vérifier plus tard");
+			System.out.println(message.AllocationAlloue);
 		
 		}else {
 			
@@ -61,11 +66,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 			
 			if(check == 1) {
 				
-				System.out.println("Le processus d'allocation a réussi");
+				System.out.println(message.AllocationReussi);
 			
 			}else {
 				
-				System.out.println("Le processus d'allocation a échoué");
+				System.out.println(message.AllocationEchoue);
 			}
 		}
 		
@@ -114,11 +119,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 		
 		if(listMaterielUser.size() == 0) {
 			
-			System.out.println("Vous n'avez pas encore effectué une allocation");
+			System.out.println(message.AllocationPasEncore);
 		
 		}else {
 			
-			System.out.println("Vous avez effectué une allocation");
+			System.out.println(message.AllocationDejaFaite);
 		}
 		
 		return listMaterielUser;
@@ -148,11 +153,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 		
 		if(check == 1) {
 			
-			System.out.println("Le processus de suppression a réussi");
+			System.out.println(message.suppressionReussi);
 			
 		}else {
 			
-			System.out.println("Le processus de suppression a échoué");
+			System.out.println(message.suppressionEchoue);
 		}
 		
 		return check;
@@ -166,11 +171,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 		
 		if(check == 1) {
 			
-			System.out.println("Le processus de modification a réussi");
+			System.out.println(message.modificationReussi);
 		
 		}else {
 			
-			System.out.println("Le processus de modification a échoué");
+			System.out.println(message.modificationEchoue);
 		}
 		
 		return check;
@@ -183,11 +188,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 		
 		if(check == 1) {
 			
-			System.out.println("Le processus de modification a réussi");
+			System.out.println(message.modificationReussi);
 		
 		}else {
 			
-			System.out.println("Le processus de modification a échoué");
+			System.out.println(message.modificationEchoue);
 		}
 		
  		return check;
@@ -201,14 +206,4 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 		return listMaterielEveryUser;
 	}
 
-//    @Override
-//    public void listerMateriel() {
-//        System.out.println(materielDao.findAll());
-//    }
-//
-//    @Override
-//    public void ajouterNouveauMateriel(Materiel materiel) {
-//
-//        System.out.println("L'ajout du matÃ©riel " + materiel.getName() + " effectuÃ© avec succÃ¨s !");
-//    }
 }

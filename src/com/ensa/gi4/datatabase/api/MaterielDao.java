@@ -18,10 +18,5 @@ public interface MaterielDao {
 	public int modifierMateriel(Materiel materiel, Long idMateriel);
 	public int materielIndisponible(Long idMateriel, String etat);
 	public List<Materiel> afficherMaterielEveryUser();
-	
-	
-    List<Materiel> findAll();
-
-    Materiel findOne(Long id);
 
 }

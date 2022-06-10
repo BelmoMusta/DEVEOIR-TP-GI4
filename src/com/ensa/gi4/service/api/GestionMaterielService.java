@@ -6,6 +6,7 @@ import com.ensa.gi4.modele.Materiel;
 
 public interface GestionMaterielService {
 	
+	//La liste des méthodes à implémenter
 	public void init();
 	public Materiel chercherMaterielS(Long idMateriel);
 	public int allouerMaterielS(Long idMateriel, String etat, Long idUser);
@@ -19,7 +20,5 @@ public interface GestionMaterielService {
 	public int materielIndisponibleS(Long idMateriel, String etat);
 	public List<Materiel> afficherMaterielEveryUserS();
 	
-//    void init();
-//    void listerMateriel();
-//    void ajouterNouveauMateriel(Materiel materiel);
+
 }

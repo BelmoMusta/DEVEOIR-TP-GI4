@@ -10,6 +10,8 @@ import com.ensa.gi4.modele.Utilisateur;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import com.ensa.gi4.service.api.GestionUtilisateurService;
 
+import resources.MessagesGestionMaterielController;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +20,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component("controllerPricipal")
-public class GestionMaterielController {
+public class GestionMaterielController implements MessagesGestionMaterielController{
 
     @Autowired
 
@@ -30,6 +32,9 @@ public class GestionMaterielController {
     @Autowired
     GestionMaterielService materielService;
 
+    @Autowired
+    MessagesGestionMaterielController message;
+    
     public void afficherMenu() {
     	
     	//Les variables 
@@ -42,14 +47,14 @@ public class GestionMaterielController {
     	List<Materiel> listMateriel = null;
     	
     	//Message de réception
-    	System.out.println("Bienvenue dans notre application de gestion d'allocation et de restitution de matériel");
+    	System.out.println(message.welcomeMessage);
     	
     	//Gérer l'authentification
     	while(checkUtilisateur.equals(null)) {
     		
     		do {
     			
-    			System.out.print("Veuillez taper 1 pour continuer ou bien 0 pour sortir de l'application : ");
+    			System.out.print(message.choiceMessage);
             	Scanner scanner = new Scanner(System.in);
             	reponse = scanner.nextInt();
     			
@@ -62,11 +67,11 @@ public class GestionMaterielController {
     		
     		if(reponse == 1) {
     			
-    			System.out.print("Entrez votre nom d'utilisateur : ");
+    			System.out.print(message.saisirUserName);
     			Scanner scannerUserName = new Scanner(System.in);
     			String username = scannerUserName.nextLine();
     			
-    			System.out.print("Entrez votre mot de passe : ");
+    			System.out.print(message.saisirPassword);
     			Scanner scannerPassword = new Scanner(System.in);
     			String password = scannerPassword.nextLine();
     			
@@ -102,21 +107,21 @@ public class GestionMaterielController {
     				//Traiter le cas d'un administrateur
     				if(roles[i].equals("Administrateur")) {
     					
-    					System.out.println("En tant qu'un administrateur, voici votre menu");
+    					System.out.println(message.welcomeMessageAdmin);		
     					
-    					System.out.println("0- Quitter l'application");
-    					System.out.println("1- Chercher un matériel");
-    					System.out.println("2- Créer un nouveau matériel");
-    					System.out.println("3- Supprimer un matériel");
-    					System.out.println("4- Modifier les informations d'un matériel");
-    					System.out.println("5- Marquer un matériel indisponible");
-    					System.out.println("6- Allouer un matériel");
-    					System.out.println("7- Rendre un matériel");
-    					System.out.println("8- Afficher la liste des matériels alloués par lui même");
-    					System.out.println("9- Afficher la liste des matériels alloués par chaque utilisateur");
-    					System.out.println("10- Afficher la liste de tous les matériels");
+    					System.out.println(message.quitterApp);
+    					System.out.println(message.chercherMateriel);
+    					System.out.println(message.ajouterNouveauMateriel);
+    					System.out.println(message.supprimerMateriel);
+    					System.out.println(message.modifierMateriel);
+    					System.out.println(message.materielIndisponible);
+    					System.out.println(message.allouerMateriel);
+    					System.out.println(message.rendreMateriel);
+    					System.out.println(message.listMaterielUser);
+    					System.out.println(message.listMaterielEveryUser);
+    					System.out.println(message.listMateriel);
     					
-    					System.out.print("Veuillez le numéro correspondant à votre fonctionnalité voulue : ");
+    					System.out.print(message.saisirNumFonction);
     					Scanner scannerNumero = new Scanner(System.in);
     					int numero = scannerNumero.nextInt();
     					
@@ -128,7 +133,7 @@ public class GestionMaterielController {
     						break;
     						
     					case 1: 
-    						System.out.print("Veuillez taper l'identifiant du matériel que vous voulez chercher : ");
+    						System.out.print(message.taperIdentifiantChercher);
     						Scanner sc = new Scanner(System.in);
     						Long identifiant = sc.nextLong();
     						
@@ -137,15 +142,15 @@ public class GestionMaterielController {
     						break;
     						
     					case 2 :
-    						System.out.println("Veuillez taper le nom du matériel que vous voulez ajouter : ");
+    						System.out.println(message.taperNomMaterielAjout);
     						Scanner scannerNom = new Scanner(System.in);
     						String nomMateriel = scannerNom.nextLine();
     						
-    						System.out.print("Veuillez taper le code du matériel que vous voulez ajouter : ");
+    						System.out.print(message.taperCodeMaterielAjout);
     						Scanner scannerCode = new Scanner(System.in);
     						String codeMateriel = scannerCode.nextLine();
     						
-    						System.out.print("Veuillez taper l'état du matériel que vous voulez ajouter : ");
+    						System.out.print(message.taperEtatMaterielAjout);
     						Scanner scannerEtat = new Scanner(System.in);
     						String etatMateriel = scannerEtat.nextLine();
     						
@@ -159,7 +164,7 @@ public class GestionMaterielController {
     						
     					case 3 : 
     						
-    						System.out.print("Veuillez taper l'identifiant du matériel que vous voulez supprimer : ");
+    						System.out.print(message.taperIdentifinantSupprimer);
     						Scanner scannerSupprimer = new Scanner(System.in);
     						Long identifiantSupprimer = scannerSupprimer.nextLong();
     						
@@ -169,15 +174,15 @@ public class GestionMaterielController {
     						
     					case 4 : 
     						
-    						System.out.print("Veuillez taper l'identifiant du matériel que vous voulez modifier : ");
+    						System.out.print(message.taperIdentifinantModifier);
     						Scanner idM = new Scanner(System.in);
     						Long identifiantModifier = idM.nextLong();
     						
-    						System.out.println("Veuillez taper le nouveau nom du matériel que vous voulez modifier : ");
+    						System.out.println(message.taperNomModifier);
     						Scanner scannerNomM = new Scanner(System.in);
     						String nomMaterielM = scannerNomM.nextLine();
     						
-    						System.out.print("Veuillez taper la nouvelle état du matériel que vous voulez modifier : ");
+    						System.out.print(message.taperEtatModifier);
     						Scanner scannerEtatM = new Scanner(System.in);
     						String etatMaterielM = scannerEtatM.nextLine();
     						
@@ -190,7 +195,7 @@ public class GestionMaterielController {
     						
     					case 5 :
     						
-    						System.out.print("Veuillez taper l'identifiant du matériel que vous voulez modifier : ");
+    						System.out.print(message.taperIdentifinantModifier);
     						Scanner idMI = new Scanner(System.in);
     						Long identifiantModifierI = idMI.nextLong();
     						//L'éxécution de la méthode 
@@ -199,7 +204,7 @@ public class GestionMaterielController {
     						
     					case 6 :
     						
-    						System.out.print("Veuillez taper l'identifiant du matériel que vous voulez allouer : ");
+    						System.out.print(message.allouerMateriel);
     						Scanner scAllouer = new Scanner(System.in);
     						Long idAllouer = scAllouer.nextLong();
     						
@@ -209,7 +214,7 @@ public class GestionMaterielController {
     						
     					case 7 :
     						
-    						System.out.print("Veuillez taper l'identifiant du matériel que vous voulez rendre : ");
+    						System.out.print(message.taperIdentifiantRendre);
     						Scanner scRendre = new Scanner(System.in);
     						Long idRendre = scRendre.nextLong();
     						
@@ -219,7 +224,7 @@ public class GestionMaterielController {
     					
     					case 8 :
     						
-    						System.out.println("La liste des matériels allouées par vous-même :");
+    						System.out.println(message.listMaterielUser1);
     						
     						//L'éxécution de la méthode
     						listMaterielUser = materielService.afficherMaterielUserS(checkUtilisateur.getIdUser());
@@ -232,7 +237,7 @@ public class GestionMaterielController {
     						
     					case 9 : 
     						
-    						System.out.println("Afficher la liste des matériels alloués par chaque utilisateur");
+    						System.out.println(message.listMaterielEveryUser1);
     						
     						//L'éxécution de la méhtode 
     						listMaterielEveryUser = materielService.afficherMaterielEveryUserS();
@@ -245,7 +250,7 @@ public class GestionMaterielController {
     						
     					case 10 : 
     						
-    						System.out.println("La liste des matériels : ");
+    						System.out.println(message.listMateriel);
     						
     						//L'éxécution de la méthode 
     						listMateriel = materielService.afficherMaterielS();
@@ -258,7 +263,7 @@ public class GestionMaterielController {
     						
     					default : 
     						
-    						System.out.println("Veuillez saisir un nombre entre 0 et 10");
+    						System.out.println(message.saisirNombre0to10);
     					}
     					
     				}
@@ -266,16 +271,16 @@ public class GestionMaterielController {
     				//Traiter le cas d'un employé
     				if(roles[i].equals("Employe")) {
     					
-    					System.out.println("En tant qu'un employé, voici votre menu");
+    					System.out.println(message.welcomeMessageEmploye);
     					
-    					System.out.println("0- Quitter l'application");
-    					System.out.println("1- Chercher un matériel");
-    					System.out.println("2- Allouer un matériel");
-    					System.out.println("3- Rendre un matériel");
-    					System.out.println("4- Afficher la liste des matériels alloués par lui même");
-    					System.out.println("5- Afficher la liste de tous les matériels");
+    					System.out.println(message.quitterApp);
+    					System.out.println(message.chercherMateriel);
+    					System.out.println(message.allouerMateriel);
+    					System.out.println(message.rendreMateriel);
+    					System.out.println(message.listMaterielUser1);
+    					System.out.println(message.listMateriel);
     					
-    					System.out.print("Veuillez le numéro correspondant à votre fonctionnalité voulue : ");
+    					System.out.print(message.saisirNumFonction);
     					Scanner scannerNumero = new Scanner(System.in);
     					int numero = scannerNumero.nextInt();
     					
@@ -288,7 +293,7 @@ public class GestionMaterielController {
     						
     					case 1: 
     						
-    						System.out.print("Veuillez taper l'identifiant du matériel que vous voulez chercher : ");
+    						System.out.print(message.taperIdentifiantChercher);
     						Scanner sc = new Scanner(System.in);
     						Long identifiant = sc.nextLong();
     						
@@ -298,7 +303,7 @@ public class GestionMaterielController {
     						
     					case 2 :
     						
-    						System.out.print("Veuillez taper l'identifiant du matériel que vous voulez allouer : ");
+    						System.out.print(message.taperIdentifiantAllouer);
     						Scanner scAllouer = new Scanner(System.in);
     						Long idAllouer = scAllouer.nextLong();
     						
@@ -308,7 +313,7 @@ public class GestionMaterielController {
     						
     					case 3 :
     						
-    						System.out.print("Veuillez taper l'identifiant du matériel que vous voulez rendre : ");
+    						System.out.print(message.taperIdentifiantRendre);
     						Scanner scRendre = new Scanner(System.in);
     						Long idRendre = scRendre.nextLong();
     						
@@ -318,7 +323,7 @@ public class GestionMaterielController {
     						
     					case 4 :
     						
-    						System.out.println("La liste des matériels allouées par vous-même :");
+    						System.out.println(message.listMaterielUser1);
     						
     						//L'éxécution de la méthode
     						listMaterielUser = materielService.afficherMaterielUserS(checkUtilisateur.getIdUser());
@@ -331,7 +336,7 @@ public class GestionMaterielController {
     						
     					case 5 :
     						
-    						System.out.println("La liste des matériels : ");
+    						System.out.println(message.listMateriel);
     						
     						//L'éxécution de la méthode 
     						listMateriel = materielService.afficherMaterielS();
@@ -344,7 +349,7 @@ public class GestionMaterielController {
     						
     					default : 
     						
-    						System.out.println("Veuillez saisir un nombre entre 0 et 5");
+    						System.out.println(message.saisirNombre0to5);
     					}
     					
     				}
@@ -356,21 +361,21 @@ public class GestionMaterielController {
     		//Deux roles en même temps
     		if(sizeRoles == 2) {
     			
-    			System.out.println("En tant qu'un utilisateur mixte, voici votre menu");
+    			System.out.println(message.welcomeMessageMixte);
     			
-    			System.out.println("0- Quitter l'application");
-				System.out.println("1- Chercher un matériel");
-				System.out.println("2- Créer un nouveau matériel");
-				System.out.println("3- Supprimer un matériel");
-				System.out.println("4- Modifier les informations d'un matériel");
-				System.out.println("5- Marquer un matériel indisponible");
-				System.out.println("6- Allouer un matériel");
-				System.out.println("7- Rendre un matériel");
-				System.out.println("8- Afficher la liste des matériels alloués par lui même");
-				System.out.println("9- Afficher la liste des matériels alloués par chaque utilisateur");
-				System.out.println("10- Afficher la liste de tous les matériels");
-    			
-				System.out.print("Veuillez le numéro correspondant à votre fonctionnalité voulue : ");
+    			System.out.println(message.quitterApp);
+				System.out.println(message.chercherMateriel);
+				System.out.println(message.ajouterNouveauMateriel);
+				System.out.println(message.supprimerMateriel);
+				System.out.println(message.modifierMateriel);
+				System.out.println(message.materielIndisponible);
+				System.out.println(message.allouerMateriel);
+				System.out.println(message.rendreMateriel);
+				System.out.println(message.listMaterielUser);
+				System.out.println(message.listMaterielEveryUser);
+				System.out.println(message.listMateriel);
+				
+				System.out.print(message.saisirNumFonction);
 				Scanner scannerNumero = new Scanner(System.in);
 				int numero = scannerNumero.nextInt();
 				
@@ -382,7 +387,7 @@ public class GestionMaterielController {
 					break;
 					
 				case 1: 
-					System.out.print("Veuillez taper l'identifiant du matériel que vous voulez chercher : ");
+					System.out.print(message.taperIdentifiantChercher);
 					Scanner sc = new Scanner(System.in);
 					Long identifiant = sc.nextLong();
 					
@@ -391,15 +396,15 @@ public class GestionMaterielController {
 					break;
 					
 				case 2 :
-					System.out.println("Veuillez taper le nom du matériel que vous voulez ajouter : ");
+					System.out.println(message.taperNomMaterielAjout);
 					Scanner scannerNom = new Scanner(System.in);
 					String nomMateriel = scannerNom.nextLine();
 					
-					System.out.print("Veuillez taper le code du matériel que vous voulez ajouter : ");
+					System.out.print(message.taperCodeMaterielAjout);
 					Scanner scannerCode = new Scanner(System.in);
 					String codeMateriel = scannerCode.nextLine();
 					
-					System.out.print("Veuillez taper l'état du matériel que vous voulez ajouter : ");
+					System.out.print(message.taperEtatMaterielAjout);
 					Scanner scannerEtat = new Scanner(System.in);
 					String etatMateriel = scannerEtat.nextLine();
 					
@@ -413,7 +418,7 @@ public class GestionMaterielController {
 					
 				case 3 : 
 					
-					System.out.print("Veuillez taper l'identifiant du matériel que vous voulez supprimer : ");
+					System.out.print(message.taperIdentifinantSupprimer);
 					Scanner scannerSupprimer = new Scanner(System.in);
 					Long identifiantSupprimer = scannerSupprimer.nextLong();
 					
@@ -423,15 +428,15 @@ public class GestionMaterielController {
 					
 				case 4 : 
 					
-					System.out.print("Veuillez taper l'identifiant du matériel que vous voulez modifier : ");
+					System.out.print(message.taperIdentifinantModifier);
 					Scanner idM = new Scanner(System.in);
 					Long identifiantModifier = idM.nextLong();
 					
-					System.out.println("Veuillez taper le nouveau nom du matériel que vous voulez modifier : ");
+					System.out.print(message.taperNomModifier);
 					Scanner scannerNomM = new Scanner(System.in);
 					String nomMaterielM = scannerNomM.nextLine();
 					
-					System.out.print("Veuillez taper la nouvelle état du matériel que vous voulez modifier : ");
+					System.out.print(message.taperEtatModifier);
 					Scanner scannerEtatM = new Scanner(System.in);
 					String etatMaterielM = scannerEtatM.nextLine();
 					
@@ -444,7 +449,7 @@ public class GestionMaterielController {
 					
 				case 5 :
 					
-					System.out.print("Veuillez taper l'identifiant du matériel que vous voulez modifier : ");
+					System.out.print(message.taperIdentifinantModifier);
 					Scanner idMI = new Scanner(System.in);
 					Long identifiantModifierI = idMI.nextLong();
 					//L'éxécution de la méthode 
@@ -453,7 +458,7 @@ public class GestionMaterielController {
 					
 				case 6 :
 					
-					System.out.print("Veuillez taper l'identifiant du matériel que vous voulez allouer : ");
+					System.out.print(message.allouerMateriel);
 					Scanner scAllouer = new Scanner(System.in);
 					Long idAllouer = scAllouer.nextLong();
 					
@@ -463,7 +468,7 @@ public class GestionMaterielController {
 					
 				case 7 :
 					
-					System.out.print("Veuillez taper l'identifiant du matériel que vous voulez rendre : ");
+					System.out.print(message.rendreMateriel);
 					Scanner scRendre = new Scanner(System.in);
 					Long idRendre = scRendre.nextLong();
 					
@@ -473,7 +478,7 @@ public class GestionMaterielController {
 				
 				case 8 :
 					
-					System.out.println("La liste des matériels allouées par vous-même :");
+					System.out.println(message.listMaterielUser1);
 					
 					//L'éxécution de la méthode
 					listMaterielUser = materielService.afficherMaterielUserS(checkUtilisateur.getIdUser());
@@ -486,7 +491,7 @@ public class GestionMaterielController {
 					
 				case 9 : 
 					
-					System.out.println("Afficher la liste des matériels alloués par chaque utilisateur");
+					System.out.println(message.listMaterielEveryUser1);
 					
 					//L'éxécution de la méhtode 
 					listMaterielEveryUser = materielService.afficherMaterielEveryUserS();
@@ -499,7 +504,7 @@ public class GestionMaterielController {
 					
 				case 10 : 
 					
-					System.out.println("La liste des matériels : ");
+					System.out.println(message.listMateriel);
 					
 					//L'éxécution de la méthode 
 					listMateriel = materielService.afficherMaterielS();
@@ -512,7 +517,7 @@ public class GestionMaterielController {
 					
 				default : 
 					
-					System.out.println("Veuillez saisir un nombre entre 0 et 10");
+					System.out.println(message.saisirNombre0to10);
 				}
     			
     		}
@@ -522,22 +527,10 @@ public class GestionMaterielController {
     		
     	}
     		
-    		
-    		
-    		
-    	
 
-    	
-        //Scanner scanner  = new Scanner(System.in);
         publisher.publish(new MyEvent<>(new Livre(), EventType.ADD));
     }
 
-    //La méthode de répétition d'un traitement
-    public void repeterTraitement(int i) {
-    	
-    	
-    	
-    }
     
     //La méthode pour sortir de l'application
     public void sortirDeLApplication() {

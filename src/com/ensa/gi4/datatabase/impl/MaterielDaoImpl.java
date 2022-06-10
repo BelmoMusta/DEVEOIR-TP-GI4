@@ -109,16 +109,7 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 		
 		return super.afficherMaterielEveryUser(queryAfficherMaterielEveryUser);
 	}
-	
-    @Override
-    public List<Materiel> findAll() {
-        return super.findAll("SELECT * FROM MATERIEL;");
-    }
 
-    @Override
-    public Materiel findOne(Long id) {
-        return super.findOne("SELECT * FROM MATERIEL WHERE ID=?;", id);
-    }
 
     @Override
     protected MaterielRowMapper getRowMapper() { // template method design pattern
