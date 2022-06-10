@@ -53,6 +53,7 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	
 	@Override
 	public void rendreMateriel(int id) {
+		super.execute("DELETE FROM ALLOCATION WHERE IDMATERIEL = '"+id+"';");
 		super.execute("UPDATE MATERIEL SET ETAT = 'DISPONIBLE' WHERE ID='"+id+"';");
 	}
 
