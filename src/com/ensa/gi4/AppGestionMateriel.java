@@ -1,17 +1,18 @@
 package com.ensa.gi4;
 
 import com.ensa.gi4.controller.GestionMaterielController;
-import com.ensa.gi4.listeners.ApplicationPublisher;
-import com.ensa.gi4.listeners.EventType;
-import com.ensa.gi4.listeners.MyEvent;
-import com.ensa.gi4.modele.Livre;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SuppressWarnings("all")
 @ComponentScan
+@EnableAspectJAutoProxy
 public class AppGestionMateriel {
+
+
     private static final ApplicationContext APPLICATION_CONTEXT;
 
     static { // bloc static pour initilialisation
