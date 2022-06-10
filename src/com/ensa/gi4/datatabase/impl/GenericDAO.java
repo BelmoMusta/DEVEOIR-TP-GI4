@@ -96,5 +96,20 @@ public abstract class GenericDAO<T> implements InitializingBean {
 
     }
 
+    protected int updateTextMateriel(String query, String modificationTextuel, Long idMateriel) {
+
+        return jdbcTemplate.update(query, modificationTextuel, idMateriel);
+
+    }
+
+    protected int updateStockMateriel(String query, Long modificationNumerique, Long idMateriel) {
+
+        return jdbcTemplate.update(query, modificationNumerique, idMateriel);
+
+    }
+
+
+
+
 
 }

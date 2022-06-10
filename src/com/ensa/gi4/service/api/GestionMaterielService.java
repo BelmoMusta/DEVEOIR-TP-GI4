@@ -17,6 +17,8 @@ public interface GestionMaterielService {
 
     void marquerMaterielIndispo(Long id);
 
+    void modifierMateriel(Long idMateriel, String nouveauText, Long nouveauStock, String codeModification);
+
 
     //void modifierMateriel(Materiel materiel);
 }

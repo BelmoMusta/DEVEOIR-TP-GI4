@@ -95,6 +95,8 @@ public class GestionMaterielController {
                 System.out.println("- pour modifier un materiel, entrer 9");
 
 
+
+
                 String next = scanner.next();
 
                 if ("0".equals(next)) {
@@ -177,6 +179,93 @@ public class GestionMaterielController {
                     System.out.print("Veuillez saisir l'id du materiel que vous voulez marquer indisponible : ");
                     id = scanner.nextLong();
                     gestionMaterielService.marquerMaterielIndispo(id);
+
+                } else if ("9".equals(next)) {
+
+                    Long id;
+                    System.out.print("Veuillez saisir l'id du materiel que vous voulez modifier : ");
+                    id = scanner.nextLong();
+
+                    System.out.println("\t\t\t\t\t\t- pour revenir vers le menu principal, tapez a");
+                    System.out.println("\t\t\t\t\t\t- pour modifier le nom du materiel, tapez b");
+                    System.out.println("\t\t\t\t\t\t- pour modifier le code du materiel, tapez c");
+                    System.out.println("\t\t\t\t\t\t- pour modifier le type du materiel, tapez d");
+                    System.out.println("\t\t\t\t\t\t- pour modifier le stock du materiel, tapez e");
+
+
+
+                    String nouveauNom;
+                    String nouveauCode;
+                    String nouveauType = null;
+                    Long nouveauStock = null;
+                    
+                    
+                    String codeModification;
+                    Scanner scannerModification = new Scanner(System.in);
+                    codeModification = scannerModification.next();
+
+                    switch (codeModification) {
+
+                        case "a":
+                            afficherMenu(user);
+
+                        case "b":
+                            
+                            System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t- Veuillez saisir le nouveau nom du materiel : ");
+                            nouveauNom = scannerModification.next();
+                            gestionMaterielService.modifierMateriel(id, nouveauNom, nouveauStock, codeModification);
+
+
+                            break;
+
+
+                        case "c":
+                            
+                            System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t- Veuillez saisir le nouveau code du materiel : ");
+                            nouveauCode = scannerModification.next();
+                            gestionMaterielService.modifierMateriel(id, nouveauCode, nouveauStock, codeModification);
+                            break;
+
+
+
+
+
+                        case "d":
+                            
+                            System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t- Veuillez saisir le nouveau type du materiel : ");
+                            nouveauType = scannerModification.next();
+                            gestionMaterielService.modifierMateriel(id, nouveauType, nouveauStock, codeModification);
+
+
+
+                            break;
+
+
+                        case "e":
+
+
+
+
+                            do {
+
+
+                                System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t- Veuillez saisir le nouveau stock du materiel (il doit être > 0, si vous voulez le mettre à 0 utiliser la fonctionalité  de disponibilité) : ");
+                                nouveauStock = scannerModification.nextLong();
+
+
+                            } while (nouveauStock <= 0);
+
+                            gestionMaterielService.modifierMateriel(id, nouveauType, nouveauStock, codeModification);
+
+
+                            break;
+
+
+
+                    }
+
+
+                    //gestionMaterielService.marquerMaterielIndispo(id);
 
                 }
 

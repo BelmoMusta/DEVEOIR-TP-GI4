@@ -17,6 +17,8 @@ public interface MaterielDao {
 
     String nonDispoMateriel(Long id);
 
+    String updateMateriel(Long idMateriel, String modification, Long nouveauStock, String codeModification);
+
 
 
 }

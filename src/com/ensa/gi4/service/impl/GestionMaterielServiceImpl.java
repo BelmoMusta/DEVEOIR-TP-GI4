@@ -53,4 +53,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         System.out.println(materielDao.nonDispoMateriel(id));
 
     }
+
+    @Override
+    public void modifierMateriel(Long idMateriel, String nouveauText, Long nouveauStock, String codeModification) {
+
+        System.out.println(materielDao.updateMateriel(idMateriel, nouveauText, nouveauStock, codeModification));
+
+    }
 }

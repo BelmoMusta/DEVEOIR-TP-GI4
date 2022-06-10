@@ -54,9 +54,47 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 
     }
 
+
+
+    @Override
+    public String updateMateriel(Long idMateriel, String modification, Long nouveauStock, String codeModification) {
+
+        switch (codeModification) {
+
+            case "b":
+
+                String query1 = "UPDATE MATERIEL SET NAME = ? WHERE ID = ?";
+                super.updateTextMateriel(query1, modification, idMateriel);
+                break;
+
+            case "c":
+
+                String query2 = "UPDATE MATERIEL SET CODE = ? WHERE ID = ?";
+                super.updateTextMateriel(query2, modification, idMateriel);
+                break;
+
+            case "d":
+
+                String query3 = "UPDATE MATERIEL SET TYPE = ? WHERE ID = ?";
+                super.updateTextMateriel(query3, modification, idMateriel);
+                break;
+
+
+            case "e":
+                String query4 = "UPDATE MATERIEL SET STOCK = ? WHERE ID = ?";
+                super.updateStockMateriel(query4, nouveauStock, idMateriel);
+                break;
+
+        }
+
+        return "Le materiel a été modifié, vous pouvez vérifier";
+
+    }
+
     @Override
     protected MaterielRowMapper getRowMapper() { // template method design pattern
 
         return new MaterielRowMapper();
+
     }
 }
