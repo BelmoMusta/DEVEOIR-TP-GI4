@@ -1,27 +1,84 @@
 package com.ensa.gi4.modele;
 
-public abstract class Materiel {
-    private String code;
-    private String name;
+public class Materiel {
 
-    public String getName() {
-        return name;
+    private Long id;
+    private String name;
+    private String code;
+    private String type;
+    private Long stock;
+    private boolean dispo;
+
+
+
+
+    public Long getId() {
+
+        return this.id;
+    }
+    public void setId(Long id) {
+
+        this.id = id;
     }
 
+    public String getName() {
+
+        return this.name;
+    }
     public void setName(String name) {
+
         this.name = name;
     }
 
     public String getCode() {
-        return code;
+
+        return this.code;
+    }
+    public void setCode(String code) {
+
+        this.code = code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public String getType() {
+
+        return this.type;
+
+    }
+    public void setType(String type) {
+
+        this.type = type;
+
+    }
+
+    public Long getStock() {
+
+        return this.stock;
+    }
+    public void setStock(Long stock) {
+
+        this.stock = stock;
+    }
+
+    public boolean getDispo() {
+
+        return this.dispo;
+
+    }
+    public void setDispo(boolean dispo) {
+
+        this.dispo = dispo;
+
     }
 
     @Override
     public String toString() {
-        return "name = " + name + ", code = " + code;
+        return "Materiel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", type='" + type + '\'' +
+                ", stock=" + stock +
+                ", dispo=" + dispo +
+                '}';
     }
 }
