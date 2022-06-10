@@ -1,8 +1,6 @@
 package com.ensa.gi4.datatabase.impl;
 
-import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.modele.User;
-import com.ensa.gi4.modele.UserRoles;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
