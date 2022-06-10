@@ -5,6 +5,11 @@ public abstract class Materiel {
     private String name;
     private String etat;
     
+    public Materiel() {
+    	
+    	
+    }
+    
     public String getName() {
         return name;
     }

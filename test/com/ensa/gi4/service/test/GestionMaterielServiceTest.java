@@ -12,9 +12,6 @@ import junit.framework.TestCase;
 
 public class GestionMaterielServiceTest extends TestCase {
 	
-	@Autowired
-	GestionMaterielService materielService;
-	
 	int check = 0;
 	Materiel materiel;
 	Materiel materielRecherche;
@@ -22,6 +19,11 @@ public class GestionMaterielServiceTest extends TestCase {
 	List<Materiel> listMaterielUser;
 	List<Materiel> listMaterielEveryUser;
 	boolean exist = false;
+	
+	@Autowired
+	GestionMaterielService materielService;
+	
+	
 	
 	//La méthode SetUp() : Initialisation des ressources
 	protected void setUp() {

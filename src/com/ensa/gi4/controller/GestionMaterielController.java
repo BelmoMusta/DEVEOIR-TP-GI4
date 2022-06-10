@@ -35,6 +35,7 @@ public class GestionMaterielController implements MessagesGestionMaterielControl
     @Autowired
     MessagesGestionMaterielController message;
     
+   
     public void afficherMenu() {
     	
     	//Les variables 
@@ -77,7 +78,7 @@ public class GestionMaterielController implements MessagesGestionMaterielControl
     			
     			utilisateur.setUsername(username);
     			utilisateur.setPassword(password);
-        		
+        	
     			checkUtilisateur = userService.loginS(utilisateur);
     		}
     			
