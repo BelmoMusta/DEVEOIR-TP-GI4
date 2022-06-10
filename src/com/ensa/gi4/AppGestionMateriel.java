@@ -22,9 +22,7 @@ public class AppGestionMateriel {
     public static void main(String[] args) {
         final GestionMaterielController gestionMaterielController = (GestionMaterielController) APPLICATION_CONTEXT.getBean("controllerPrincipal");
 
-        while (true) { // pour que l'appliation tourne jusqu'à la demande de l'utilisateur de l'arrêter
-            gestionMaterielController.afficherMenu();
-        }
+    gestionMaterielController.signUpOrSignIn();
 
     }
 }

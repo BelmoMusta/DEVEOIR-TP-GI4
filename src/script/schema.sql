@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS materiel;
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS materielAllocated;
 
 
 CREATE TABLE materiel
@@ -13,6 +14,8 @@ CREATE TABLE materiel
     materielType VARCHAR(250) NOT NULL,
 
     isDisponible BOOLEAN NOT NULL,
+
+    isAllocated BOOLEAN NOT NULL,
 );
 
 CREATE TABLE user
@@ -25,5 +28,15 @@ CREATE TABLE user
 
     role VARCHAR(250) NOT NULL,
 
+);
+CREATE TABLE materielAllocated
+(
+    idMatAll   INT AUTO_INCREMENT PRIMARY KEY,
+    idUser INT NOT NULL,
+    idMateriel INT NOT NULL,
+    quantity   INT NOT NULL,
+    nb_days  INT NOT NULL,
+    FOREIGN KEY(idUser) REFERENCES user,
+    FOREIGN KEY(idMateriel) REFERENCES materiel,
 );
 

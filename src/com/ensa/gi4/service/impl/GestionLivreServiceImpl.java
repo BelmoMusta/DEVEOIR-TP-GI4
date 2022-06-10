@@ -30,10 +30,22 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 
     }
 
+    @Override
+    public void modifierMateriel(int id) {
+
+    }
+
+    @Override
+    public void rendreIndispo(int id) {
+
+    }
+
+
+
 
     @Override
     public void afterSingletonsInstantiated() {
-        System.out.println("toto");
+   //     System.out.println("toto");
 
     }
 }

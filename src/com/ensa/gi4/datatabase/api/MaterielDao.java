@@ -7,6 +7,8 @@ import java.util.List;
 public interface MaterielDao {
     List<Materiel> findAll();
     Materiel findMateriel(Long id);
-    String addMateriel(Materiel materiel);
-    String supprimerMateriel(int id);
+    void addMateriel(Materiel materiel);
+    void supprimerMateriel(int id);
+    void modifierMateriel(int id);
+    String rendreIndispo(int id);
 }

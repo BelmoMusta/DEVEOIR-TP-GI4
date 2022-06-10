@@ -1,6 +1,6 @@
 package com.ensa.gi4.modele;
 
-public class Materiel {
+public abstract class  Materiel {
     private int idMateriel;
 
 
@@ -8,6 +8,7 @@ public class Materiel {
     private String materielName;
     private String materielType;
     private boolean isDisponible;
+    private boolean isAllocated;
 
     public int getIdMateriel() {
         return idMateriel;
@@ -48,6 +49,13 @@ public class Materiel {
     public void setDisponible(boolean disponible) {
         isDisponible = disponible;
     }
+    public boolean isAllocated() {
+        return isAllocated;
+    }
+
+    public void setAllocated(boolean allocated) {
+        isAllocated = allocated;
+    }
     @Override
     public String toString() {
         return "\n Materiel N° " + idMateriel +
@@ -55,6 +63,7 @@ public class Materiel {
                 "\n Name : " + materielName +
                 "\n Type : " + materielType +
                 "\n Disponibility : " + isDisponible +
+                "\n Allocation : " + isAllocated +
                 "\n ------------------";
     }
 

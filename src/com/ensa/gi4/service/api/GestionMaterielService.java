@@ -8,4 +8,6 @@ public interface GestionMaterielService {
     void chercherMateriel(long id);
     void ajouterMateriel(Materiel materiel);
     void supprimerMateriel(int id);
+    void modifierMateriel(int id);
+    void rendreIndispo(int id);
 }
