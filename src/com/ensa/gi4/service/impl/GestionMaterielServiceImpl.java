@@ -27,7 +27,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 
     @Override
     public void ajouterNouveauMateriel(Materiel materiel) {
-    	if((materiel != null) && (materielDao.matereielExiste(materiel.getName())==null )) {
+    	if((materiel != null) && (materielDao.matereielExiste(materiel.getCode())==null )) {
     		materielDao.ajouterNvMateriel(materiel);
     		 System.out.println("L'ajout du matriel " + materiel.getName() + " effectué avec succées !");    		
     	}

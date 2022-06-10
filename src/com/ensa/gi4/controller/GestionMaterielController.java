@@ -3,6 +3,7 @@ package com.ensa.gi4.controller;
 import com.ensa.gi4.listeners.ApplicationPublisher;
 import com.ensa.gi4.listeners.EventType;
 import com.ensa.gi4.listeners.MyEvent;
+import com.ensa.gi4.modele.Chaise;
 import com.ensa.gi4.modele.Livre;
 import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.service.api.GestionMaterielService;
@@ -62,14 +63,52 @@ public class GestionMaterielController {
         	    		}   
         	    		else if (choix.equals("3")) {
         	    		
-        	    			System.out.println(" saisir le nom du materiel  : ");
+        	    			/*System.out.println(" saisir le nom du materiel  : ");
         	    			String m1 = scanner.next();
         	    			System.out.println(" saisir le code de materiel : ");
         	    			String m2 = scanner.next();
         	    			M.setName(m1);
         	    			M.setCode(m2);
         	    			gestionMaterielService.ajouterNouveauMateriel(M);
-        	    			publisher.publish(new MyEvent<>(M, EventType.ADD));
+        	    			publisher.publish(new MyEvent<>(M, EventType.ADD));*/
+        	    			
+        	    			
+        	    			System.out.println("Pour ajouter un livre saisir (1) sinon pour ajouter une chaise saisir (2)");
+                			String input = scanner.next();
+                			
+                				if(input.equals("1")) {
+                					Materiel materiel = new Livre();
+                				
+                					System.out.println("Veuillez entrer le code du livre : ");
+                					String codeMat =  scanner.next();
+                					materiel.setCode(codeMat);
+                					materiel.setName("Livre");
+                					gestionMaterielService.ajouterNouveauMateriel(materiel);
+                					publisher.publish(new MyEvent<>(materiel, EventType.ADD));
+                				}
+                				
+                				else if (input.equals("2")) {
+                					Materiel materiel = new Chaise();
+                					System.out.println("Veuillez entre le code de la chaise");
+                					String codeMat= scanner.next();
+                					materiel.setCode(codeMat);
+                					materiel.setName("Chaise");
+                					
+
+                					gestionMaterielService.ajouterNouveauMateriel(materiel);
+                					publisher.publish(new MyEvent<>(materiel, EventType.ADD));
+
+                					
+                					
+                					
+                				}
+                				
+                				
+                				
+                				else {
+                					System.out .println("Choix invalide !");
+                					
+                				}
         	    		}
         	    		else if  (choix.equals("4")) {
         	    		
@@ -184,8 +223,6 @@ public class GestionMaterielController {
     	    		}
     	    			
     	    		}
-    	    		
-    	    		
     	    		
     	    	 	    		
 	    }
