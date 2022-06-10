@@ -8,8 +8,16 @@ import org.springframework.stereotype.Component;
 public class ApplicationEventListener<T extends Materiel> implements ApplicationListener<MyEvent<T>> {
     @Override
     public void onApplicationEvent(MyEvent<T> event) {
-        System.out.println("Event triggered");
-        System.out.println("event.getEventType() = " + event.getEventType());
-        System.out.println("event.getSource() = " + event.getSource());
+
+        Object eventSource = event.getSource();
+        EventType eventType = event.getEventType();
+
+        if (eventType == EventType.ADD) {
+            Materiel materiel = (Materiel) eventSource;
+            System.out.println("Le materiel " + materiel.getName() + " est ajouté avec succès");
+        } else if (eventType == EventType.UPDATE) {
+            Materiel materiel = (Materiel) eventSource;
+            System.out.println("Le materiel " + materiel.getName() + " est modifié avec succès");
+        }
     }
 }
