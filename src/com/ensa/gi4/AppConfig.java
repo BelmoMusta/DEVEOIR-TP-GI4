@@ -10,10 +10,6 @@ import org.springframework.context.annotation.Lazy;
 @Configuration
 public class AppConfig {
 
-//    @Bean
-//    public GestionMaterielService livreServiceBean() {
-//        return new GestionLivreServiceImpl();
-//    }
 
     @Bean
     @Lazy

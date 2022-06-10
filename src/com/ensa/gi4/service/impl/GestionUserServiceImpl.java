@@ -23,13 +23,6 @@ public class GestionUserServiceImpl implements GestionUserService {
 	return false;
 	}
 	
-	    @Override
-	    public void listerUsers() {
-	        
-	        if(userDao.findAll().size()>0)
-	        	System.out.println(userDao.findAll());
-				else System.out.println("aucun matériel");
-	    }
  
 
 }

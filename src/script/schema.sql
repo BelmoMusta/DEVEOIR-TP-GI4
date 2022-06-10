@@ -20,8 +20,6 @@ CREATE TABLE materiel
     name VARCHAR(250) NOT NULL,
 
     code VARCHAR(250) NOT NULL,
-    
-    
      alloue INT  null,
     disponible BOOLEAN DEFAULT true,
     dateAllocation VARCHAR(250),
