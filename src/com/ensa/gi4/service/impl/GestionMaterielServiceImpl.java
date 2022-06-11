@@ -49,7 +49,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             System.out.println("Nom :"+ m.getName()+ ",Code :"+m.getCode() +",Type :"+m.getType() + ",Disponibilite :" + m.getAvailable());
         }
         }catch(EmptyResultDataAccessException e){
+            System.out.println("------------------------------------------------------");
+
             System.out.println("Materiel non trouvé");
+            System.out.println("------------------------------------------------------");
+
         }
     }
     public void chercherMateriel(){
@@ -58,11 +62,16 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         String id = clavier.next();
         try{
             Materiel m = materielDao.findOne(Long.valueOf(id));
+            System.out.println("------------------------------------------------------");
             System.out.println("Le materiel recherche");
             System.out.println("Nom :" + m.getName() + "\n Code: " + m.getCode() + "\n Type: " + m.getType() + "\n Disponibilité: " + m.getAvailable());
+            System.out.println("------------------------------------------------------");
 
         }catch(EmptyResultDataAccessException e){
+            System.out.println("------------------------------------------------------");
             System.out.println("Materiel introuvable");
+            System.out.println("------------------------------------------------------");
+
         }
     }
 
@@ -80,9 +89,10 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             m.setType("Livre");
 
             materielDao.ajouterMateriel(m);
+            System.out.println("------------------------------------------------------");
             publisher.publish(new MyEvent<>(m, EventType.ADD));
+            System.out.println("------------------------------------------------------");
 
-            System.out.println("Materiel ajouté avec succes");
         }else{
             System.out.println("Entrer le nom du materiel :");
             String name = clavier.next();
@@ -92,9 +102,10 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             m.setType("Chaise");
 
             materielDao.ajouterMateriel(m);
-            publisher.publish(new MyEvent<>(m, EventType.ADD));
 
-            System.out.println("Materiel ajouté avec succes");
+            System.out.println("------------------------------------------------------");
+            publisher.publish(new MyEvent<>(m, EventType.ADD));
+            System.out.println("------------------------------------------------------");
         }
 
     }
@@ -107,10 +118,15 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         String id = clavier.next();
         try{
             materielDao.supprimerMateriel(Long.valueOf(id));
-
+            System.out.println("------------------------------------------------------");
             System.out.println("materiel supprimé avec succes");
+            System.out.println("------------------------------------------------------");
+
         }catch(EmptyResultDataAccessException e){
+            System.out.println("------------------------------------------------------");
             System.out.println("Materiel introuvable");
+            System.out.println("------------------------------------------------------");
+
         }
 
     }
@@ -139,7 +155,10 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
                     m.setAvailable(Boolean.valueOf(disponibilite));
 
                     materielDao.modifierMateriel(Long.valueOf(id), m);
+                    System.out.println("------------------------------------------------------");
                     publisher.publish(new MyEvent<>(m, EventType.UPDATE));
+                    System.out.println("------------------------------------------------------");
+
                 } else {
                     Materiel m = new Chaise();
                     m.setName(name);
@@ -148,12 +167,18 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
                     m.setAvailable(Boolean.valueOf(disponibilite));
 
                     materielDao.modifierMateriel(Long.valueOf(id), m);
+                    System.out.println("------------------------------------------------------");
                     publisher.publish(new MyEvent<>(m, EventType.UPDATE));
+                    System.out.println("------------------------------------------------------");
+
 
                 }
             }
         }catch(EmptyResultDataAccessException e){
+            System.out.println("------------------------------------------------------");
             System.out.println("Materiel introuvable");
+            System.out.println("------------------------------------------------------");
+
         }
 
     }
@@ -167,7 +192,10 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         try {
             materielDao.materielIndisponible(Long.valueOf(id));
         }catch(EmptyResultDataAccessException e){
+            System.out.println("------------------------------------------------------");
             System.out.println("Materiel introuvable");
+            System.out.println("------------------------------------------------------");
+
         }
     }
 
@@ -185,7 +213,9 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
                 materielDao.allouerMateriel(Long.valueOf(idMateriel),m.getName(), idUser,nomUser,Integer.valueOf(duree));
                 materielDao.changerQuantite(m.getQuantite()-1,Long.valueOf(idMateriel));
                 materielDao.AllocationMateriel(true,Long.valueOf(idMateriel));
+                System.out.println("------------------------------------------------------");
                 System.out.println("materiel alloué avec succes");
+                System.out.println("------------------------------------------------------");
                 if(m.getQuantite()-1 == 0){
                     materielDao.DisponibiliteMateriel(false,Long.valueOf(idMateriel));
                 }
@@ -193,7 +223,9 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             }
 
         }catch(EmptyResultDataAccessException e) {
+            System.out.println("------------------------------------------------------");
             System.out.println("Materiel déja alloué");
+            System.out.println("------------------------------------------------------");
         }
 
     }
@@ -214,7 +246,9 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         String id = clavier.next();
         try{
             if(materielDao.estAllouee(Long.valueOf(id)) != null){
+                System.out.println("------------------------------------------------------");
                 System.out.println("Ce materiel n'etait pas alloué");
+                System.out.println("------------------------------------------------------");
             }else{
                 materielDao.rendreMateriel(Long.valueOf(id),idUser);
                 System.out.println("materiel rendu avec succes");
@@ -224,7 +258,9 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             Materiel m = materielDao.findOne(Long.valueOf(id));
             materielDao.rendreMateriel(Long.valueOf(id),idUser);
             materielDao.changerQuantite(m.getQuantite()+1, Long.valueOf(id));
+            System.out.println("------------------------------------------------------");
             System.out.println("materiel rendu avec succes");
+            System.out.println("------------------------------------------------------");
             if(m.getQuantite() +1 == 5){
                 materielDao.AllocationMateriel(false,Long.valueOf(id));
             }
@@ -243,7 +279,9 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             System.out.print(iterator.next()+"\n");
         }
         if(listAllocation.size() == 0){
+            System.out.println("------------------------------------------------------");
             System.out.println("Vous n'avez rien alloué");
+            System.out.println("------------------------------------------------------");
         }
 
 
@@ -258,7 +296,9 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
             System.out.print(iterator.next()+"\n");
         }
         if(listAllocation.size() == 0){
+            System.out.println("------------------------------------------------------");
             System.out.println("Aucun materiel n'est alloué");
+            System.out.println("------------------------------------------------------");
         }
 
     }
