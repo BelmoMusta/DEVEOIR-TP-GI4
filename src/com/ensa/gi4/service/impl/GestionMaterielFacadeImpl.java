@@ -99,17 +99,5 @@ public class GestionMaterielFacadeImpl implements GestionMaterielServiceFacade {
 			return null;
 		}
 	}
-	private void assignTheAppropriateService(GestionMaterielService serviceActuel,TypeMateriel type) {
-		switch (type) {
-		case LIVRE:
-			serviceActuel= gestionLivreService;
-			break;
-		case CHAISE:
-			serviceActuel= gestionChaiseService;
-			break;
-		default:
-			return;
-		}
-	}
 
 }
