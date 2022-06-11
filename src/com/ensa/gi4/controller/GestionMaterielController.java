@@ -1,13 +1,7 @@
 package com.ensa.gi4.controller;
 
 import com.ensa.gi4.appuser.AppUser;
-import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.datatabase.api.UserDao;
-import com.ensa.gi4.datatabase.impl.GenericDAO;
-import com.ensa.gi4.datatabase.impl.MaterielDaoImpl;
-import com.ensa.gi4.datatabase.impl.UserDaoImpl;
-import com.ensa.gi4.listeners.ApplicationPublisher;
-import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,7 +18,7 @@ public class GestionMaterielController {
     UserDao userDao;
 
     String role;
-
+   public static Long id;
     public void login() {
        int i=0;
        while(i==0){
@@ -32,7 +26,6 @@ public class GestionMaterielController {
         Scanner nom = new Scanner(System.in);
         String noma = nom.next();
         System.out.println("2- Entrer votre mot de passe");
-        Scanner motDePasse = new Scanner(System.in);
         String motDePassea = nom.next();
         AppUser user =new AppUser();
         user.setPassword(motDePassea);
@@ -46,11 +39,16 @@ public class GestionMaterielController {
             if ("0".equals(touchea)) {
                 sortirDeLApplication();
             }
+            else{
+                continue;
+            }
         }
 
            if(!userDao.loginUser(user).isEmpty()){
                i=1;
                role=userDao.loginUser(user).get(0).getAppUserRole();
+               id=userDao.loginUser(user).get(0).getId();
+
            }
          if("ADMIN".equals(role)){
             i=1;
@@ -80,6 +78,8 @@ public class GestionMaterielController {
         System.out.println("7- Rendre un matériel");
         System.out.println("8- Afficher la liste des matériels alloués par lui même");
         System.out.println("9- Afficher la liste des matériels alloués par chaque utilisateur");
+        System.out.println("10- Afficher la liste de tous les matériels");
+        System.out.println("11- se deconnecter");
         System.out.println("0- pour sortir de l'application, entrer 0");
         Scanner scanner = new Scanner(System.in);
         String next = scanner.next();
@@ -88,17 +88,31 @@ public class GestionMaterielController {
         } else if ("1".equals(next)) {
             materielDao.chercherMateriel();
         } else if ("2".equals(next)) {
-            System.out.println("r");
+            materielDao.ajouterNouveauMateriel();
         } else if ("3".equals(next)) {
-            System.out.println("r");
+            materielDao.deleteMateriel();
         }
         else if ("4".equals(next)) {
-            System.out.println("r");
+            materielDao.updateMateriel();
         } else if ("5".equals(next)) {
-            System.out.println("r");
+            materielDao.marquerIndispoouDispo();
         }else if ("6".equals(next)) {
-            System.out.println("r");
-        } else{
+            materielDao.allouerMateriel();
+        }
+        else if ("7".equals(next)) {
+            materielDao.rendreMateriel();
+        }
+        else if ("8".equals(next)) {
+            materielDao.ListeParLui();
+        }
+        else if ("9".equals(next)) {
+            materielDao.ListeParchacun();
+        }
+        else if ("10".equals(next)) {
+            materielDao.listerMateriel();
+        } else if ("11".equals(next)) {
+            login();
+        }else{
             System.out.println("choix invalide");
         }
     }
@@ -109,22 +123,25 @@ public class GestionMaterielController {
         System.out.println("3- Rendre un matériel");
         System.out.println("4- Afficher la liste des matériels alloués par lui même");
         System.out.println("5- Afficher la liste de tous les matériels");
+        System.out.println("6- se deconnecter");
         System.out.println("0- pour sortir de l'application, entrer 0");
         Scanner scanner = new Scanner(System.in);
         String next = scanner.next();
         if ("0".equals(next)) {
             sortirDeLApplication();
         } else if ("1".equals(next)) {
-            System.out.println("r");
+            materielDao.chercherMateriel();
         } else if ("2".equals(next)) {
-            System.out.println("r");
+            materielDao.allouerMaterielParLui();
         } else if ("3".equals(next)) {
-            System.out.println("r");
+            materielDao.rendreMaterielParLui();
         }
         else if ("4".equals(next)) {
-            System.out.println("r");
+            materielDao.ListeParLui();
         } else if ("5".equals(next)) {
-            System.out.println("r");
+            materielDao.listerMateriel();
+        }else if ("6".equals(next)) {
+            login();
         }else{
             System.out.println("choix invalide");
         }

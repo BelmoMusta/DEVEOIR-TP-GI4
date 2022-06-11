@@ -7,7 +7,9 @@ CREATE TABLE materiel
     name VARCHAR(250) NOT NULL,
 
     code VARCHAR(250) NOT NULL,
-
+    dispo INTEGER(250) NOT NULL,
+    alloué INTEGER(250) NOT NULL,
+   employee INTEGER(250) ,
 );
 CREATE TABLE userApp
 (
