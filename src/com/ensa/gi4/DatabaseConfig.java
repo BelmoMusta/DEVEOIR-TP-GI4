@@ -30,6 +30,12 @@ public class DatabaseConfig {
     @Value("${jbdc.populate.schema}")
     private String populateSchema;
 
+    @Value("${jbdc.init.users}")
+    private String initUsers;
+
+    @Value("${jbdc.populate1.users}")
+    private String populate1Users;
+
 
     @Bean
     public DataSource dataSource() {
@@ -40,7 +46,9 @@ public class DatabaseConfig {
         dataSource.setPassword(password);
         executeScript(initSchema, dataSource);
         executeScript(populateSchema, dataSource);
-        //  lancerH2Console(); // si vous voulez lancer la console H2 après la création du datasource
+        executeScript(initUsers, dataSource);
+        executeScript(populate1Users, dataSource);
+        lancerH2Console(); // si vous voulez lancer la console H2 après la création du datasource
         return dataSource;
     }
 
