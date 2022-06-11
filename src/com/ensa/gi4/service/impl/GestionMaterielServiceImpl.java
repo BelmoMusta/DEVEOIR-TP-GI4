@@ -11,6 +11,7 @@ import com.ensa.gi4.modele.User;
 import com.ensa.gi4.service.api.GestionMaterielService;
 import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component("materielService")
@@ -21,6 +22,10 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
     AllocationDAO allocationDao;
     @Autowired
     UserDAO userdao;
+    @Value("${msg.found}")
+    private String found;
+    @Value("${msg.notfound}")
+    private String notfound;
     
     @Override
     public void init() {
@@ -92,11 +97,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
              materiel= materielDao.findOne(String.valueOf(code));
              if( materiel != null)
              {
-                System.out.println("Materiel trouve:\n"+materiel);
+                System.out.println(found+materiel);
              }   
              else
              {
-                 System.out.println("Materiel non trouve");
+                 System.out.println(notfound);
              }
     }
    
@@ -125,7 +130,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         materiel= materielDao.findOne(String.valueOf(code));
              if( materiel != null)
              {
-                System.out.println("Materiel trouve:\n"+materiel);
+                System.out.println(found+materiel);
                 System.out.println("Que voulez vous changer?");
                 System.out.println("1- pour modifier le nom du materiel, entrer 1");
                 System.out.println("2- pour modifier le code du matériel, entrer 2");
@@ -141,11 +146,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
                     default: System.out.println("choix invalide"); break;
                 }
                  materielDao.updateOne(materiel);
-                 System.out.println("Materiel bine modifie, les nouveau infs sont:"+materiel);
+                 System.out.println("Materiel bine modifie, les nouveaux infs sont:"+materiel);
              }   
              else
              {
-                 System.out.println("Materiel non trouve");
+                 System.out.println(notfound);
              }
     
     }
@@ -209,7 +214,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
         materiel= materielDao.findOne(code);
         if( materiel != null)
              {
-                System.out.println("Materiel trouve:\n"+materiel);
+                System.out.println(found+materiel);
                 if(materiel.getDisponible())
                 {
                    materiel.setDisponible(false);
@@ -224,7 +229,7 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
              }
              else
              {
-                System.out.println("Materiel non trouve");
+                System.out.println(notfound);
              }
     }
 
