@@ -1,9 +1,17 @@
 package com.ensa.gi4.service.api;
 
-import com.ensa.gi4.modele.Materiel;
-
 public interface GestionMaterielService {
-    void init();
+
     void listerMateriel();
-    void ajouterNouveauMateriel(Materiel materiel);
+    void chercherMateriel();
+    void ajouterNouveauMateriel();
+    void deleteMateriel();
+    void updateMateriel();
+    void marquerIndispoouDispo();
+    void allouerMateriel();
+    void rendreMateriel();
+    void rendreMaterielParLui();
+    void allouerMaterielParLui();
+    void ListeParchacun();
+    void ListeParLui();
 }
