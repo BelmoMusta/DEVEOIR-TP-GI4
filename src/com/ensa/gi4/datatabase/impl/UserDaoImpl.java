@@ -50,10 +50,10 @@ public class UserDaoImpl implements UserDao, InitializingBean {
 	}
 
 	@Override
-	public User getUser(String userName){
-		String query = "select * from user where username = ?";
+	public User getUser(String userName) {
+		String query = "select * from user where username like ?";
 		try {
-			return jdbcTemplate.queryForObject(query, new UserRowMapper(), userName);
+			return jdbcTemplate.queryForObject(query, new UserRowMapper(), "%" + userName + "%");
 		} catch (EmptyResultDataAccessException e) {
 			e.printStackTrace();
 		}

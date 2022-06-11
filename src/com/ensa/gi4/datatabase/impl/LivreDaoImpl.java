@@ -27,8 +27,8 @@ public class LivreDaoImpl extends GenericDAO implements MaterielDao {
 
 	@Override
 	public Materiel findOne(String nom){
-		String query = "SELECT * FROM livre WHERE name = ?";
-		return super.findOne(query, nom);
+		String query = "SELECT * FROM livre WHERE name like ?";
+		return super.findOne(query, "%"+nom+"%");
 	}
 
 	@Override

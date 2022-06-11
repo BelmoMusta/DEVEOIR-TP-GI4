@@ -22,20 +22,20 @@ public class ChaiseDaoImpl extends GenericDAO implements MaterielDao {
 	@Override
 	public List<Materiel> findAll() {
 		String query = "SELECT * FROM chaise;";
-		return super.findAll("chaise");
+		return super.findAll(query);
 	}
 
 	@Override
 	public Materiel findOne(String nom) {
-		String query = "SELECT * FROM chaise WHERE name = ?";
-		return super.findOne(query, nom);
+		String query = "SELECT * FROM chaise WHERE name like ?";
+		return super.findOne(query, "%" + nom + "%");
 	}
 
 	@Override
 	public void delete(int id) {
 		String query1 = "DELETE FROM chaise WHERE id = ?";
 		String query2 = "DELETE FROM user_chaise WHERE livre_id = ?";
-		super.delete(query1,query2, id);
+		super.delete(query1, query2, id);
 	}
 
 	@Override
@@ -56,14 +56,14 @@ public class ChaiseDaoImpl extends GenericDAO implements MaterielDao {
 	}
 
 	@Override
-	public void louerMateriel(String nomMateriel, int userId){
+	public void louerMateriel(String nomMateriel, int userId) {
 		Materiel materiel = findOne(nomMateriel);
 		String query = "Insert into user_chaise (user_id,chaise_id ) values (?,?)";
 		super.louerMateriel(query, materiel, userId);
 	}
 
 	@Override
-	public void rendreMateriel(String nomMateriel, int userId){
+	public void rendreMateriel(String nomMateriel, int userId) {
 		Materiel materiel = findOne(nomMateriel);
 		String query = "delete from user_chaise where user_id = ?";
 		super.rendreMateriel(query, materiel, userId);
@@ -71,7 +71,7 @@ public class ChaiseDaoImpl extends GenericDAO implements MaterielDao {
 
 	@Override
 	public void markerNonDisponible(String nomMateriel) {
-		Materiel materiel=findOne(nomMateriel);
+		Materiel materiel = findOne(nomMateriel);
 		super.markerNonDisponible(materiel);
 		update(materiel.getId(), materiel);
 	}

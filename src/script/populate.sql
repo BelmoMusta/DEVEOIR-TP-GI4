@@ -1,7 +1,8 @@
-
+INSERT INTO  livre(name, code, stock, disponibilite) values ( 'livre' ,'LI', 5, true  );
 INSERT INTO  livre(name, code, stock, disponibilite) values ( 'le jour où jai appris à vivre' ,'LI', 5, true  );
 INSERT INTO  livre(name, code, stock, disponibilite) values ( 'les demons' ,'LI', 5, false  );
 INSERT INTO  chaise(name, code, stock, disponibilite) values ( 'Banquete' ,'CH', 0, true  );
+INSERT INTO  chaise(name, code, stock, disponibilite) values ( 'chaise' ,'CH', 0, true  );
 INSERT INTO  chaise(name, code, stock, disponibilite) values ( 'chaise barcelone' ,'CH', 0, true  );
 INSERT INTO  user(username, password) values ('mohammed' ,'$2a$10$pwQD6YVCMbiZrVv88e7WveZRVrSsFzCtfFzZsNgMWCKaF3w33dZXy'  ); 
 INSERT INTO  user(username, password) values ('khattala' ,'$2a$10$hzVc1ZXrcFsddMqpO0Njr.993Xob7ATZ0SUeu2.1a97SDTNcBHWfW'  );
