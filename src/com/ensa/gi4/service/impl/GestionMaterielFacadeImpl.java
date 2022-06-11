@@ -28,51 +28,45 @@ public class GestionMaterielFacadeImpl implements GestionMaterielServiceFacade {
 
 	@Override
 	public List<Materiel> afficherMateriel(TypeMateriel type) {
-		GestionMaterielService serviceActuel = null;
-		assignTheAppropriateService(serviceActuel, type);
+		final GestionMaterielService serviceActuel = assignTheAppropriateService(type);
 		List<Materiel> materiels = serviceActuel.findAll();
 		return materiels;
 	}
 
 	@Override
 	public void ajouterNouveauMateriel(TypeMateriel type, Materiel materiel) {
-		GestionMaterielService serviceActuel = null;
-		assignTheAppropriateService(serviceActuel, type);
+		final GestionMaterielService serviceActuel = assignTheAppropriateService(type);
 		serviceActuel.add(materiel);
 	}
 
 	@Override
 	public void supprimerMateriel(TypeMateriel type, int id) {
-		GestionMaterielService serviceActuel = null;
-		assignTheAppropriateService(serviceActuel, type);
+		final GestionMaterielService serviceActuel = assignTheAppropriateService(type);
 		serviceActuel.delete(id);
 	}
 
 	@Override
 	public Materiel findOne(TypeMateriel type, String nom) {
-		GestionMaterielService serviceActuel = null;
-		assignTheAppropriateService(serviceActuel, type);
+		final GestionMaterielService serviceActuel = assignTheAppropriateService(type);
 		Materiel materiel = serviceActuel.findOne(nom);
 		return materiel;
 	}
 
 	@Override
 	public void modifierMateriel(TypeMateriel type, int id, Materiel materiel) {
-		GestionMaterielService serviceActuel = null;
-		assignTheAppropriateService(serviceActuel, type);
+		final GestionMaterielService serviceActuel = assignTheAppropriateService(type);
 		serviceActuel.update(id, materiel);
 	}
 
 	@Override
 	public void louerMateriel(TypeMateriel type, String nomMateriel, int userId) {
-		GestionMaterielService serviceActuel = null;
-		assignTheAppropriateService(serviceActuel, type);
+		final GestionMaterielService serviceActuel = assignTheAppropriateService(type);
 		serviceActuel.louerMateriel(nomMateriel, userId);
 	}
 
 	@Override
 	public void rendreMateriel(TypeMateriel type, String nomMateriel, int userId) {
-		GestionMaterielService serviceActuel = null;
+		final GestionMaterielService serviceActuel = assignTheAppropriateService(type);
 		boolean hasMateriel = false;
 		User user = gestionUserService.getUser(userId);
 		List<Materiel> materiels = gestionUserService.getMateriels(user.getUserName());
@@ -82,7 +76,6 @@ public class GestionMaterielFacadeImpl implements GestionMaterielServiceFacade {
 				break;
 			}
 		}
-		assignTheAppropriateService(serviceActuel, type);
 		if (hasMateriel) {
 			serviceActuel.rendreMateriel(nomMateriel, userId);
 		} else {
@@ -92,21 +85,29 @@ public class GestionMaterielFacadeImpl implements GestionMaterielServiceFacade {
 
 	@Override
 	public void markerNonDisponible(TypeMateriel type, String nomMateriel) {
-		GestionMaterielService serviceActuel = null;
-		assignTheAppropriateService(serviceActuel, type);
+		final GestionMaterielService serviceActuel = assignTheAppropriateService(type);
 		serviceActuel.markerNonDisponible(nomMateriel);
 	}
 
-	private void assignTheAppropriateService(GestionMaterielService serviceActuel, TypeMateriel type) {
+	private GestionMaterielService assignTheAppropriateService(TypeMateriel type) {
 		switch (type) {
 		case LIVRE:
-			serviceActuel = gestionLivreService;
+			return gestionLivreService;
+		case CHAISE:
+			return gestionChaiseService;
+		default:
+			return null;
+		}
+	}
+	private void assignTheAppropriateService(GestionMaterielService serviceActuel,TypeMateriel type) {
+		switch (type) {
+		case LIVRE:
+			serviceActuel= gestionLivreService;
 			break;
 		case CHAISE:
-			serviceActuel = gestionChaiseService;
+			serviceActuel= gestionChaiseService;
 			break;
 		default:
-			System.out.println("Le type " + type + " n'est pas reconnu");
 			return;
 		}
 	}
