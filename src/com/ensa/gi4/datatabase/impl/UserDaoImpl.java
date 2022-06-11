@@ -50,15 +50,25 @@ public class UserDaoImpl implements UserDao, InitializingBean {
 	}
 
 	@Override
-	public User getUser(String userName) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException {
+	public User getUser(String userName){
 		String query = "select * from user where username = ?";
-		return jdbcTemplate.queryForObject(query, new UserRowMapper(), userName);
+		try {
+			return jdbcTemplate.queryForObject(query, new UserRowMapper(), userName);
+		} catch (EmptyResultDataAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public User getUser(int userId) {
 		String query = "select * from user where id = ?";
-		return jdbcTemplate.queryForObject(query, new UserRowMapper(), userId);
+		try {
+			return jdbcTemplate.queryForObject(query, new UserRowMapper(), userId);
+		} catch (EmptyResultDataAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override

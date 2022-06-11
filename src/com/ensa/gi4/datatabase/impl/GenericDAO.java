@@ -2,6 +2,7 @@ package com.ensa.gi4.datatabase.impl;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -20,64 +21,69 @@ public abstract class GenericDAO implements InitializingBean {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	protected void add(String table, Materiel materiel) {
-		String query = "INSERT INTO " + table + " (NAME,CODE,STOCK,DISPONIBILITE) VALUES (?,?,?,?)";
+	protected void add(String query, Materiel materiel) {
 		int c = jdbcTemplate.update(query, materiel.getName(), materiel.getCode(), materiel.getStock(),
 				materiel.isAvailable());
 	}
 
-	protected List<Materiel> findAll(String table) {
-		String query = "SELECT * FROM " + table + ";";
+	protected List<Materiel> findAll(String query) {
 		return jdbcTemplate.query(query, getRowMapper());
 	}
 
-	protected Materiel findOne(String table, String nom) {
-		String query = "SELECT * FROM " + table + " WHERE name = ?";
-		return jdbcTemplate.queryForObject(query, getRowMapper(), nom);
+	protected Materiel findOne(String query, String nom) {
+		try {
+			return jdbcTemplate.queryForObject(query, getRowMapper(), nom);
+		} catch (EmptyResultDataAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-	protected Materiel findById(String table, int id) {
-		String query = "SELECT * FROM " + table + " WHERE id = ?";
-		return jdbcTemplate.queryForObject(query, getRowMapper(), id);
+	protected Materiel findOne(String query, int id) {
+		try {
+			return jdbcTemplate.queryForObject(query, getRowMapper(), id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-	protected void louerMateriel(String table, String nomMateriel, int userId) {
-		Materiel materiel = findOne(table, nomMateriel);
+	protected void louerMateriel(String query, Materiel materiel, int userId) {
 		if (materiel.getStock() >= 1 && materiel.isAvailable()) {
 			materiel.setStock(materiel.getStock() - 1);
-			update(table, materiel.getId(), materiel);
-			String query = "Insert into user_" + table + " (user_id," + table + "_id ) values (?,?)";
+			update(query, materiel.getId(), materiel);
 			int rows = jdbcTemplate.update(query, userId, materiel.getId());
 		} else {
 			System.out.println("vous pouvez pas effectuer cette operation");
 		}
 	}
 
-	protected void rendreMateriel(String table, String nomMateriel, int userId) {
-		Materiel materiel = findOne(table, nomMateriel);
+	protected void rendreMateriel(String query, Materiel materiel, int userId) {
 		materiel.setStock(materiel.getStock() + 1);
-		update(table, materiel.getId(), materiel);
-		String query = "delete from user_" + table + " where user_id = ?";
+		update(query, materiel.getId(), materiel);
 		int rows = jdbcTemplate.update(query, userId);
 	}
 
-	protected void markerNonDisponible(String table, String nomMateriel) {
-		Materiel materiel = findOne(table, nomMateriel);
+	protected void markerNonDisponible( Materiel materiel) {
 		materiel.setAvailable(false);
-		update(table, materiel.getId(), materiel);
 	}
 
-	public void update(String table, int id, Materiel materiel) {
-		String query = "UPDATE " + table + " SET NAME = ?, CODE = ?, STOCK = ?, DISPONIBILITE = ? WHERE ID = ?";
-		jdbcTemplate.update(query, materiel.getName(), materiel.getCode(), materiel.getStock(), materiel.isAvailable(),
-				id);
+	public void update(String query, int id, Materiel materiel) {
+		try {
+			jdbcTemplate.update(query, materiel.getName(), materiel.getCode(), materiel.getStock(),
+					materiel.isAvailable(), id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void delete(String table, int id) {
-		String query = "DELETE FROM " + table + " WHERE id = ?";
-		String query2 = "DELETE FROM user_" + table + " WHERE " + table + "_id = ?";
-		jdbcTemplate.update(query2, id);
-		jdbcTemplate.update(query, id);
+	public void delete(String query1,String query2, int id) {
+		try {
+			jdbcTemplate.update(query1, id);
+			jdbcTemplate.update(query2, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected abstract RowMapper<Materiel> getRowMapper();

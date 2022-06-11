@@ -35,7 +35,7 @@ public class GestionMaterielController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	@Autowired
 	private GestionMaterielServiceFacade gestionMaterielServiceFacade;
 
@@ -49,10 +49,10 @@ public class GestionMaterielController {
 		String password = scanner.next();
 		System.out.println();
 		// get the user withe userName
-		try {
-			User user = gestionUserService.getUser(userName);
+		User user = gestionUserService.getUser(userName);
+		if (user != null) {
 			// verify that the passwords mateches
-			if (bCryptPasswordEncoder.matches(password,user.getPassword())) {
+			if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
 				// get the roles of user and show him the coresponding menu
 				List<Role> userRoles = gestionUserService.getUseRoles(user.getId());
 				boolean isAdmin = false;
@@ -183,14 +183,12 @@ public class GestionMaterielController {
 					}
 				}
 			}
-		} catch (EmptyResultDataAccessException e) {
-			System.out.println("please check your email or your password");
-		} catch (IncorrectResultSizeDataAccessException e) {
-			System.out.println("there are more than one user found");
+		} else {
+			System.out.println("user name ou mot de pass invalid");
 		}
 	}
 
-	//user operations
+	// user operations
 	private void sortirDeLApplication() {
 		System.exit(0);
 	}
@@ -229,23 +227,21 @@ public class GestionMaterielController {
 		Materiel materiel;
 		switch (type) {
 		case 1:
-			try {
-				materiel = gestionMaterielServiceFacade.findOne(TypeMateriel.LIVRE, nomMateriel);
+
+			materiel = gestionMaterielServiceFacade.findOne(TypeMateriel.LIVRE, nomMateriel);
+			if (materiel != null) {
 				System.out.println(materiel.toString());
-			} catch (EmptyResultDataAccessException e) {
+			} else {
 				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
 			}
+
 			break;
 		case 2:
-			try {
-				materiel = gestionMaterielServiceFacade.findOne(TypeMateriel.CHAISE, nomMateriel);
+			materiel = gestionMaterielServiceFacade.findOne(TypeMateriel.CHAISE, nomMateriel);
+			if (materiel != null) {
 				System.out.println(materiel.toString());
-			} catch (EmptyResultDataAccessException e) {
+			} else {
 				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
 			}
 			break;
 		default:
@@ -303,8 +299,10 @@ public class GestionMaterielController {
 		case 1:
 			System.out.println("entrez le nom du livre que vous voulez modifier");
 			String nomLivre = scanner.next();
-			try {
-				Materiel livre = gestionMaterielServiceFacade.findOne(TypeMateriel.LIVRE, nomLivre);
+
+			Materiel livre = gestionMaterielServiceFacade.findOne(TypeMateriel.LIVRE, nomLivre);
+			if (livre != null) {
+
 				System.out.println("entrez le nouveau nom du livre");
 				String newName = scanner.next();
 				System.out.println("entrez le nouveau code du livre");
@@ -317,17 +315,15 @@ public class GestionMaterielController {
 				livre.setAvailable(true);
 				gestionMaterielServiceFacade.modifierMateriel(TypeMateriel.LIVRE, livre.getId(), livre);
 				publisher.publish(new MyEvent<>(livre, EventType.UPDATE));
-			} catch (EmptyResultDataAccessException e) {
+			} else {
 				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
 			}
 			break;
 		case 2:
 			System.out.println("entrez le nom du chaise que vous voulez modifier");
 			String nomChaise = scanner.next();
-			try {
-				Materiel chaise = gestionMaterielServiceFacade.findOne(TypeMateriel.CHAISE, nomChaise);
+			Materiel chaise = gestionMaterielServiceFacade.findOne(TypeMateriel.CHAISE, nomChaise);
+			if (chaise != null) {
 				System.out.println("entrez le nouveau nom du livre");
 				String newName = scanner.next();
 				System.out.println("entrez le nouveau code du livre");
@@ -340,10 +336,8 @@ public class GestionMaterielController {
 				chaise.setAvailable(true);
 				gestionMaterielServiceFacade.modifierMateriel(TypeMateriel.CHAISE, chaise.getId(), chaise);
 				publisher.publish(new MyEvent<>(chaise, EventType.UPDATE));
-			} catch (EmptyResultDataAccessException e) {
+			} else {
 				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
 			}
 			break;
 		default:
@@ -360,27 +354,23 @@ public class GestionMaterielController {
 		case 1:
 			System.out.println("entrez le nom du livre que vous voulez supprimer");
 			String nomLivre = scanner.next();
-			try {
-				Materiel livre = gestionMaterielServiceFacade.findOne(TypeMateriel.LIVRE, nomLivre);
+			Materiel livre = gestionMaterielServiceFacade.findOne(TypeMateriel.LIVRE, nomLivre);
+			if ((livre != null)) {
 				gestionMaterielServiceFacade.supprimerMateriel(TypeMateriel.LIVRE, livre.getId());
 				publisher.publish(new MyEvent<>(livre, EventType.REMOVE));
-			} catch (EmptyResultDataAccessException e) {
+			} else {
 				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
 			}
 			break;
 		case 2:
 			System.out.println("entrez le nom du chaise que vous voulez supprimer");
 			String nomChaise = scanner.next();
-			try {
-				Materiel chaise = gestionMaterielServiceFacade.findOne(TypeMateriel.CHAISE, nomChaise);
+			Materiel chaise = gestionMaterielServiceFacade.findOne(TypeMateriel.CHAISE, nomChaise);
+			if (chaise != null) {
 				gestionMaterielServiceFacade.supprimerMateriel(TypeMateriel.CHAISE, chaise.getId());
 				publisher.publish(new MyEvent<>(chaise, EventType.REMOVE));
-			} catch (EmptyResultDataAccessException e) {
-				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
+			} else {
+				System.out.println("no chaise by this name");
 			}
 			break;
 		default:
@@ -404,24 +394,12 @@ public class GestionMaterielController {
 		case 1:
 			System.out.println("entrez le nom du livre que vous voulez louer");
 			String nomLivre = scanner.next();
-			try {
-				gestionMaterielServiceFacade.louerMateriel(TypeMateriel.LIVRE, nomLivre, userId);
-			} catch (EmptyResultDataAccessException e) {
-				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
-			}
+			gestionMaterielServiceFacade.louerMateriel(TypeMateriel.LIVRE, nomLivre, userId);
 			break;
 		case 2:
 			System.out.println("entrez le nom du chaise que vous voulez louer");
 			String nomChaise = scanner.next();
-			try {
-				gestionMaterielServiceFacade.louerMateriel(TypeMateriel.CHAISE, nomChaise, userId);
-			} catch (EmptyResultDataAccessException e) {
-				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
-			}
+			gestionMaterielServiceFacade.louerMateriel(TypeMateriel.CHAISE, nomChaise, userId);
 			break;
 		default:
 			System.out.println("vous n'avez pas choisis le bon choix !!");
@@ -437,24 +415,12 @@ public class GestionMaterielController {
 		case 1:
 			System.out.println("entrez le nom du livre que vous voulez rendre");
 			String nomLivre = scanner.next();
-			try {
-				gestionMaterielServiceFacade.rendreMateriel(TypeMateriel.LIVRE, nomLivre, userId);
-			} catch (EmptyResultDataAccessException e) {
-				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
-			}
+			gestionMaterielServiceFacade.rendreMateriel(TypeMateriel.LIVRE, nomLivre, userId);
 			break;
 		case 2:
 			System.out.println("entrez le nom du chaise que vous voulez rendre");
 			String nomChaise = scanner.next();
-			try {
-				gestionMaterielServiceFacade.rendreMateriel(TypeMateriel.CHAISE, nomChaise, userId);
-			} catch (EmptyResultDataAccessException e) {
-				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
-			}
+			gestionMaterielServiceFacade.rendreMateriel(TypeMateriel.CHAISE, nomChaise, userId);
 			break;
 		default:
 			System.out.println("vous n'avez pas choisis le bon choix !!");
@@ -470,24 +436,12 @@ public class GestionMaterielController {
 		case 1:
 			System.out.println("entrez le nom du livre que vous voulez rendre non disponible");
 			String nomLivre = scanner.next();
-			try {
-				gestionMaterielServiceFacade.markerNonDisponible(TypeMateriel.LIVRE, nomLivre);
-			} catch (EmptyResultDataAccessException e) {
-				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
-			}
+			gestionMaterielServiceFacade.markerNonDisponible(TypeMateriel.LIVRE, nomLivre);
 			break;
 		case 2:
 			System.out.println("entrez le nom du chaise que vous voulez rendre non disponible");
 			String nomChaise = scanner.next();
-			try {
-				gestionMaterielServiceFacade.markerNonDisponible(TypeMateriel.CHAISE, nomChaise);
-			} catch (EmptyResultDataAccessException e) {
-				System.out.println("no book by this name");
-			} catch (IncorrectResultSizeDataAccessException e) {
-				System.out.println("there are more than one book");
-			}
+			gestionMaterielServiceFacade.markerNonDisponible(TypeMateriel.CHAISE, nomChaise);
 			break;
 		default:
 			System.out.println("vous n'avez pas choisis le bon choix !!");
@@ -497,7 +451,7 @@ public class GestionMaterielController {
 	private void usersMateriels() {
 		List<User> users = gestionUserService.getUsers();
 		for (User user : users) {
-			System.out.println("user :" + user.getUserName()+" id:"+user.getId());
+			System.out.println("user :" + user.getUserName() + " id:" + user.getId());
 			myMaterielList(user.getUserName());
 			System.out.println();
 		}

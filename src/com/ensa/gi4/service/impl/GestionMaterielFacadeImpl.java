@@ -28,111 +28,51 @@ public class GestionMaterielFacadeImpl implements GestionMaterielServiceFacade {
 
 	@Override
 	public List<Materiel> afficherMateriel(TypeMateriel type) {
-		final GestionMaterielService serviceActuel;
-		switch (type) {
-		case LIVRE:
-			serviceActuel = gestionLivreService;
-			break;
-		case CHAISE:
-			serviceActuel = gestionChaiseService;
-			break;
-		default:
-			System.out.println("Le type " + type + " n'est pas reconnu");
-			return null;
-		}
+		GestionMaterielService serviceActuel = null;
+		assignTheAppropriateService(serviceActuel, type);
 		List<Materiel> materiels = serviceActuel.findAll();
 		return materiels;
 	}
 
 	@Override
 	public void ajouterNouveauMateriel(TypeMateriel type, Materiel materiel) {
-		final GestionMaterielService serviceActuel;
-		switch (type) {
-		case LIVRE:
-			serviceActuel = gestionLivreService;
-			break;
-		case CHAISE:
-			serviceActuel = gestionChaiseService;
-			break;
-		default:
-			System.out.println("Le type " + type + " n'est pas reconnu");
-			return;
-		}
+		GestionMaterielService serviceActuel = null;
+		assignTheAppropriateService(serviceActuel, type);
 		serviceActuel.add(materiel);
 	}
 
 	@Override
 	public void supprimerMateriel(TypeMateriel type, int id) {
-		final GestionMaterielService serviceActuel;
-		switch (type) {
-		case LIVRE:
-			serviceActuel = gestionLivreService;
-			break;
-		case CHAISE:
-			serviceActuel = gestionChaiseService;
-			break;
-		default:
-			System.out.println("Le type " + type + " n'est pas reconnu");
-			return;
-		}
+		GestionMaterielService serviceActuel = null;
+		assignTheAppropriateService(serviceActuel, type);
 		serviceActuel.delete(id);
 	}
 
 	@Override
 	public Materiel findOne(TypeMateriel type, String nom) {
-		final GestionMaterielService serviceActuel;
-		switch (type) {
-		case LIVRE:
-			serviceActuel = gestionLivreService;
-			break;
-		case CHAISE:
-			serviceActuel = gestionChaiseService;
-			break;
-		default:
-			System.out.println("Le type " + type + " n'est pas reconnu");
-			return null;
-		}
+		GestionMaterielService serviceActuel = null;
+		assignTheAppropriateService(serviceActuel, type);
 		Materiel materiel = serviceActuel.findOne(nom);
 		return materiel;
 	}
 
 	@Override
 	public void modifierMateriel(TypeMateriel type, int id, Materiel materiel) {
-		final GestionMaterielService serviceActuel;
-		switch (type) {
-		case LIVRE:
-			serviceActuel = gestionLivreService;
-			break;
-		case CHAISE:
-			serviceActuel = gestionChaiseService;
-			break;
-		default:
-			System.out.println("Le type " + type + " n'est pas reconnu");
-			return;
-		}
+		GestionMaterielService serviceActuel = null;
+		assignTheAppropriateService(serviceActuel, type);
 		serviceActuel.update(id, materiel);
 	}
 
 	@Override
 	public void louerMateriel(TypeMateriel type, String nomMateriel, int userId) {
-		final GestionMaterielService serviceActuel;
-		switch (type) {
-		case LIVRE:
-			serviceActuel = gestionLivreService;
-			break;
-		case CHAISE:
-			serviceActuel = gestionChaiseService;
-			break;
-		default:
-			System.out.println("Le type " + type + " n'est pas reconnu");
-			return;
-		}
+		GestionMaterielService serviceActuel = null;
+		assignTheAppropriateService(serviceActuel, type);
 		serviceActuel.louerMateriel(nomMateriel, userId);
 	}
 
 	@Override
 	public void rendreMateriel(TypeMateriel type, String nomMateriel, int userId) {
-		final GestionMaterielService serviceActuel;
+		GestionMaterielService serviceActuel = null;
 		boolean hasMateriel = false;
 		User user = gestionUserService.getUser(userId);
 		List<Materiel> materiels = gestionUserService.getMateriels(user.getUserName());
@@ -142,27 +82,22 @@ public class GestionMaterielFacadeImpl implements GestionMaterielServiceFacade {
 				break;
 			}
 		}
-		switch (type) {
-		case LIVRE:
-			serviceActuel = gestionLivreService;
-			break;
-		case CHAISE:
-			serviceActuel = gestionChaiseService;
-			break;
-		default:
-			System.out.println("Le type " + type + " n'est pas reconnu");
-			return;
-		}
+		assignTheAppropriateService(serviceActuel, type);
 		if (hasMateriel) {
 			serviceActuel.rendreMateriel(nomMateriel, userId);
-		}else {
+		} else {
 			System.out.println("vous pouvez pas rendre ce materiel");
 		}
 	}
 
 	@Override
 	public void markerNonDisponible(TypeMateriel type, String nomMateriel) {
-		final GestionMaterielService serviceActuel;
+		GestionMaterielService serviceActuel = null;
+		assignTheAppropriateService(serviceActuel, type);
+		serviceActuel.markerNonDisponible(nomMateriel);
+	}
+
+	private void assignTheAppropriateService(GestionMaterielService serviceActuel, TypeMateriel type) {
 		switch (type) {
 		case LIVRE:
 			serviceActuel = gestionLivreService;
@@ -174,7 +109,6 @@ public class GestionMaterielFacadeImpl implements GestionMaterielServiceFacade {
 			System.out.println("Le type " + type + " n'est pas reconnu");
 			return;
 		}
-		serviceActuel.markerNonDisponible(nomMateriel);
 	}
 
 }

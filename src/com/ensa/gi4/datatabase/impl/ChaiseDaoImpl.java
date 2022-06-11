@@ -2,6 +2,7 @@ package com.ensa.gi4.datatabase.impl;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -14,27 +15,33 @@ public class ChaiseDaoImpl extends GenericDAO implements MaterielDao {
 
 	@Override
 	public void add(Materiel materiel) {
-		super.add("chaise", materiel);
+		String query = "INSERT INTO chaise (NAME,CODE,STOCK,DISPONIBILITE) VALUES (?,?,?,?)";
+		super.add(query, materiel);
 	}
 
 	@Override
 	public List<Materiel> findAll() {
+		String query = "SELECT * FROM chaise;";
 		return super.findAll("chaise");
 	}
 
 	@Override
 	public Materiel findOne(String nom) {
-		return super.findOne("chaise", nom);
+		String query = "SELECT * FROM chaise WHERE name = ?";
+		return super.findOne(query, nom);
 	}
 
 	@Override
 	public void delete(int id) {
-		super.delete("chaise", id);
+		String query1 = "DELETE FROM chaise WHERE id = ?";
+		String query2 = "DELETE FROM user_chaise WHERE livre_id = ?";
+		super.delete(query1,query2, id);
 	}
 
 	@Override
 	public void update(int id, Materiel materiel) {
-		super.update("chaise", id, materiel);
+		String query = "UPDATE chaise SET NAME = ?, CODE = ?, STOCK = ?, DISPONIBILITE = ? WHERE ID = ?";
+		super.update(query, id, materiel);
 	}
 
 	@Override
@@ -44,22 +51,29 @@ public class ChaiseDaoImpl extends GenericDAO implements MaterielDao {
 
 	@Override
 	public Materiel findOne(int id) {
-		return super.findById("chaise", id);
+		String query = "SELECT * FROM chaise WHERE id = ?";
+		return super.findOne(query, id);
 	}
 
 	@Override
-	public void louerMateriel(String nomMateriel,int userId) {
-		super.louerMateriel("chaise", nomMateriel,userId);
+	public void louerMateriel(String nomMateriel, int userId){
+		Materiel materiel = findOne(nomMateriel);
+		String query = "Insert into user_chaise (user_id,chaise_id ) values (?,?)";
+		super.louerMateriel(query, materiel, userId);
 	}
 
 	@Override
-	public void rendreMateriel(String nomMateriel,int userId) {
-		super.rendreMateriel("chaise", nomMateriel,userId);
+	public void rendreMateriel(String nomMateriel, int userId){
+		Materiel materiel = findOne(nomMateriel);
+		String query = "delete from user_chaise where user_id = ?";
+		super.rendreMateriel(query, materiel, userId);
 	}
 
 	@Override
 	public void markerNonDisponible(String nomMateriel) {
-		super.markerNonDisponible("chaise", nomMateriel);
+		Materiel materiel=findOne(nomMateriel);
+		super.markerNonDisponible(materiel);
+		update(materiel.getId(), materiel);
 	}
 
 }
