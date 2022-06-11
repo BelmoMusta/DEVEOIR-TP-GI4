@@ -1,13 +1,17 @@
 package com.ensa.gi4.listeners;
 
 import com.ensa.gi4.modele.Materiel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ApplicationPublisher implements ApplicationEventPublisherAware {
+
+    @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
+
 
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
