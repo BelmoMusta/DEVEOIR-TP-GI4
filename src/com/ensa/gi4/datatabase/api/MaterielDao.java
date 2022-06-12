@@ -17,6 +17,8 @@ public interface MaterielDao {
     List<Materiel> listeMaterielAlloue(Long id);
     List<Materiel> listeMaterielAlloueAll();
     int combienDesMateriel();
+  //  int combienDesLivreDejaAllouer();
+   // int combienDesChaiseDejaAllouer();
     
 
 }

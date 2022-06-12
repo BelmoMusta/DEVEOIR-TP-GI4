@@ -109,4 +109,16 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	/*@Override
+	public int combienLivreLlouer() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int combienChaiseLlouer() {
+		// TODO Auto-generated method stub
+		return 0;
+	}*/
 }

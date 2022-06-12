@@ -22,6 +22,8 @@ public interface GestionMaterielService {
     boolean isAlloue(Long id);
     Materiel findMateriel(Long id);
     int combienMateriel();
+    //int combienLivreLlouer();
+    //int combienChaiseLlouer();
     
    
     

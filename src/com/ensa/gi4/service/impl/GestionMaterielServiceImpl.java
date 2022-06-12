@@ -175,4 +175,14 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 		
 		return materielDao.combienDesMateriel();
 	}
+/*
+	@Override
+	public int combienLivreLlouer() {
+		return materielDao.combienDesLivreDejaAllouer();
+	}
+
+	@Override
+	public int combienChaiseLlouer() {
+		return  materielDao.combienDesChaiseDejaAllouer();
+	}*/
 }

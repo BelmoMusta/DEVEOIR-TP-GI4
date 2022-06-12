@@ -94,6 +94,18 @@ public int combienDesMateriel() {
 	return super.EXEQuery(sql);
 	
 }
+/*
+public int combienDesLivreDejaAllouer() {
+	String sql="SELECT COUNT(*) FROM MATERIEL where name=LIVRE AND disponible= false";
+	return super.EXEQuery(sql);
+	
+}
+public int combienDesChaiseDejaAllouer() {
+	String sql="SELECT COUNT(*) FROM MATERIEL where name=CHAISE AND disponible= false";
+	return super.EXEQuery(sql);
+	
+}*/
+
 	
 
 	

@@ -173,6 +173,8 @@ System.out.println("Resultat : ");
        		 System.out.println("Ce materiel n'existe pas");
        	 }
         }else if("6".equals(next)) {
+        	//System.out.println(gestionMaterielServiceImpl.combienChaiseLlouer()+"chaise loer");
+        	//System.out.println(gestionMaterielServiceImpl.combienLivreLlouer()+"livre loer");
             gestionMaterielServiceImpl.listerMateriel();
             System.out.println("Saiasir ID du materiel");
             Long ID = scannerAdmin.nextLong();
