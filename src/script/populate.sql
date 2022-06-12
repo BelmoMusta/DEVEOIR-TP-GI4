@@ -1,11 +1,6 @@
---
--- INSERT INTO  materiel(name, code) values ( 'Livre' ,'LI'  );
--- INSERT INTO  materiel(name, code) values ( 'Chaise' ,'CH'  );
--- INSERT INTO  materiel(name, code,type) values ('Livre1' ,'12' ,'Livre'  );
--- INSERT INTO  materiel(name, code,type) values ( 'Chaise1','13' ,'Chaise'  );
---
-INSERT INTO  Utilisateur(username, Password,role) values ( 'admin' ,'123456789','admin' );
-INSERT INTO  Utilisateur(username, Password,role) values ( 'user1' ,'12345','user' );
---
+
+INSERT INTO  Utilisateur(username, Password,role) values ( 'admin' ,'25f9e794323b453885f5181f1b624d0b','admin' );
+INSERT INTO  Utilisateur(username, Password,role) values ( 'user1' ,'827ccb0eea8a706c4c34a16891f84e7b','user' );
+
 INSERT INTO  materiel(user_id, user_username, name, code, disponible, alloue, duree) values ( '2', 'user1', 'LIVRE' ,'KL', FALSE, TRUE, '4J');
---
+

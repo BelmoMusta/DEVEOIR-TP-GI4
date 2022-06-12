@@ -15,8 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class UtilisateurDaoImpl extends GenericDAO<Utilisateur> implements UtilisateurDao {
 	 String userName;
-	    String password ;
+	 String password ;
+	 String password1; 
 	    boolean isValide;
+	    int roleInt;
+	    String role;
 	  
 
 	@Override
@@ -30,6 +33,7 @@ public class UtilisateurDaoImpl extends GenericDAO<Utilisateur> implements Utili
 	            System.out.println("password : ");
 	            password = scanner.next();
 	            password=doHashing(password);
+	            System.out.println("hashi "+ password);
 
 
 	            try {
@@ -37,7 +41,8 @@ public class UtilisateurDaoImpl extends GenericDAO<Utilisateur> implements Utili
 	                Utilisateur user = super.TrouverModeDePasse(sql, userName);
 	                String vrai_code = user.getPassword();
 	                if (isValide == false) {
-	                	vrai_code = doHashing(vrai_code);
+	                	
+	                	System.out.println("vrai "+vrai_code);
 	                    if (vrai_code.equals(password)) {
 	                    	isValide = true;
 	                        return user;
@@ -96,6 +101,55 @@ public class UtilisateurDaoImpl extends GenericDAO<Utilisateur> implements Utili
 	protected RowMapper<Utilisateur> getRowMapper() {
 		// TODO Auto-generated method stub
 		return new UserRowMapper();
+	}
+
+
+
+	@Override
+	public void creeUtilisateur() {
+		
+		while(true) {
+		isValide = false;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("new username : ");
+        userName = scanner.next();
+        System.out.println("password : ");
+        password = scanner.next();
+        password=doHashing(password);
+        System.out.println("role (tapper 1 pour admin et 2 pour user)  ");
+        roleInt = Integer.parseInt(scanner.next());
+        if(roleInt == 1) {
+        	role = "admin";
+        	
+        }else if(roleInt == 2) {
+        	role = "user";
+        	
+        }else {
+        	System.out.println("tapper 1 ou 2");
+        	
+        }
+
+
+        try {
+        	String sql="INSERT INTO  UTILISATEUR(username,Password,role) VALUES (?,?,?);";
+          
+        	super.EXECree(sql,userName,password,role);
+        	break;
+        	
+        }catch(Exception e){
+            System.out.println("or lord de creation utilisateur repeter!!!!!(sign up)");
+            System.out.println("1- pour essayer une nouvelle fois de CREE UTILISATEUR");
+            System.out.println("2- connexion(sign in)");
+            System.out.println("0- pour sortir de l'application");
+            String next = scanner.next();
+            if ("0".equals(next)) {
+                System.exit(0);
+            } else if ("1".equals(next)) {
+                continue;
+            }
+        }
+		
+	}
 	}
 
 

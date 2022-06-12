@@ -84,12 +84,21 @@ public List<T> MaterelAlloueExe(String query,Long id){
 			  System.out.println("Merciiii le matÃ©riel est rendu...");
 		}
 	}
-
+	public void EXECree(String query, String username, String password, String role) {
+		int good = jdbcTemplate.update(query,username,password,role);
+		if(good == 1) {
+			System.out.println("vous ete crée un utilisateur " + role+" avec suces => nom : "+ username);
+		}else {
+			  System.out.println("Error lord de creation utilisateur repeter!!!!!");
+		}
+	}
+	
 public Utilisateur TrouverModeDePasse(String query,String username) {
 	
 	        return (Utilisateur) jdbcTemplate.queryForObject(query, getRowMapper(), username);
 	    
 }
+
 public int EXEQuery(String query) {
 	return jdbcTemplate.queryForObject(query,Integer.class);
 }
