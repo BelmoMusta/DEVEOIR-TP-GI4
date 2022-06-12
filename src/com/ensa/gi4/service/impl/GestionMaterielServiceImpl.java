@@ -8,13 +8,15 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component("materielService")
 public class GestionMaterielServiceImpl implements GestionMaterielService {
     @Autowired
     MaterielDao materielDao;
-
+    
+ 
     @Override
     public void init() {
         System.out.println("inititialisation du service");
