@@ -7,18 +7,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MaterielRowMapper implements RowMapper<Materiel> {
-    @Override
-    public Materiel mapRow(ResultSet resultSet, int i) throws SQLException {
-        Materiel materiel = new Materiel() { // because it is abstract
-        };
+	@Override
+	public Materiel mapRow(ResultSet resultSet, int i) throws SQLException {
+		Materiel materiel = new Materiel() { // because it is abstract
+		};
 
-        String name = resultSet.getString(2);
-        //String name_ = resultSet.getString("NAME");
-        //String code_ = resultSet.getString("CODE");
-        String code = resultSet.getString(3);
-        materiel.setCode(code);
-        materiel.setName(name);
+		String name = resultSet.getString("name");
+		Long id=  resultSet.getLong("id");
+		String code = resultSet.getString("code");
+		int allouer = resultSet.getInt("allouer");
+		boolean disponible = resultSet.getBoolean("disponible");
+		String duree = resultSet.getString("duree");
 
-        return materiel;
-    }
+		materiel.setId(id);
+		materiel.setCode(code);
+		materiel.setName(name);
+		materiel.setAllouer(allouer);
+		materiel.setDisponible(disponible);
+		materiel.setDuree(duree);
+
+		return materiel;
+	}
 }
