@@ -7,5 +7,6 @@ import com.ensa.gi4.modele.Users;
 public interface GestionUsersService {
     Users verifierUtilsateur(String u,String p);
     List<Users> listUsers();
+    Users inscrire(String username,String password);
 
 }

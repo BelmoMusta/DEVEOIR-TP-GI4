@@ -8,15 +8,18 @@ import org.springframework.stereotype.Component;
 
 import com.ensa.gi4.datatabase.api.UsersDao;
 import com.ensa.gi4.modele.Users;
+import com.ensa.gi4.service.api.Encodage;
 import com.ensa.gi4.service.api.GestionUsersService;
-@Component("usersService")
 
+@Component("usersService")
 public class GestionUsersServiceImpl implements GestionUsersService {
     @Autowired
     UsersDao usersDao;
     
+    @Autowired
+    private Encodage passwordEncoder;
 
-    
+	
 	@Override
 	public Users verifierUtilsateur(String u, String p) {
 		List<Users> listUsers = new ArrayList<Users>();
@@ -33,6 +36,14 @@ public class GestionUsersServiceImpl implements GestionUsersService {
 	public List<Users> listUsers() {
 		// TODO Auto-generated method stub
 		return usersDao.listUsers();
+	}
+	@Override
+	public Users inscrire(String username, String password) {
+		// TODO Auto-generated method stub
+		Users u = new Users();
+		u.setUsername(username);
+		u.setPassword(passwordEncoder.encoder().encode(password));
+		return u;
 	}
 
 }
