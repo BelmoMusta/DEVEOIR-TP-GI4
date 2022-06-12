@@ -29,7 +29,7 @@ public class GestionMaterielController {
 
     @Autowired
     private UtilisateurDaoImpl log;
-    
+    //t
 
     Utilisateur user;
     
