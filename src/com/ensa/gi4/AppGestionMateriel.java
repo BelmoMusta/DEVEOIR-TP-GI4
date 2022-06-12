@@ -4,7 +4,10 @@ import com.ensa.gi4.controller.GestionMaterielController;
 import com.ensa.gi4.listeners.ApplicationPublisher;
 import com.ensa.gi4.listeners.EventType;
 import com.ensa.gi4.listeners.MyEvent;
+import com.ensa.gi4.modele.Chaise;
 import com.ensa.gi4.modele.Livre;
+import com.ensa.gi4.modele.Materiel;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,9 +24,11 @@ public class AppGestionMateriel {
 
     public static void main(String[] args) {
         final GestionMaterielController gestionMaterielController = (GestionMaterielController) APPLICATION_CONTEXT.getBean("controllerPricipal");
+        final ApplicationPublisher publisher = APPLICATION_CONTEXT.getBean(ApplicationPublisher.class);
+    
 
         while (true) { // pour que l'appliation tourne jusqu'à la demande de l'utilisateur de l'arrêter
-            gestionMaterielController.afficherMenu();
+            gestionMaterielController.checkUsers();
         }
 
     }
