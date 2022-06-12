@@ -2,18 +2,12 @@ package com.ensa.gi4.datatabase.impl;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
 import com.ensa.gi4.modele.Materiel;
-
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao {
-	private JdbcTemplate jdbcTemplate;
-	public MaterielDaoImpl(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate= jdbcTemplate;
-	}
     @Override
     public List<Materiel> findAll() {
         return super.findAll("SELECT * FROM MATERIEL;");

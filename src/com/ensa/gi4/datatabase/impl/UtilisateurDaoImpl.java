@@ -4,7 +4,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.ensa.gi4.datatabase.api.MaterielDao;
@@ -21,10 +20,7 @@ public class UtilisateurDaoImpl extends GenericDAO<Utilisateur> implements Utili
 	    boolean isValide;
 	    int roleInt;
 	    String role;
-	    JdbcTemplate jdbcTemplate;
-	  public UtilisateurDaoImpl(JdbcTemplate jdbcTemplate) {
-		  this.jdbcTemplate=jdbcTemplate;
-	  }
+	  
 
 	@Override
 	public Utilisateur find_user() {
@@ -37,7 +33,7 @@ public class UtilisateurDaoImpl extends GenericDAO<Utilisateur> implements Utili
 	            System.out.println("password : ");
 	            password = scanner.next();
 	            password=doHashing(password);
-	          
+	            System.out.println("hashi "+ password);
 
 
 	            try {
@@ -46,7 +42,7 @@ public class UtilisateurDaoImpl extends GenericDAO<Utilisateur> implements Utili
 	                String vrai_code = user.getPassword();
 	                if (isValide == false) {
 	                	
-	                	
+	                	System.out.println("vrai "+vrai_code);
 	                    if (vrai_code.equals(password)) {
 	                    	isValide = true;
 	                        return user;
