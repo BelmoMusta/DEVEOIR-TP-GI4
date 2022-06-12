@@ -1,10 +1,12 @@
 package com.ensa.gi4.service.impl;
 
-import com.ensa.gi4.modele.Materiel;
-import com.ensa.gi4.service.api.GestionMaterielService;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 
-public class GestionLivreServiceImpl implements GestionMaterielService, SmartInitializingSingleton {
+import com.ensa.gi4.modele.Materiel;
+import com.ensa.gi4.service.api.GestionMaterielService;
+
+public class GestionChaiseServiceImpl implements GestionMaterielService, SmartInitializingSingleton {
+	
     @Override
     public void init() {
         System.out.println("inititialisation du service");
@@ -39,7 +41,7 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 	}
 
 	@Override
-	public void modifierInfosMateriel(Materiel M){
+	public void modifierInfosMateriel(Materiel M) {
 		// TODO Auto-generated method stub
 		
 	}

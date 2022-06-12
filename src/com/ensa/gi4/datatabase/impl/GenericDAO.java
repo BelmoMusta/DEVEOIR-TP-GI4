@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class GenericDAO<T> implements InitializingBean {
     @Autowired
     private DataSource dataSource;
-    private JdbcTemplate jdbcTemplate;
+    protected  JdbcTemplate jdbcTemplate;
 
     @Override
     public void afterPropertiesSet() { // from InitializingBean
@@ -23,7 +23,39 @@ public abstract class GenericDAO<T> implements InitializingBean {
     }
 
     protected T findOne(String query, Long id) {
-        return jdbcTemplate.queryForObject(query, getRowMapper(), id);
+    	try {
+            return jdbcTemplate.queryForObject(query, getRowMapper(), id);
+        	} catch (Exception e) {
+        		return null;
+        	}
+    }
+    protected T executeQuery(String query) {
+    	try {
+        return jdbcTemplate.queryForObject(query, getRowMapper());
+    	} catch (Exception e) {
+    		return null;
+    	}
+    }
+    protected String getRole(String query,String name) {
+    	
+    	try {
+    		return (String) jdbcTemplate.queryForObject(query,new Object[] {name}, String.class);
+    	}catch(Exception e) {
+    		return null;
+    	}
+    }
+    protected int inseretUpdateDelete(String sql ) {   	
+
+    	return this.jdbcTemplate.update(sql);
+    }
+
+    protected int count(String sql ) {
+    	int i = this.jdbcTemplate.queryForObject(sql, Integer.class);
+    	return i;
+    }
+    protected String extraireString(String sql ) {
+    	return this.jdbcTemplate.queryForObject(sql, String.class);
+    	
     }
 
     protected abstract RowMapper<T> getRowMapper();
