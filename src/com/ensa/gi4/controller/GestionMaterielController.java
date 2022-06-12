@@ -4,6 +4,7 @@ import com.ensa.gi4.listeners.ApplicationPublisher;
 import com.ensa.gi4.listeners.EventType;
 import com.ensa.gi4.listeners.MyEvent;
 import com.ensa.gi4.modele.Chaise;
+import com.ensa.gi4.modele.Externalisation;
 import com.ensa.gi4.modele.Livre;
 import com.ensa.gi4.modele.Materiel;
 import com.ensa.gi4.modele.Personne;
@@ -11,7 +12,11 @@ import com.ensa.gi4.service.api.GestionMaterielService;
 import com.ensa.gi4.service.api.GestionPersonneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 @Controller("controllerPricipal")
@@ -19,6 +24,8 @@ public class GestionMaterielController {
 	String donnee1, donnee2, donnee3;
 	Long num1, num2, num3;
 	Scanner scanner = new Scanner(System.in);
+	@Autowired
+	Externalisation externalisation;
 
 	@Autowired
 	ApplicationPublisher publisher;
@@ -30,96 +37,80 @@ public class GestionMaterielController {
 
 	public void afficherMenu() {
 
-		//if (authentification() != null) {
-			if (gestionPersonneService.determinerRole().equals("admin")) {
+		// if (authentification() != null) {
+		if (gestionPersonneService.determinerRole().equals("admin")) {
 
-				// ************************ADMIN***************************
+			// ************************ADMIN***************************
 
-				while (true) {
+			while (true) {
 
-					afficherMenuAdmin();
+				afficherMenuAdmin();
 
-					String choix = scanner.next();
+				String choix = scanner.next();
 
-					if (choix.equals("1")) {
-						listerMateriel();
-					} else if (choix.equals("2")) {
-						chercherMateriel();
-					} else if (choix.equals("3")) {
-						allouerMateriel();
-					} else if (choix.equals("4")) {
-						rendreMateriel();
+				if (choix.equals("1")) {
+					listerMateriel();
+				} else if (choix.equals("2")) {
+					chercherMateriel();
+				} else if (choix.equals("3")) {
+					allouerMateriel();
+				} else if (choix.equals("4")) {
+					rendreMateriel();
 
-					} else if (choix.equals("5")) {
-						listerMaterielAlloue();
-					} else if (choix.equals("6")) {
-						ajouterMateriel();
+				} else if (choix.equals("5")) {
+					listerMaterielAlloue();
+				} else if (choix.equals("6")) {
+					ajouterMateriel();
 
-					} else if (choix.equals("7")) {
-						supprimerMateriel();
+				} else if (choix.equals("7")) {
+					supprimerMateriel();
 
-					} else if (choix.equals("8")) {
-						modifierMateriel();
+				} else if (choix.equals("8")) {
+					modifierMateriel();
 
-					} else if (choix.equals("9")) {
-						marquerMaterielIndisponible();
+				} else if (choix.equals("9")) {
+					marquerMaterielIndisponible();
 
-					} else if (choix.equals("10")) {
-						afficherMaterielAllouerParUtilisateur();
+				} else if (choix.equals("10")) {
+					afficherMaterielAllouerParUtilisateur();
 
-					} else if (choix.equals("11")) {
-						creerCompteAdmin();
-
-					}
-
-					else {
-						System.out.println("choix invalid");
-					}
+				} else if (choix.equals("11")) {
+					creerCompteAdmin();
 
 				}
 
-			} else {
-
-				// ******************************employé**********************
-
-				while (true) {
-					afficherMenuEmploye();
-					String choix = scanner.next();
-					if (choix.equals("1")) {
-						listerMateriel();
-					} else if (choix.equals("2")) {
-
-						chercherMateriel();
-					} else if (choix.equals("3")) {
-						allouerMateriel();
-					} else if (choix.equals("4")) {
-						rendreMateriel();
-
-					} else if (choix.equals("5")) {
-						listerMaterielAlloue();
-					} else {
-						System.out.println("choix invalid");
-					}
-
+				else {
+					System.out.println("choix invalid");
 				}
 
 			}
 
-	/*	} else {
-			System.out.println(" saisir 0 pour sortir de l'application");
-			System.out.println(" saisir 1 pour créer un compte ");
-			System.out.println(" saisir n'import quel caractère pour réesayer à nouveau");
+		} else {
 
-			String choix = scanner.next();
-			if (choix.equals("0")) {
-				sortirDeLApplication();
-			} else if (choix.equals("1")) {
-				creerCompteEmploye();
-				afficherMenu();
-			} else {
-				afficherMenu();
+			// ******************************employé**********************
+
+			while (true) {
+				afficherMenuEmploye();
+				String choix = scanner.next();
+				if (choix.equals("1")) {
+					listerMateriel();
+				} else if (choix.equals("2")) {
+
+					chercherMateriel();
+				} else if (choix.equals("3")) {
+					allouerMateriel();
+				} else if (choix.equals("4")) {
+					rendreMateriel();
+
+				} else if (choix.equals("5")) {
+					listerMaterielAlloue();
+				} else {
+					System.out.println("choix invalid");
+				}
+
 			}
-		}*/
+
+		}
 
 	}
 
@@ -127,23 +118,23 @@ public class GestionMaterielController {
 
 		afficherMenuEmploye();
 
-		System.out.println("pour --  ajouter   -- un matériel  saisir        ----------------------> 6 ");
-		System.out.println("pour --  supprimer -- un matériel  saisir        ----------------------> 7 ");
-		System.out.println("pour --  modifier  -- un matériel  saisir        ----------------------> 8 ");
-		System.out.println("pour --  marquer   -- votre matériel indisponible saisir --------------> 9 ");
-		System.out.println("pour --  afficher  -- les matériels alloués par les utilisateurs saisir> 10 ");
-		System.out.println("pour --  créer     -- un compte utilisateur saisir --------------------> 11 ");
+		System.out.println(externalisation.msgAjout);
+		System.out.println(externalisation.msgSupprimer);
+		System.out.println(externalisation.msgModifie);
+		System.out.println(externalisation.msgDisponible);
+		System.out.println(externalisation.msgAllouerUser);
+		System.out.println(externalisation.msgCreerCompte);
 
 		System.out.println("-----------------------------------------------------------------------------");
 	}
 
 	private void afficherMenuEmploye() {
 		System.out.println("-------------------------------------------------------------");
-		System.out.println("pour --  lister  ---- le materiele saisir        ----------------------> 1 ");
-		System.out.println("pour --  chercher  -- un materiele saisir        ----------------------> 2 ");
-		System.out.println("pour --  allouer  --- un materiel saisir         ----------------------> 3 ");
-		System.out.println("pour --  rendre  ---- un matereil saisir         ----------------------> 4 ");
-		System.out.println("pour --  afficher  -- le matériel alloués saisir ----------------------> 5 ");
+		System.out.println(externalisation.msgListerMateriel);
+		System.out.println(externalisation.msgChercher);
+		System.out.println(externalisation.msgAllouer);
+		System.out.println(externalisation.msgRendre);
+		System.out.println(externalisation.msgAfficherAllouer);
 
 	}
 
@@ -156,7 +147,7 @@ public class GestionMaterielController {
 				num1 = Long.parseLong(donnee1);
 				verification = true;
 			} catch (Exception e) {
-				System.out.println("Veuillez  saisir un numéro id convenable  : ");
+				System.out.println(externalisation.msgSaisirId);
 
 			}
 		}
@@ -168,11 +159,11 @@ public class GestionMaterielController {
 	}
 
 	public Personne authentification() {
-		System.out.println("----------------bonjour----------------");
-		System.out.println(" saisir votre nom ");
+		System.out.println(externalisation.msgBonjour);
+		System.out.println(externalisation.msgSaisirNom);
 
 		donnee1 = scanner.next();
-		System.out.println(" saisir votre mot de passe ");
+		System.out.println(externalisation.msgSaisirMotDePasse);
 		donnee2 = scanner.next();
 		return gestionPersonneService.connecter(donnee1, donnee2);
 	}
@@ -180,25 +171,25 @@ public class GestionMaterielController {
 	public void creerCompteEmploye() {
 		System.out.println("---------------création du compte type employé(e)--------------");
 		do {
-			System.out.println("saisir votre nom d'utilisateur ");
+			System.out.println(externalisation.msgSaisirNomUser);
 			donnee1 = scanner.next();
-			System.out.println("saisir votre mot de passe ");
+			System.out.println(externalisation.msgSaisirMotDePasse);
 			donnee2 = scanner.next();
 		} while (!gestionPersonneService.creerCompte(donnee1, donnee2, "employe"));
 
 	}
 
 	private void creerCompteAdmin() {
-		System.out.println("---------------création du compte--------------");
+		System.out.println(externalisation.msgCreationDeCompte);
 		System.out.println("saisir le nom d'utilisateur ");
 		donnee1 = scanner.next();
 		System.out.println("saisir le mot de passe ");
 		donnee2 = scanner.next();
-		System.out.println("pour être un employé saisir 1 ");
-		System.out.println("pour être un admin saisir 2 ");
+		System.out.println(externalisation.msgEtreEmloye);
+		System.out.println(externalisation.msgEtreAdmin);
 		donnee3 = scanner.next();
 		while (!donnee3.equals("1") && !donnee3.equals("2")) {
-			System.out.println("choix invalid, veuillez saisir 1 pour être employé, ou 2 pour admin ");
+			System.out.println(externalisation.msgCreationCompteFailure);
 			donnee3 = scanner.next();
 		}
 		if (donnee3.equals("1")) {
@@ -211,15 +202,15 @@ public class GestionMaterielController {
 
 	// ajouter
 	private void ajouterMateriel() {
-		System.out.println("pour ajouter un livre saisir 1 ");
-		System.out.println("pour ajouter une chaise saisir 2 ");
+		System.out.println(externalisation.msgAjouterLivre);
+		System.out.println(externalisation.msgAjoutChaise);
 		donnee1 = scanner.next();
 		while (!donnee1.equals("1") && !donnee1.equals("2")) {
-			System.out.println("choix invalid veuillez saisir 1 pour livre ou bien 2 pour chaise");
+			System.out.println(externalisation.msgCreationCompteFailure);
 			donnee1 = scanner.next();
 		}
 		if (donnee1.equals("1")) {
-			System.out.println("saisir le code du livre");
+			System.out.println(externalisation.msgAjoutCodeLivre);
 			donnee2 = scanner.next();
 			Materiel materiel = new Livre();
 			materiel.setCode(donnee2);
@@ -229,7 +220,7 @@ public class GestionMaterielController {
 
 		}
 		if (donnee1.equals("2")) {
-			System.out.println("saisir le code du chaise");
+			System.out.println(externalisation.msgAjoutCodeChaise);
 			donnee2 = scanner.next();
 			Materiel materiel = new Chaise();
 			materiel.setCode(donnee2);
@@ -242,11 +233,11 @@ public class GestionMaterielController {
 
 	// supprimer
 	private void supprimerMateriel() {
-		System.out.println("Veuillez saisir l'id du matériel à supprimer ");
+		System.out.println(externalisation.msgSupprimerId);
 		listerMateriel();
 		num1 = verificationEntre();
 		if (gestionMaterielService.supprimerMateriel(num1).equals("null")) {
-			System.out.println("cet id n'existe pas");
+			System.out.println(externalisation.msgIdNonExist);
 		} else if (gestionMaterielService.supprimerMateriel(num1).equals("Livre")) {
 			Materiel materiel = new Livre();
 			materiel.setCode(donnee2);
@@ -265,13 +256,13 @@ public class GestionMaterielController {
 
 	// modifier
 	private void modifierMateriel() {
-		System.out.println("Veuillez saisir l'id du matériel à modifier ");
+		System.out.println(externalisation.msgModifierId);
 		listerMateriel();
 		num1 = verificationEntre();
-		System.out.println("Veuillez saisir le nouveau code du matériel ");
+		System.out.println(externalisation.msgModifierCode);
 		donnee2 = scanner.next();
 		if (gestionMaterielService.modifierMateriel(num1, donnee2).equals("null")) {
-			System.out.println("cet id n'existe pas");
+			System.out.println(externalisation.msgIdNonExist);
 		} else if (gestionMaterielService.modifierMateriel(num1, donnee2).equals("Livre")) {
 			Materiel materiel = new Livre();
 			materiel.setCode(donnee2);
@@ -289,7 +280,7 @@ public class GestionMaterielController {
 
 	// chercher
 	private void chercherMateriel() {
-		System.out.println(" saisir id : ");
+		System.out.println(externalisation.msgSaisirId);
 		num1 = verificationEntre();
 		gestionMaterielService.findMateriel(num1);
 
@@ -298,11 +289,11 @@ public class GestionMaterielController {
 	// allouer
 	private void allouerMateriel() {
 		do {
-			System.out.println("Pour allouer un livre saisir 1 ");
-			System.out.println("Pour allouer une chaise saisir 2 ");
+			System.out.println(externalisation.msgAllouerLivre);
+			System.out.println(externalisation.msgAllouerChaise);
 			donnee1 = scanner.next();
 		} while (!donnee1.equals("1") && !donnee1.equals("2"));
-		System.out.println("saisir la duree d'allocation ");
+		System.out.println(externalisation.msgDuree);
 		donnee2 = scanner.next();
 		if (donnee1.equals("1")) {
 			gestionMaterielService.allouerMateriel("Livre", donnee2);
@@ -317,7 +308,7 @@ public class GestionMaterielController {
 		if (!gestionMaterielService.listerMaterielAlloue()) {
 
 		} else {
-			System.out.println("Saisir l'id du matériel à rendre");
+			System.out.println(externalisation.msgIdMaterielRendre);
 			num1 = verificationEntre();
 			gestionMaterielService.rendreMateriel(num1);
 		}
@@ -330,7 +321,7 @@ public class GestionMaterielController {
 
 	// marquer matériel indisponible
 	private void marquerMaterielIndisponible() {
-		System.out.println("Veuillez saisir l'id du matériel à marquer indisponible");
+		System.out.println(externalisation.msgMaterielDisponible);
 		num1 = verificationEntre();
 		gestionMaterielService.marquerMaterielIndisponible(num1);
 	}
@@ -339,11 +330,5 @@ public class GestionMaterielController {
 	private void afficherMaterielAllouerParUtilisateur() {
 		gestionMaterielService.afficherMaterielAllouerParUtilisateur();
 	}
-
-	// sortir de l'application
-	/*public void sortirDeLApplication() {
-		System.out.print("Merci pour votre visite");
-		System.exit(0);
-	}*/
 
 }

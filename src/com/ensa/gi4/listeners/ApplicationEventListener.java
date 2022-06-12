@@ -29,6 +29,6 @@ public class ApplicationEventListener<T extends Materiel> implements Application
 		} else if (event.getSource() instanceof Chaise) {
 			System.out.println("Votre chaise a été bien " + e);
 		}
-		System.out.println(event.getSource());
+		
 	}
 }
