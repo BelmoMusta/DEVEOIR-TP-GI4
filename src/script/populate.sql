@@ -7,5 +7,5 @@
 INSERT INTO  Utilisateur(username, Password,role) values ( 'admin' ,'123456789','admin' );
 INSERT INTO  Utilisateur(username, Password,role) values ( 'user1' ,'12345','user' );
 --
-INSERT INTO  materiel(user_id, user_username, name, code, disponible, alloue, duree) values ( '1', 'user1', 'LIVRE' ,'KL', TRUE, TRUE, '4J');
+INSERT INTO  materiel(user_id, user_username, name, code, disponible, alloue, duree) values ( '2', 'user1', 'LIVRE' ,'KL', FALSE, TRUE, '4J');
 --

@@ -78,7 +78,7 @@ public class GestionMaterielController {
 
     public void ADMIN(){
     	System.out.println("---------------Welcome Admin------------------");
-    	  System.out.println("0- pour sortir de l'application, entrer 0");
+    	  System.out.println("0- pour sortir de l'application, entrer 0RRRRRRRRR");
    	 System.out.println("1- Chercher un matÃ©riel, tapper 1");
         System.out.println("2- Créer un nouveau matériel, tapper 2");
         System.out.println("3- Supprimer un matériel, tapper 3");
@@ -140,10 +140,9 @@ public class GestionMaterielController {
             if(gestionMaterielServiceImpl.isExiste(id_M)) {
             	System.out.println("Nouveau code");
              	 String code_new=scannerAdmin.next();
-             	System.out.println("Nouveau name");
-             	 String name_new=scannerAdmin.next();
+             	
 
-           	gestionMaterielServiceImpl.modifierMateriel(id_M, code_new, name_new);
+           	gestionMaterielServiceImpl.modifierMateriel(id_M, code_new);
        	 }else {
        		 System.out.println("Ce materiel n'existe pas");
        	 }
@@ -163,19 +162,26 @@ public class GestionMaterielController {
             gestionMaterielServiceImpl.listerMateriel();
             System.out.println("Saiasir ID du materiel");
             Long ID = scannerAdmin.nextLong();
-            if(gestionMaterielServiceImpl.isDisponible(ID)){
-                System.out.println("Saiasir la duree d'allocation");
-                String duree = scannerAdmin.next();
-                gestionMaterielServiceImpl.allouerMateriel(ID, duree, user.getId_utilisateur(), user.getUsername());
-                gestionMaterielServiceImpl.rendreMaterielIndisponible(ID);
-            }else System.out.println("indisponible ");
+            System.out.println("kkk "+gestionMaterielServiceImpl.combienMateriel());
+            if(ID>0 && ID<= gestionMaterielServiceImpl.combienMateriel()) {
+            	 if(gestionMaterielServiceImpl.isDisponible(ID)){
+                     System.out.println("Saiasir la duree d'allocation");
+                     String duree = scannerAdmin.next();
+                     gestionMaterielServiceImpl.allouerMateriel(ID, duree, user.getId_utilisateur(), user.getUsername());
+                     gestionMaterielServiceImpl.rendreMaterielIndisponible(ID);
+                 }else System.out.println("indisponible ");
 
+            }else {
+            	System.out.println("Ce materiel n'existe jamais sur notre store ");
+
+            }
+           
 
         }else if("7".equals(next)) {
         	  gestionMaterielServiceImpl.listerMateriel();
               System.out.println("Saiasir ID du materiel");
               Long ID = scannerAdmin.nextLong();
-              gestionMaterielServiceImpl.rendreMateriel(ID);
+              gestionMaterielServiceImpl.rendreMateriel(ID,user.getId_utilisateur());
         }else if("8".equals(next)) {
         	gestionMaterielServiceImpl.listeMaterielAlloue(user.getId_utilisateur());
         }else if("9".equals(next)) {
@@ -226,7 +232,7 @@ public class GestionMaterielController {
         	 gestionMaterielServiceImpl.listerMateriel();
              System.out.println("Saiasir ID du materiel");
              Long ID = scanner.nextLong();
-             gestionMaterielServiceImpl.rendreMateriel(ID);
+             gestionMaterielServiceImpl.rendreMateriel(ID,user.getId_utilisateur());
 
         }else if("4".equals(next)){
         	gestionMaterielServiceImpl.listeMaterielAlloue(user.getId_utilisateur());

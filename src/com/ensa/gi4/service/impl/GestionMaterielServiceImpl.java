@@ -105,13 +105,10 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 	}
 
 	@Override
-	public void rendreMateriel(Long id_M) {
+	public void rendreMateriel(Long id_M,Long id_user) {
 		
-		 Materiel  materiel = materielDao.findone(id_M);
-	        if(!materiel.getDisponible()){
-	            materielDao.rendreMateriel(id_M);
-	            System.out.println("Merciiii le matériel est rendu...");
-	        }else System.out.println("Vous avez pas déja alloue !!!");
+	            materielDao.rendreMateriel(id_M,id_user);
+	          
 		
 	}
 
@@ -144,9 +141,9 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 	}
 
 	@Override
-	public void modifierMateriel(Long id, String code,String Name) {
+	public void modifierMateriel(Long id, String code) {
 		
-			materielDao.update(Name, code,id);
+			materielDao.update( code,id);
 			System.out.println("Le materiel est bien modifie");
     	
 	}
@@ -171,5 +168,11 @@ public class GestionMaterielServiceImpl implements GestionMaterielService {
 	public Materiel findMateriel(Long id) {
 		
 		return materielDao.findone(id);
+	}
+
+	@Override
+	public int combienMateriel() {
+		
+		return materielDao.combienDesMateriel();
 	}
 }

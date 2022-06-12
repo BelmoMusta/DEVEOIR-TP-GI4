@@ -48,7 +48,7 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 	}
 
 	@Override
-	public void rendreMateriel(Long idMateriel) {
+	public void rendreMateriel(Long idMateriel,Long id_user) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -93,7 +93,7 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 	}
 
 	@Override
-	public void modifierMateriel(Long id, String code, String Name) {
+	public void modifierMateriel(Long id, String code) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -102,5 +102,11 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 	public boolean isDisponible(Long id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public int combienMateriel() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

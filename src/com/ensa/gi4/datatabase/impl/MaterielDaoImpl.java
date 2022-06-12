@@ -32,9 +32,9 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
 	}
 
 	@Override
-	public void update(String Name,String Code, Long id) {
-		String sql="UPDATE materiel set name=?,code=? where id_materiel=? ; ";
-		super.updateExe(sql,Name,Code,id);
+	public void update(String Code, Long id) {
+		String sql="UPDATE materiel set code=? where id_materiel=? ; ";
+		super.updateExe(sql,Code,id);
 		
 	}
 
@@ -70,15 +70,22 @@ public void allouerMateriel(Long id_M, String dure, Long id_user, String user_na
 }
 
 @Override
-public void rendreMateriel(Long id_M) {
-	String sql ="UPDATE MATERIEL SET ALLOUE = FALSE  , user_id = NULL, DUREE = NULL, user_username = NULL WHERE ID_MATERIEL=?";
-	super.EXE(sql,id_M);
+public void rendreMateriel(Long id_M,Long id_user) {
+	String sql ="UPDATE MATERIEL SET ALLOUE = FALSE, user_id=NULL  ,disponible=TRUE,  DUREE = NULL, user_username = NULL WHERE ID_MATERIEL=? AND user_id=?";
+	super.EXERender(sql,id_M,id_user);
 }
 
 @Override
 public void rendre_Materiel_indisponible(Long id_M) {
 	String sql="UPDATE MATERIEL SET DISPONIBLE = FALSE WHERE ID_MATERIEL=?";
 	super.EXE(sql,id_M);
+	
+}
+
+@Override
+public int combienDesMateriel() {
+	String sql="SELECT COUNT(*) FROM MATERIEL";
+	return super.EXEQuery(sql);
 	
 }
 	

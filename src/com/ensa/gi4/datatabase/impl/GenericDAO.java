@@ -49,10 +49,10 @@ public abstract class GenericDAO<T> implements InitializingBean {
        	 System.out.println("error" );
        }
        }
-    public void updateExe(String query,String name,String Code,Long id){
-        int update =	jdbcTemplate.update(query,name,Code,id);
+    public void updateExe(String query,String Code,Long id){
+        int update =	jdbcTemplate.update(query,Code,id);
         if(update == 1) {
-       	 System.out.println("Materiel Updated Succesfly " + name);
+       	 System.out.println("Materiel Updated Succesfly " );
         }else {
        	 System.out.println("error" );
        }
@@ -64,22 +64,34 @@ public List<T> MaterelAlloueExe(String query,Long id){
 	public void allouerExe(String query,String dure,Long id_user,String user_name,Long id_M) {
 		int alloer =	jdbcTemplate.update(query,dure,id_user,user_name,id_M);
         if(alloer == 1) {
-       	 System.out.println("New Materiel alloue Succesfly pour" + user_name);
+       	 System.out.println("New Materiel alloue Succesfly pour " + user_name);
         }else {
         	 System.out.println("error" );
         }
 	}
 
-public void EXE(String query, Long id_M) {
-	int good = jdbcTemplate.update(query,id_M);
-	if(good != 1) {
-		System.out.println("error");
+	public void EXE(String query, Long id_M) {
+		int good = jdbcTemplate.update(query,id_M);
+		if(good != 1) {
+			System.out.println("error");
+		}
 	}
-}
+	public void EXERender(String query, Long id_M,Long id_user) {
+		int good = jdbcTemplate.update(query,id_M,id_user);
+		if(good != 1) {
+			System.out.println("vous ete pas deja alouer ce materiel");
+		}else {
+			  System.out.println("Merciiii le matériel est rendu...");
+		}
+	}
+
 public Utilisateur TrouverModeDePasse(String query,String username) {
 	
 	        return (Utilisateur) jdbcTemplate.queryForObject(query, getRowMapper(), username);
 	    
+}
+public int EXEQuery(String query) {
+	return jdbcTemplate.queryForObject(query,Integer.class);
 }
 
 	

@@ -13,14 +13,15 @@ public interface GestionMaterielService {
     void supprimerMateriel(Long id);
     void rendreMaterielIndisponible(Long id);
     void allouerMateriel(Long idMateriel, String dure, Long idUtilisateur, String usernameUtilisateur);
-    void rendreMateriel(Long idMateriel);
+    void rendreMateriel(Long idMateriel,Long id_user);
     void listeMaterielAlloue(Long id);
     void listeToutMaterielAlloue();
-    void modifierMateriel(Long id, String code,String Name);
+    void modifierMateriel(Long id, String code);
     boolean isDisponible(Long id);
     boolean isExiste(Long id);
     boolean isAlloue(Long id);
     Materiel findMateriel(Long id);
+    int combienMateriel();
     
    
     
