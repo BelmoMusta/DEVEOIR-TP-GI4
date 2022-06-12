@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class GenericDAO<T> implements InitializingBean {
     @Autowired
     private DataSource dataSource;
-    private JdbcTemplate jdbcTemplate;
+    protected JdbcTemplate jdbcTemplate;
 
     @Override
     public void afterPropertiesSet() { // from InitializingBean

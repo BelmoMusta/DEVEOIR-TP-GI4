@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
+
 public class DatabaseConfig {
     @Value("${jdbc.url}")
     private String url;
@@ -40,7 +41,7 @@ public class DatabaseConfig {
         dataSource.setPassword(password);
         executeScript(initSchema, dataSource);
         executeScript(populateSchema, dataSource);
-        //  lancerH2Console(); // si vous voulez lancer la console H2 après la création du datasource
+          //lancerH2Console(); // si vous voulez lancer la console H2 après la création du datasource
         return dataSource;
     }
 
