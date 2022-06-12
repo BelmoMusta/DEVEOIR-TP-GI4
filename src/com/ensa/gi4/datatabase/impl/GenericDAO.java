@@ -22,9 +22,33 @@ public abstract class GenericDAO<T> implements InitializingBean {
         return jdbcTemplate.query(query, getRowMapper());
     }
 
-    protected T findOne(String query, Long id) {
-        return jdbcTemplate.queryForObject(query, getRowMapper(), id);
+    protected T findOne(String query, String code) {
+        return jdbcTemplate.queryForObject(query, getRowMapper(), code);
     }
+    protected int addOne(String query,String code, String name) {
+		return jdbcTemplate.update(query,code,name);
+    	
+    }
+    protected int deleteOne(String query,String code) {
+ 		return jdbcTemplate.update(query,code);
+     	
+     }
+    protected int checkAvailability(String query,String code) {
+		return jdbcTemplate.update(query,code);
+    	
+    }
+    protected int updateName(String query,String code,String name) {
+		return jdbcTemplate.update(query,code,name);
+    	
+    }
+    protected int allocateMateriel(String query,int userId,String code) {
+		return jdbcTemplate.update(query,userId,code);
+    	
+    }
+    protected List<T> findAllocatedMaterielG(String query,int userId) {
+        return jdbcTemplate.query(query, getRowMapper(),userId);
+    }
+    
 
     protected abstract RowMapper<T> getRowMapper();
 }
