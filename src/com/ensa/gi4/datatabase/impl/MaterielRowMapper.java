@@ -15,9 +15,13 @@ public class MaterielRowMapper implements RowMapper<Materiel> {
         String name = resultSet.getString(2);
         //String name_ = resultSet.getString("NAME");
         //String code_ = resultSet.getString("CODE");
-        String code = resultSet.getString(3);
-        materiel.setCode(code);
+        String type = resultSet.getString(3);
+        Boolean isAvailable = resultSet.getBoolean(4);
+        String code = resultSet.getString(5);
+        materiel.setType(type);
         materiel.setName(name);
+        materiel.setAvailable(isAvailable);
+        materiel.setCode(code);
 
         return materiel;
     }

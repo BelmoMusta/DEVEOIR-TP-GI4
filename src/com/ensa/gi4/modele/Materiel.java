@@ -1,15 +1,15 @@
 package com.ensa.gi4.modele;
 
 public abstract class Materiel {
-    private String code;
+    private String type;
     private String name;
 
-    public String getName() {
-        return name;
-    }
+    private  String code;
 
-    public void setName(String name) {
-        this.name = name;
+    private Boolean isAvailable;
+
+    public Boolean getAvailable() {
+        return isAvailable;
     }
 
     public String getCode() {
@@ -20,8 +20,33 @@ public abstract class Materiel {
         this.code = code;
     }
 
+    public void setAvailable(Boolean available) {
+        isAvailable = available;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return "name = " + name + ", code = " + code;
+        return "{Materiel de " +
+                "type='" + type + '\'' +
+                ", nom='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", disponible=" + isAvailable +
+                '}';
     }
 }

@@ -20,4 +20,11 @@ public class AppConfig {
     public GestionMaterielController materielControllerBean() {
         return new GestionMaterielController();
     }
+
+
+    @Bean
+    @Lazy
+    public GestionMaterielController gestionMaterielControllerBean(GestionMaterielService livreServiceBean){
+        return new GestionMaterielController(livreServiceBean);
+    }
 }
