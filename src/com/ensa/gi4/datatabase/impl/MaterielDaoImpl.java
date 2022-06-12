@@ -12,6 +12,10 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     public List<Materiel> findAll() {
         return super.findAll("SELECT * FROM MATERIEL;");
     }
+    @Override
+    public List<Materiel> MesAllocation(Long idUser) {
+        return super.findAll("SELECT * FROM MATERIEL WHERE alloue="+idUser+";");
+    }
 
     @Override
     public Materiel findOne(Long id) {
@@ -22,4 +26,36 @@ public class MaterielDaoImpl extends GenericDAO<Materiel> implements MaterielDao
     protected MaterielRowMapper getRowMapper() { // template method design pattern
         return new MaterielRowMapper();
     }
+    @Override
+	 public int allouer(Long idUser,String name,String date) {
+    	return super.allouer("UPDATE MATERIEL SET alloue=?,dateAllocation=? WHERE name=? and alloue is null and disponible='true' LIMIT 1;",idUser,date,name);
+    		
+      }
+    @Override
+	public int rendreMateriel(Long idUser,Long idMateriel) {
+    	return super.rendreMateriel("UPDATE MATERIEL SET alloue=null,dateAllocation=null WHERE alloue=? and id=?;",idUser,idMateriel);
+     }
+    @Override
+     public int ajouterNouveauMateriel(Materiel materiel) {
+    	return super. ajouterOne("INSERT INTO MATERIEL (name,code) VALUES (?, ?);",materiel.getName(),materiel.getCode());
+    }
+    @Override
+    public int supprimerMateriel(Long id) {
+    	return super.supprimerOne("DELETE FROM MATERIEL WHERE ID=?;", id);
+    }
+    
+    @Override
+    public int modifierMateriel(Long id,String name,String code) {
+    	return super.modifierOne("UPDATE MATERIEL SET name=?,code=? WHERE id=?;",name,code,id);
+    }
+    @Override
+    public int indisponibleMateriel(Long id) {
+    	return super.supprimerOne("UPDATE MATERIEL SET disponible='false' WHERE id=?;", id);
+    }
+    @Override
+	public List<Materiel> findAllAlloue(){
+    	 return super.findAll("SELECT * FROM MATERIEL where alloue is not null ;");
+    }
+    
+    
 }

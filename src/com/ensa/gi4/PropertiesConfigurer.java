@@ -11,7 +11,8 @@ public class PropertiesConfigurer {
     @Bean
     public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
         PropertyPlaceholderConfigurer propertyPlaceholderConfigurer = new PropertyPlaceholderConfigurer();
-        propertyPlaceholderConfigurer.setLocation(new ClassPathResource("resources/application.properties"));
+       propertyPlaceholderConfigurer.setLocation(new ClassPathResource("resources/application.properties"));
+     
         return propertyPlaceholderConfigurer;
     }
 

@@ -12,19 +12,92 @@ public abstract class GenericDAO<T> implements InitializingBean {
     @Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
-
     @Override
     public void afterPropertiesSet() { // from InitializingBean
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     protected List<T> findAll(String query) {
-        return jdbcTemplate.query(query, getRowMapper());
+       
+    	try {
+    		 return jdbcTemplate.query(query, getRowMapper());
+        	}
+        	catch(Exception e){
+        	return null;
+        }
     }
 
     protected T findOne(String query, Long id) {
-        return jdbcTemplate.queryForObject(query, getRowMapper(), id);
+        
+    	try {
+    		return jdbcTemplate.queryForObject(query, getRowMapper(), id);
+       	}
+       	catch(Exception e){
+       	return null;
+       }
     }
-
+    protected int ajouterOne(String query,String name,String code) {
+    	try {
+      		 return jdbcTemplate.update(query,name,code);
+       		
+          	}
+          	catch(Exception e){
+          	return 0;
+          }
+    	
+    }
+    
+    protected T findUser(String query,String name,String password) {
+    	try {
+        return jdbcTemplate.queryForObject(query, getRowMapper(),name, password);
+    	}
+    	catch(Exception e){
+    	return null;
+    }
+    }
+  
+    protected int allouer(String query,Long alloue,String date,String name) {
+    	try {
+   		 return jdbcTemplate.update(query,alloue,date,name);
+    		
+       	}
+       	catch(Exception e){
+       	return 0;
+       }
+    }
+    protected int rendreMateriel(String query,Long idUser,Long idMateriel) {
+    	try {
+   		 return jdbcTemplate.update(query,idUser,idMateriel);
+    		
+       	}
+       	catch(Exception e){
+       	return 0;
+       }
+    }
+    protected int supprimerOne(String query, Long id) {
+    	try {
+    		 return jdbcTemplate.update(query,id);
+       	}
+       	catch(Exception e){
+       	return 0;
+       }
+    }
+    protected int modifierOne(String query,String name,String code, Long id) {
+    	try {
+    		 return jdbcTemplate.update(query,name,code,id);
+       	}
+       	catch(Exception e){
+       	return 0;
+       }
+    }
+    ///hasherPassword 
+    protected void hasherPassword(String query,String name,Long id) {
+    	try {
+   		 jdbcTemplate.update(query,name,id);
+      	}
+      	catch(Exception e){
+      	
+      }
+    }
     protected abstract RowMapper<T> getRowMapper();
 }
