@@ -14,5 +14,8 @@ public class PropertiesConfigurer {
         propertyPlaceholderConfigurer.setLocation(new ClassPathResource("resources/application.properties"));
         return propertyPlaceholderConfigurer;
     }
-
+    
+ 
+    
+    
 }
