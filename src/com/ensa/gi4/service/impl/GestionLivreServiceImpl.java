@@ -17,13 +17,89 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 
     @Override
     public void ajouterNouveauMateriel(Materiel materiel) {
-
         System.out.println("L'ajout du matériel " + materiel.getName() + " effectué avec succès !");
     }
 
     @Override
     public void afterSingletonsInstantiated() {
-        System.out.println("toto");
-
+      //  System.out.println("toto");
     }
+
+	@Override
+	public void chercherMateriel(Long code) {
+		System.out.println("chercher materiel");
+	}
+
+	@Override
+	public void deleteMateriel(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void marquerMaterielIndisponible(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void allouerMateriel(Long idMateriel, String dure, Long idUtilisateur, String usernameUtilisateur) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rendreMateriel(Long idMateriel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void listeMaterielAlloue(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void listeMaterielAlloueAll() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void modifierMateriel(Long id, String code) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	@Override
+	public boolean isDisponible(Long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isExiste(Long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAlloue(Long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Materiel findMateriel(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+	
+
 }

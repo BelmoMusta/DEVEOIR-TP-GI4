@@ -12,11 +12,9 @@ public class ApplicationPublisher implements ApplicationEventPublisherAware {
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
-
     }
 
     public <T extends Materiel> void  publish(MyEvent<T> event) {
         applicationEventPublisher.publishEvent(event);
-
     }
 }

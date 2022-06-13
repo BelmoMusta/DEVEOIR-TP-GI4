@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Main-Class: com.ensa.gi4.AppGestionMateriel
+Class-Path: h2-1.4.197.jar commons-logging-1.1.1.jar spring-tx-4.2.5.REL
+ EASE.jar spring-aop-4.2.6.RELEASE.jar spring-core-4.2.6.RELEASE.jar spr
+ ing-beans-4.2.6.RELEASE.jar spring-jdbc-4.3.10.RELEASE.jar spring-conte
+ xt-4.2.6.RELEASE.jar spring-expression-4.2.6.RELEASE.jar spring-core-4.
+ 2.6.RELEASE-sources.jar spring-context-4.2.6.RELEASE-sources.jar
+
