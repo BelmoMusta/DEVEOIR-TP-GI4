@@ -1,5 +1,9 @@
 
-INSERT INTO  materiel(name, code) values ( 'Livre' ,'LI'  );
-INSERT INTO  materiel(name, code) values ( 'Chaise' ,'CH'  );
+INSERT INTO  MATERIEL(NAME, TYPE, ETAT) values ('A Game Of Thrones', 'LIVRE', 'DISPONIBLE');
+INSERT INTO  MATERIEL(NAME, TYPE, ETAT) values ('A Clash of Kings', 'LIVRE', 'DISPONIBLE');
+INSERT INTO  MATERIEL(NAME, TYPE, ETAT) values ( 'Chaise', 'CHAISE', 'DISPONIBLE');
 
 
+
+INSERT INTO  USER(USERNAME, PASSWORD, ROLE) values ( 'admin', '202cb962ac59075b964b07152d234b70', 'ADMIN');
+INSERT INTO  USER(USERNAME, PASSWORD, ROLE) values ( 'ilyas', '202cb962ac59075b964b07152d234b70', 'EMP');

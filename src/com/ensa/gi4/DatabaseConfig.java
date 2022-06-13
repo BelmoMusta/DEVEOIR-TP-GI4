@@ -29,8 +29,8 @@ public class DatabaseConfig {
 
     @Value("${jbdc.populate.schema}")
     private String populateSchema;
-
-
+    
+    
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -40,7 +40,7 @@ public class DatabaseConfig {
         dataSource.setPassword(password);
         executeScript(initSchema, dataSource);
         executeScript(populateSchema, dataSource);
-        //  lancerH2Console(); // si vous voulez lancer la console H2 après la création du datasource
+        lancerH2Console(); // si vous voulez lancer la console H2 après la création du datasource
         return dataSource;
     }
 
