@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -42,6 +43,11 @@ public class DatabaseConfig {
         executeScript(populateSchema, dataSource);
         //  lancerH2Console(); // si vous voulez lancer la console H2 après la création du datasource
         return dataSource;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
     private void lancerH2Console() {

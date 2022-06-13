@@ -1,27 +1,33 @@
 package com.ensa.gi4.modele;
 
+import com.ensa.gi4.datatabase.api.LivreDao;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
+
+@Getter @Setter
 public abstract class Materiel {
-    private String code;
-    private String name;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
+    protected Integer id;
+    protected String name;
+    protected Integer type;
+    protected Integer stock;
+    protected Integer allocated;
 
     @Override
     public String toString() {
-        return "name = " + name + ", code = " + code;
+        return "Materiel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + id +
+                ", stock=" + stock +
+                ", allocated=" + allocated +
+                '}';
     }
+
 }
