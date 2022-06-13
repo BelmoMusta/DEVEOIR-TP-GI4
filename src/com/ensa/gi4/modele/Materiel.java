@@ -1,8 +1,19 @@
 package com.ensa.gi4.modele;
 
-public abstract class Materiel {
-    private String code;
-    private String name;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Materiel {
+    public Materiel() {
+	}
+
+
+	protected int matId;
+    protected String name;
+    protected boolean alloue;
+    protected String type;
+	protected int userId;
+
 
     public String getName() {
         return name;
@@ -12,16 +23,47 @@ public abstract class Materiel {
         this.name = name;
     }
 
-    public String getCode() {
-        return code;
+    public int getMatId() {
+        return matId;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setMatId(int matId) {
+        this.matId = matId;
     }
 
-    @Override
+   
+
+	public boolean getAlloue() {
+		return alloue;
+	}
+
+	public void setAlloue(boolean alloue) {
+		this.alloue = alloue;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	} 
+	
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	@Override
     public String toString() {
-        return "name = " + name + ", code = " + code;
+		   return "\nnom:" +name+", alloue= "+alloue+", type="+type+"\n";
     }
-}
+
+
+	
+		
+	
+}	

@@ -20,3 +20,4 @@ public class ApplicationPublisher implements ApplicationEventPublisherAware {
 
     }
 }
+//The publisher should inject an ApplicationEventPublisher object.
