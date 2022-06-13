@@ -6,4 +6,8 @@ public interface GestionMaterielService {
     void init();
     void listerMateriel();
     void ajouterNouveauMateriel(Materiel materiel);
+	void findOneMateriel(long id);
+	 void supprimerMateriel(int id);
+	  void modifierMateriel(int id, String nom, String code);
+	  int findOneMaterielINT(long id);
 }

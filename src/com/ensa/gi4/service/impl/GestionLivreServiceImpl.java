@@ -23,7 +23,33 @@ public class GestionLivreServiceImpl implements GestionMaterielService, SmartIni
 
     @Override
     public void afterSingletonsInstantiated() {
-        System.out.println("toto");
+       // System.out.println("toto");
 
     }
+
+	@Override
+	public void findOneMateriel(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void supprimerMateriel(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void modifierMateriel(int id, String nom, String code) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int findOneMaterielINT(long id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 }
